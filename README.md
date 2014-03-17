@@ -1,6 +1,6 @@
 harpe-sort
 ==========
 
-Sort function lib for harpe
+External sort function for libharpe
 
-Function build with a genetical algothithm
+Function generated with a genetical algothithm.
