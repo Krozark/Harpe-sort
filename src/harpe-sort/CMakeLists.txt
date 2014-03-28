@@ -6,6 +6,7 @@ set(ROOT_SRC
     ${SRCROOT}/calc_sort.cpp
 )
 set(ROOT_HEADER
+    ${INCROOT}/calc_sort.hpp
 )
 
 set(ROOT_FILES
