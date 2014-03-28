@@ -10,8 +10,7 @@
 # Compiled Static libraries
 *.lai
 *.la
-*.a
-*.exe
+
 
 #perso
 *.vim
@@ -21,10 +20,6 @@ Makefile
 *.cmake
 install_manifest.txt
 doc/html
-<<<<<<< HEAD
-/lib
-/build
-=======
 lib
 build
->>>>>>> 947a9c49c6ea8ce4166eeb6b5276693cf7da8f5e
+
