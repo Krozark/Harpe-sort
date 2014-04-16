@@ -26,6 +26,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 # add an option for building the API documentation
 set_option(BUILD_EXAMPLES FALSE BOOL "TRUE to build the examples, FALSE to ignore them")
 set_option(BUILD_DOC TRUE BOOL "TRUE to generate the API documentation, FALSE to ignore it")
+set_option(BUILD_GENERATOR TRUE BOOL "TRUE to generate the function generator, FALSE to ignore it")
 
 
 #set(includepath "-I${CMAKE_CURRENT_SOURCE_DIR}/include")
@@ -41,8 +42,10 @@ set(LIB_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/examples )
 
 # add the subdirectories
-add_subdirectory(src/${CMAKE_PROJECT_NAME})
-add_subdirectory(examples)
+add_subdirectory(src)
+if(BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif()
 #build doc
 if(BUILD_DOC)
     add_subdirectory(doc)
