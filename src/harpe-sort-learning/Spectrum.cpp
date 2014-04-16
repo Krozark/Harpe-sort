@@ -14,55 +14,47 @@ namespace harpe
 
         int Spectrum::rate(const std::string& seq)const
         {
-            int res = 0;
             const auto tokens = std::split(seq,"-");
             const int _size = tokens.size();
-            if(real_sequences.size() <=0)
+
+            int res = -_size;
+
+            for(auto real : real_sequences)
             {
-                res = -_size;
+                if(real.find(seq) != std::string::npos)//la solution est valide
+                {
+                    int tmp = _size;//nombre de AA
+                    res=MAX(res,tmp);
+                }
             }
-            else
+
+            if(res == 0)
             {
+                //search for a sub seqence
                 for(auto real : real_sequences)
                 {
-                    if(real.find(seq) != std::string::npos)//la solution est valide
+                    for(int i=1;i<_size;++i)
                     {
-                        int tmp = _size;//nombre de AA
-                        res=MAX(res,tmp);
+                        std::vector<std::string>::const_iterator first = tokens.begin() + i;
+                        std::vector<std::string>::const_iterator last = tokens.end();
+                        std::vector<std::string> tmp(first, last);
+
+                        std::string tok_tmp = std::join("-",tmp);
+
+                        if(real.find(tok_tmp) != std::string::npos)
+                            res = MAX(res,-i);
                     }
-                }
 
-                if(res == 0)
-                {
-                    for(auto real : real_sequences)
+                    for(int i =_size -1;i>0;--i)
                     {
-                        for(int i=1;i<_size;++i)
-                        {
-                            std::vector<std::string>::const_iterator first = tokens.begin() + i;
-                            std::vector<std::string>::const_iterator last = tokens.end();
-                            std::vector<std::string> tmp(first, last);
+                        std::vector<std::string>::const_iterator first = tokens.begin() + i;
+                        std::vector<std::string>::const_iterator last = tokens.end();
+                        std::vector<std::string> tmp(first, last);
 
-                            std::string seq = std::join("-",tmp);
+                        std::string tok_tmp = std::join("-",tmp);
 
-                            if(real.find(seq) != std::string::npos)
-                            {
-                                res = MAX(res,i-_size);
-                            }
-                        }
-
-                        for(int i =_size -1;i>0;--i)
-                        {
-                            std::vector<std::string>::const_iterator first = tokens.begin() + i;
-                            std::vector<std::string>::const_iterator last = tokens.end();
-                            std::vector<std::string> tmp(first, last);
-
-                            std::string seq = std::join("-",tmp);
-
-                            if(real.find(seq) != std::string::npos)
-                            {
-                                res = MAX(res,i-_size);
-                            }
-                        }
+                        if(real.find(tok_tmp) != std::string::npos)
+                            res = MAX(res,i-_size);
                     }
                 }
             }
