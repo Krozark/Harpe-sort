@@ -5,6 +5,9 @@
 #include <harpe-algo/Analyser.hpp>
 #include <harpe-algo/Context.hpp>
 
+#include <list>
+#include <harpe-sort-learning/Spectrum.hpp>
+
 int main(int argc,char* argv[])
 {
     if (not harpe::Context::loadFromLib("./calc_score.so")) //just to be ok, even if not used
@@ -40,6 +43,9 @@ int main(int argc,char* argv[])
     int r=0;
     std::ifstream file(argv[1], std::ifstream::in);
 
+    std::list<harpe::learning::Spectrum> learning_spectums;
+
+
     if (file.good())
     {
 
@@ -51,8 +57,10 @@ int main(int argc,char* argv[])
             spectrum->__print__(std::cout);
             std::vector<harpe::Sequence> res = harpe::Analyser::analyse(*spectrum,status,-1);
             std::cout<<"status: "<<status<<std::endl;
-            //harpe::learning::Spectrum parent = harpe::learning::Spectrum::convert(*spectrum);
-            //std::vector<harpe::learning::Sequence> learning = harpe::learning::Sequence::convert(parent,res);
+
+            //convert for learning
+            learning_spectums.push_back(harpe::learning::Spectrum::convert(*spectrum,res));
+
             harpe::Analyser::free();
             delete spectrum;
         }

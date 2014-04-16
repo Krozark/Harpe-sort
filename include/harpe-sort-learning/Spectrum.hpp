@@ -1,6 +1,15 @@
 #ifndef HARPE_LEARNING_SPECTRUM_HPP
 #define HARPE_LEARNING_SPECTRUM_HPP
 
+#include <vector>
+#include <string>
+
+#include <mgf/Spectrum.hpp>
+
+#include <harpe-algo/Sequence.hpp>
+
+#include <harpe-sort-learning/Sequence.hpp>
+
 namespace harpe
 {
     namespace learning
@@ -8,15 +17,22 @@ namespace harpe
         class Spectrum
         {
             public:
-                Spectrum();
                 Spectrum(const Spectrum&) = delete;
                 Spectrum& operator=(const Spectrum&) = delete;
 
-                static Spectum convert(harpe::Specturm& src);
+                Spectrum(Spectrum&&) = default;
+                Spectrum& operator=(Spectrum&&) = default;
 
-            protected:
+                static Spectrum convert(const mgf::Spectrum& src,std::vector<harpe::Sequence>& src_seq);
+
+                int rate(const std::string& seq)const;
 
             private:
+                Spectrum(const mgf::Spectrum& src,std::vector<harpe::Sequence>& src_seq);
+
+                std::vector<std::string> real_sequences;
+
+                std::vector<Sequence> propositions;
         };
     }
 }

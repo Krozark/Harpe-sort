@@ -5,11 +5,14 @@ set(ROOT_SRC
     ${SRCROOT}/Entity.cpp
     ${SRCROOT}/Sequence.cpp
     ${SRCROOT}/Spectrum.cpp
+    ${SRCROOT}/std.cpp
 )
 set(ROOT_HEADER
     ${INCROOT}/Entity.hpp
     ${INCROOT}/Sequence.hpp
     ${INCROOT}/Spectrum.hpp
+    ${INCROOT}/std.hpp
+    ${INCROOT}/std.tpl
 )
 
 
@@ -35,5 +38,5 @@ find_library(MGF_LIB mgf)
 find_library(HARPE_ALGO_LIB harpe-algo)
 set(LIBS ${LIBS} ${MGF_LIB} ${HARPE_ALGO_LIB})
 
-add_executable(${CMAKE_PROJECT_NAME}-learning main.cpp)
+add_executable(${CMAKE_PROJECT_NAME}-learning main.cpp ${FILES_SRC} ${FILES_HEADER})
 target_link_libraries(${CMAKE_PROJECT_NAME}-learning ${LIBS})
