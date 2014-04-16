@@ -12,6 +12,8 @@ namespace harpe
                 Spectrum(const Spectrum&) = delete;
                 Spectrum& operator=(const Spectrum&) = delete;
 
+                static Spectum convert(harpe::Specturm& src);
+
             protected:
 
             private:

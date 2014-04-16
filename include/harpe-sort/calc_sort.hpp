@@ -1,3 +1,3 @@
 extern "C" {
-double calc_score(const double* const vals);
+    double calc_score(const double* const vals);
 }

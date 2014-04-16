@@ -51,7 +51,8 @@ int main(int argc,char* argv[])
             spectrum->__print__(std::cout);
             std::vector<harpe::Sequence> res = harpe::Analyser::analyse(*spectrum,status,-1);
             std::cout<<"status: "<<status<<std::endl;
-            //std::vector<harpe::learning::Sequence> learning = harpe::learning::Sequence::convert(harpe::Analyser::analyse(*spectrum,status,-1));
+            //harpe::learning::Spectrum parent = harpe::learning::Spectrum::convert(*spectrum);
+            //std::vector<harpe::learning::Sequence> learning = harpe::learning::Sequence::convert(parent,res);
             harpe::Analyser::free();
             delete spectrum;
         }
