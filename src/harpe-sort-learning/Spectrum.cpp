@@ -2,6 +2,7 @@
 #include <harpe-sort-learning/std.hpp>
 
 #include <algorithm>
+#include <utility>
 
 
 #define MAX(x,y) (((x)>(y))?(x):(y))
@@ -13,6 +14,26 @@ namespace harpe
         Spectrum Spectrum::convert(const mgf::Spectrum& src,std::vector<harpe::Sequence>& src_seq)
         {
             return Spectrum(src,src_seq);
+        }
+
+        int Spectrum::eval(const Entity& entity)const
+        {
+            const int _size = propositions.size();
+            std::vector<std::pair<const Sequence *,double>> data(_size);
+
+            for(int i=0;i<_size;++i)
+            {
+                data[i].first = &propositions[i];
+                data[i].second = propositions[i].eval(entity);
+            }
+
+            std::sort(data.begin(),
+                      data.end(),
+                      [](const std::pair<const Sequence*,double> _1,const std::pair<const Sequence*,double> _2){
+                          return _1.second > _2.second;
+                      });
+            return 0;//\todo TODO
+
         }
 
         int Spectrum::rate(const std::string& seq)const
@@ -65,7 +86,7 @@ namespace harpe
             return res;
         }
 
-        Spectrum::Spectrum(const mgf::Spectrum& src,std::vector<harpe::Sequence>& src_seq)
+        Spectrum::Spectrum(const mgf::Spectrum& src,std::vector<harpe::Sequence>& src_seq) : propositions(src_seq.size())
         {
             for(const std::string& s : src.getHeader().getSeq())
                 real_sequences.push_back(s);
@@ -74,12 +95,14 @@ namespace harpe
             for(const harpe::Sequence& s : src_seq)
                 propositions.emplace_back(Sequence(self,s));
 
+            //sort
             sort();
+            //truncate
+            //\todo TODO
         }
 
         void Spectrum::sort()
         {
-            //sort
             std::sort(propositions.begin(),
                       propositions.end(),
                       [](const Sequence& _1,const Sequence& _2){

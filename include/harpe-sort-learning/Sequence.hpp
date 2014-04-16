@@ -10,14 +10,18 @@ namespace harpe
     namespace learning
     {
         class Spectrum;
+        class Entity;
 
         class Sequence
         {
             public:
+                Sequence() = default;
                 //Sequence(const Sequence&) = default;
                 //Sequence& operator=(const Sequence&) = default;
                 Sequence(Sequence&&) = default;
                 Sequence& operator=(Sequence&&) = default;
+
+                double eval(const Entity& entity)const;
 
             private:
                 friend class Spectrum;

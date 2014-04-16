@@ -14,6 +14,8 @@ namespace harpe
 {
     namespace learning
     {
+        class Entity;
+
         class Spectrum
         {
             public:
@@ -26,6 +28,8 @@ namespace harpe
                 static Spectrum convert(const mgf::Spectrum& src,std::vector<harpe::Sequence>& src_seq);
 
                 int rate(const std::string& seq)const;
+
+                int eval(const Entity& entity)const;
 
             private:
                 Spectrum(const mgf::Spectrum& src,std::vector<harpe::Sequence>& src_seq);

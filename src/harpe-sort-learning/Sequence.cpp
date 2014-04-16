@@ -6,6 +6,11 @@ namespace harpe
 {
     namespace learning
     {
+        double Sequence::eval(const Entity& entity)const
+        {
+            return 0;
+        }
+        
         Sequence::Sequence(Spectrum& parent,const harpe::Sequence& src)
         {
             sequence = "";
