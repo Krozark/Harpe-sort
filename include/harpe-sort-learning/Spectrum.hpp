@@ -33,6 +33,8 @@ namespace harpe
                 std::vector<std::string> real_sequences;
 
                 std::vector<Sequence> propositions;
+
+                void sort();
         };
     }
 }

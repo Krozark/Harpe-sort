@@ -1,7 +1,10 @@
 #include <harpe-sort-learning/Spectrum.hpp>
 #include <harpe-sort-learning/std.hpp>
 
-#define MAX(x,y) (x>y?x:y)
+#include <algorithm>
+
+
+#define MAX(x,y) (((x)>(y))?(x):(y))
 
 namespace harpe
 {
@@ -70,6 +73,18 @@ namespace harpe
             auto& self = *this;
             for(const harpe::Sequence& s : src_seq)
                 propositions.emplace_back(Sequence(self,s));
+
+            sort();
+        }
+
+        void Spectrum::sort()
+        {
+            //sort
+            std::sort(propositions.begin(),
+                      propositions.end(),
+                      [](const Sequence& _1,const Sequence& _2){
+                          return _1.real_score > _2.real_score;
+                      });
             
         }
     }
