@@ -26,7 +26,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 # add an option for building the API documentation
 set_option(BUILD_EXAMPLES FALSE BOOL "TRUE to build the examples, FALSE to ignore them")
 set_option(BUILD_DOC TRUE BOOL "TRUE to generate the API documentation, FALSE to ignore it")
-set_option(BUILD_GENERATOR TRUE BOOL "TRUE to generate the function generator, FALSE to ignore it")
+set_option(BUILD_LEARNING TRUE BOOL "TRUE to generate the function generator, FALSE to ignore it")
 
 
 #set(includepath "-I${CMAKE_CURRENT_SOURCE_DIR}/include")
@@ -34,7 +34,7 @@ set(DEFINES "")
 set(LIBS "")
 set(WARNING "-Wall")
 set(FLAGS "-o3 -std=c++0x")
-set(CMAKE_CXX_FLAGS "${DEFINES} ${WARNING} ${FLAGS} ${LIBS}")
+set(CMAKE_CXX_FLAGS "${DEFINES} ${WARNING} ${FLAGS}")
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib)

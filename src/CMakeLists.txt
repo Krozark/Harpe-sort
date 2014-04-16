@@ -1,4 +1,4 @@
 add_subdirectory(${CMAKE_PROJECT_NAME})
-if(BUILD_GENERATOR)
-    add_subdirectory(${CMAKE_PROJECT_NAME}-generator)
+if(BUILD_LEARNING)
+    add_subdirectory(${CMAKE_PROJECT_NAME}-learning)
 endif()
