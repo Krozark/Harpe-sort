@@ -25,6 +25,8 @@ namespace std
     template<typename T>
     std::string join(const std::string& del,const std::vector<T>& datas,bool reverse=false);
 
+    template <typename T> int sign(T val);
+
 }
 #include <harpe-sort-learning/std.tpl>
 #endif
