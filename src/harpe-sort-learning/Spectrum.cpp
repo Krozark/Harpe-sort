@@ -33,7 +33,16 @@ namespace harpe
                       [](const std::pair<const Sequence*,double> _1,const std::pair<const Sequence*,double> _2){
                           return _1.second > _2.second;
                       });
-            return 0;//\todo TODO
+
+            int res = 0;
+            for(int i=0;i<_size and i < 100;++i)
+            {
+                if(propositions[i].sequence == data[i].first->sequence)
+                    res += 1;
+                else
+                    break;
+            }
+            return res;//\todo TODO
 
         }
 
