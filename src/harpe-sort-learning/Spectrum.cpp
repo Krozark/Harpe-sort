@@ -11,7 +11,7 @@ namespace harpe
 {
     namespace learning
     {
-        Spectrum Spectrum::convert(const mgf::Spectrum& src,std::vector<harpe::Sequence>& src_seq)
+        Spectrum Spectrum::convert(const mgf::Spectrum& src,const std::vector<harpe::Sequence>& src_seq)
         {
             return Spectrum(src,src_seq);
         }
@@ -86,19 +86,38 @@ namespace harpe
             return res;
         }
 
-        Spectrum::Spectrum(const mgf::Spectrum& src,std::vector<harpe::Sequence>& src_seq) : propositions(src_seq.size())
+        Spectrum::Spectrum(const mgf::Spectrum& src,const std::vector<harpe::Sequence>& src_seq) : propositions(src_seq.size())
         {
             for(const std::string& s : src.getHeader().getSeq())
-                real_sequences.push_back(s);
+            {
+                std::string seq = s;
+                std::replace(seq,"I_L","L"); //to be sure
+                std::replace(seq,"I","L"); 
+                std::replace(seq,"L","I_L");
+                real_sequences.push_back(std::move(seq));
+            }
 
             auto& self = *this;
             for(const harpe::Sequence& s : src_seq)
                 propositions.emplace_back(Sequence(self,s));
 
             //sort
-            sort();
+            //sort();
             //truncate
             //\todo TODO
+        }
+
+        std::ostream& operator<<(std::ostream& output,const Spectrum& self)
+        {
+            output<<"[real_sequences] size : "<<self.real_sequences.size()<<std::endl;
+            for(const std::string& s : self.real_sequences)
+                output<<s<<std::endl;
+
+            output<<"[proposition] size : "<<self.propositions.size()<<std::endl;
+            for(const Sequence& s : self.propositions)
+                output<<s<<std::endl;
+
+            return output;
         }
 
         void Spectrum::sort()

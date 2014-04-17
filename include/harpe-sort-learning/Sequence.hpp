@@ -23,6 +23,8 @@ namespace harpe
 
                 double eval(const Entity& entity)const;
 
+                friend std::ostream& operator<<(std::ostream& output,const Sequence& self);
+
             private:
                 friend class Spectrum;
                 

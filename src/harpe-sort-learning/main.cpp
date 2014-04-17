@@ -10,12 +10,12 @@
 
 int main(int argc,char* argv[])
 {
-    if (not harpe::Context::loadFromLib("./calc_score.so")) //just to be ok, even if not used
+    if (not harpe::Context::loadFromLib("./libempty_sort.so")) //just to be ok, even if not used
         return 1;
 
     harpe::Context::error=0.05;
-    //harpe::Context::finds_max_size=1000; set to inf
-    //harpe::Context::finds_max_size_tmp=1000*5; to inf
+    harpe::Context::finds_max_size=1000;
+    harpe::Context::finds_max_size_tmp=harpe::Context::finds_max_size*5;
 
     harpe::Context::aa_tab.add(0,"A",71.037110);
     harpe::Context::aa_tab.add(1,"C",103.009185);
@@ -24,7 +24,7 @@ int main(int argc,char* argv[])
     harpe::Context::aa_tab.add(4,"F",147.068414);
     harpe::Context::aa_tab.add(5,"G",57.021464);
     harpe::Context::aa_tab.add(6,"H",137.058912);
-    harpe::Context::aa_tab.add(7,"I-L",113.084064);
+    harpe::Context::aa_tab.add(7,"I_L",113.084064);
     harpe::Context::aa_tab.add(8,"K",128.094963);
     harpe::Context::aa_tab.add(9,"M",131.040485);
     harpe::Context::aa_tab.add(10,"N",114.042927);
@@ -60,6 +60,8 @@ int main(int argc,char* argv[])
 
             //convert for learning
             learning_spectums.push_back(harpe::learning::Spectrum::convert(*spectrum,res));
+
+            std::cout<<learning_spectums.back()<<std::endl;
 
             harpe::Analyser::free();
             delete spectrum;

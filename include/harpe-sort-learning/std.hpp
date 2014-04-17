@@ -15,6 +15,11 @@ namespace std
     std::vector<std::string> split(const std::string& string,const std::string& del);
 
     /**
+     * \brief find and replace
+     */
+    void replace(string& source, string const& find, string const& replace);
+
+    /**
      * \brief like the python join
      */
     template<typename T>

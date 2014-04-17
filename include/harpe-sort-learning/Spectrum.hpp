@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 
 #include <mgf/Spectrum.hpp>
 
@@ -25,14 +26,16 @@ namespace harpe
                 Spectrum(Spectrum&&) = default;
                 Spectrum& operator=(Spectrum&&) = default;
 
-                static Spectrum convert(const mgf::Spectrum& src,std::vector<harpe::Sequence>& src_seq);
+                static Spectrum convert(const mgf::Spectrum& src,const std::vector<harpe::Sequence>& src_seq);
 
                 int rate(const std::string& seq)const;
 
                 int eval(const Entity& entity)const;
 
+                friend std::ostream& operator<<(std::ostream& output,const Spectrum& self);
+
             private:
-                Spectrum(const mgf::Spectrum& src,std::vector<harpe::Sequence>& src_seq);
+                Spectrum(const mgf::Spectrum& src,const std::vector<harpe::Sequence>& src_seq);
 
                 std::vector<std::string> real_sequences;
 
