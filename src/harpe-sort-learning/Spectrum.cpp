@@ -6,6 +6,7 @@
 
 
 #define MAX(x,y) (((x)>(y))?(x):(y))
+#define MIN(x,y) (((x)<(y))?(x):(y))
 
 namespace harpe
 {
@@ -45,48 +46,38 @@ namespace harpe
 
             for(auto real : real_sequences)
             {
-                if(real.find(seq) != std::string::npos)//la solution est valide
-                {
-                    int tmp = _size;//nombre de AA
-                    res=MAX(res,tmp);
-                }
+                if(real.find(seq) != std::string::npos)//la solution es
+                    res = _size;
             }
 
-            if(res == 0)
+            if(res <= 0)
             {
                 //search for a sub seqence
                 for(auto real : real_sequences)
                 {
-                    for(int i=1;i<_size;++i)
+                    for(int i=0;i<_size and res < -i;++i)
                     {
-                        std::vector<std::string>::const_iterator first = tokens.begin() + i;
-                        std::vector<std::string>::const_iterator last = tokens.end();
-                        std::vector<std::string> tmp(first, last);
+                        for(int j=0;j<_size-i and res < -i -j;++j)
+                        {
+                            std::vector<std::string>::const_iterator first = tokens.begin() + i;
+                            std::vector<std::string>::const_iterator last = tokens.end() - j;
+                            std::vector<std::string> tmp(first, last);
 
-                        std::string tok_tmp = std::join("-",tmp);
+                            std::string tok_tmp = std::join("-",tmp);
 
-                        if(real.find(tok_tmp) != std::string::npos)
-                            res = MAX(res,-i);
-                    }
-
-                    for(int i =_size -1;i>0;--i)
-                    {
-                        std::vector<std::string>::const_iterator first = tokens.begin() + i;
-                        std::vector<std::string>::const_iterator last = tokens.end();
-                        std::vector<std::string> tmp(first, last);
-
-                        std::string tok_tmp = std::join("-",tmp);
-
-                        if(real.find(tok_tmp) != std::string::npos)
-                            res = MAX(res,i-_size);
+                            if(real.find(tok_tmp) != std::string::npos)
+                            {
+                                res = -i -j;
+                                break;
+                            }
+                        }
                     }
                 }
             }
-
             return res;
         }
 
-        Spectrum::Spectrum(const mgf::Spectrum& src,const std::vector<harpe::Sequence>& src_seq) : propositions(src_seq.size())
+        Spectrum::Spectrum(const mgf::Spectrum& src,const std::vector<harpe::Sequence>& src_seq)
         {
             for(const std::string& s : src.getHeader().getSeq())
             {
@@ -94,15 +85,18 @@ namespace harpe
                 std::replace(seq,"I_L","L"); //to be sure
                 std::replace(seq,"I","L"); 
                 std::replace(seq,"L","I_L");
+                real_sequences.push_back(seq);
+                seq = join("-",std::split(seq,"-"),true);
                 real_sequences.push_back(std::move(seq));
             }
 
+            propositions.reserve(src_seq.size());
             auto& self = *this;
             for(const harpe::Sequence& s : src_seq)
                 propositions.emplace_back(Sequence(self,s));
 
             //sort
-            //sort();
+            sort();
             //truncate
             //\todo TODO
         }

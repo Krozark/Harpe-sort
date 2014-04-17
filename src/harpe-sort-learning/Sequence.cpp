@@ -13,10 +13,10 @@ namespace harpe
 
         std::ostream& operator<<(std::ostream& output,const Sequence& self)
         {
-            output<<"[real_score :"<<self.real_score<<"][";
-            for(unsigned int i=0;i<harpe::Sequence::Stats::SIZE;++i)
-                output<<"<"<<i<<":"<<self.stats[i]<<">";
-            output<<"]"<<self.sequence<<std::endl;
+            output<<"[real_score :"<<self.real_score<<"]";
+            /*for(unsigned int i=0;i<harpe::Sequence::Stats::SIZE;++i)
+                output<<"<"<<i<<":"<<self.stats[i]<<">";*/
+            output<<self.sequence;
             return output;
         }
         

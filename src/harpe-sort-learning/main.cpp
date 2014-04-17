@@ -14,7 +14,7 @@ int main(int argc,char* argv[])
         return 1;
 
     harpe::Context::error=0.05;
-    harpe::Context::finds_max_size=1000;
+    harpe::Context::finds_max_size=1000000;
     harpe::Context::finds_max_size_tmp=harpe::Context::finds_max_size*5;
 
     harpe::Context::aa_tab.add(0,"A",71.037110);
@@ -57,6 +57,7 @@ int main(int argc,char* argv[])
             spectrum->__print__(std::cout);
             std::vector<harpe::Sequence> res = harpe::Analyser::analyse(*spectrum,status,-1);
             std::cout<<"status: "<<status<<std::endl;
+
 
             //convert for learning
             learning_spectums.push_back(harpe::learning::Spectrum::convert(*spectrum,res));

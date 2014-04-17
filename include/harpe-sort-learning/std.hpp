@@ -23,7 +23,7 @@ namespace std
      * \brief like the python join
      */
     template<typename T>
-    std::string join(const std::string& del,const std::vector<T>& datas);
+    std::string join(const std::string& del,const std::vector<T>& datas,bool reverse=false);
 
 }
 #include <harpe-sort-learning/std.tpl>
