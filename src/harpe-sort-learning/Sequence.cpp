@@ -1,5 +1,6 @@
 #include <harpe-sort-learning/Sequence.hpp>
 #include <harpe-sort-learning/Spectrum.hpp>
+#include <harpe-sort-learning/Entity.hpp>
 
 
 namespace harpe
@@ -8,7 +9,7 @@ namespace harpe
     {
         double Sequence::eval(const Entity& entity)const
         {
-            return 0;
+            return entity.eval(stats);
         }
 
         std::ostream& operator<<(std::ostream& output,const Sequence& self)

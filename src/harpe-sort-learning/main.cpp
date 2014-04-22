@@ -7,6 +7,7 @@
 
 #include <list>
 #include <harpe-sort-learning/Spectrum.hpp>
+#include <harpe-sort-learning/Entity.hpp>
 
 int main(int argc,char* argv[])
 {
@@ -43,9 +44,6 @@ int main(int argc,char* argv[])
     int r=0;
     std::ifstream file(argv[1], std::ifstream::in);
 
-    std::list<harpe::learning::Spectrum> learning_spectums;
-
-
     if (file.good())
     {
 
@@ -60,9 +58,9 @@ int main(int argc,char* argv[])
 
 
             //convert for learning
-            learning_spectums.push_back(harpe::learning::Spectrum::convert(*spectrum,res));
+            harpe::learning::Entity::learning_spectums.push_back(harpe::learning::Spectrum::convert(*spectrum,res));
 
-            std::cout<<learning_spectums.back()<<std::endl;
+            std::cout<<harpe::learning::Entity::learning_spectums.back()<<std::endl;
 
             harpe::Analyser::free();
             delete spectrum;

@@ -9,6 +9,7 @@ set(ROOT_SRC
 )
 set(ROOT_HEADER
     ${INCROOT}/Entity.hpp
+    ${INCROOT}/Entity.tpl
     ${INCROOT}/Sequence.hpp
     ${INCROOT}/Spectrum.hpp
     ${INCROOT}/std.hpp
