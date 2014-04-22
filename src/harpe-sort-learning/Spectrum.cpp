@@ -35,10 +35,10 @@ namespace harpe
                       });
 
             int res = 0;
-            for(int i=0;i<_size and i < 100;++i)
+            for(int i=0;i<_size and i < 10;++i)
             {
                 if(propositions[i].sequence == data[i].first->sequence
-                   and std::sign(propositions[i].real_score) == std::sign(data[i].second))
+                    and std::sign(propositions[i].real_score) == std::sign(data[i].second))
                     res += 1;
                 else
                     break;
@@ -51,6 +51,7 @@ namespace harpe
         {
             const auto tokens = std::split(seq,"-");
             const int _size = tokens.size();
+
 
             int res = -_size;
 

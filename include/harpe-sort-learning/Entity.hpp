@@ -98,14 +98,23 @@ namespace learning
 
                     /* FONCTIONS */
                     //unaire
-                    /*0*/static inline float sin_f(float _1);///< fonction sinus
+                    static inline float sin_f(float _1);///< fonction sinus
                     //*6*/static float moins_u(float _1) {return -_1;};
                     //binaire
-                    /*1*/static inline float mul(float _1,float _2);///< fonction multiplié
-                    /*2*/static inline float div(float _1,float _2); ///< fonction divisé
-                    /*3*/static inline float add(float _1,float _2); ///< fonction addition
-                    /*4*/static inline float moins_b(float _1,float _2);///< fonction de soustraction
+                    static inline float mul(float _1,float _2);///< fonction multiplié
+                    static inline float div(float _1,float _2); ///< fonction divisé
+                    static inline float add(float _1,float _2); ///< fonction addition
+                    static inline float moins_b(float _1,float _2);///< fonction de soustraction
                     /*5 sous programme?*/
+                    
+                    enum FUNCTIONS {
+                        SIN = 0,
+                        MUL,
+                        DIV,
+                        ADD,
+                        MOINS_B,
+                        SIZE
+                    };
 
                     //croisement et mutation qui s'adapte au fur et à mesure du temps?
                     //nombre de croisement proportionele au nombre de nodes

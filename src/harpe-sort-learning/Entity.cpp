@@ -42,8 +42,7 @@ namespace learning
 
     Entity::~Entity()
     {
-        if (genome)
-            delete genome;
+        delete genome;
     };
 
 
@@ -430,27 +429,27 @@ namespace learning
         }
         else //autre node pour les fils
         {
-            int choice = random(0,4);
+            int choice = random(0,FUNCTIONS::SIZE);
             switch (choice)
             {
                 /* unaire */
-                case 0:/* sin*/
+                case FUNCTIONS::SIN:/* sin*/
                     res = new Node(Node::sin_f,Node::CreateRandTree(profondeur-1));
                     break;
                     /*case 1://moin_u
                       res = new Node(Node::moins_u,Node::CreateRandTree(profondeur-1));
                       break;*/
                     /* binaire */
-                case 1:/*mul*/
+                case FUNCTIONS::MUL:/*mul*/
                     res = new Node(Node::mul,Node::CreateRandTree(profondeur-1),Node::CreateRandTree(profondeur-1));
                     break;
-                case 2:/*div*/
+                case FUNCTIONS::DIV:/*div*/
                     res = new Node(Node::div,Node::CreateRandTree(profondeur-1),Node::CreateRandTree(profondeur-1));
                     break;
-                case 3:/*add*/
+                case FUNCTIONS::ADD:/*add*/
                     res = new Node(Node::add,Node::CreateRandTree(profondeur-1),Node::CreateRandTree(profondeur-1));
                     break;
-                case 4:/*moins_b*/
+                case FUNCTIONS::MOINS_B:/*moins_b*/
                     res = new Node(Node::moins_b,Node::CreateRandTree(profondeur-1),Node::CreateRandTree(profondeur-1));
                     break;
             }
