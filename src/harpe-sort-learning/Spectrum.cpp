@@ -6,12 +6,13 @@
 
 
 #define MAX(x,y) (((x)>(y))?(x):(y))
+#define MIN(x,y) (((x)<(y))?(x):(y))
 
 namespace harpe
 {
     namespace learning
     {
-        Spectrum Spectrum::convert(const mgf::Spectrum& src,std::vector<harpe::Sequence>& src_seq)
+        Spectrum Spectrum::convert(const mgf::Spectrum& src,const std::vector<harpe::Sequence>& src_seq)
         {
             return Spectrum(src,src_seq);
         }
@@ -32,7 +33,17 @@ namespace harpe
                       [](const std::pair<const Sequence*,double> _1,const std::pair<const Sequence*,double> _2){
                           return _1.second > _2.second;
                       });
-            return 0;//\todo TODO
+
+            int res = 0;
+            for(int i=0;i<_size and i < 10;++i)
+            {
+                if(propositions[i].sequence == data[i].first->sequence
+                    and std::sign(propositions[i].real_score) == std::sign(data[i].second))
+                    res += 1;
+                else
+                    break;
+            }
+            return res;
 
         }
 
@@ -41,56 +52,56 @@ namespace harpe
             const auto tokens = std::split(seq,"-");
             const int _size = tokens.size();
 
+
             int res = -_size;
 
             for(auto real : real_sequences)
             {
-                if(real.find(seq) != std::string::npos)//la solution est valide
-                {
-                    int tmp = _size;//nombre de AA
-                    res=MAX(res,tmp);
-                }
+                if(real.find(seq) != std::string::npos)//la solution es
+                    res = _size;
             }
 
-            if(res == 0)
+            if(res <= 0)
             {
                 //search for a sub seqence
                 for(auto real : real_sequences)
                 {
-                    for(int i=1;i<_size;++i)
+                    for(int i=0;i<_size and res < -i;++i)
                     {
-                        std::vector<std::string>::const_iterator first = tokens.begin() + i;
-                        std::vector<std::string>::const_iterator last = tokens.end();
-                        std::vector<std::string> tmp(first, last);
+                        for(int j=0;j<_size-i and res < -i -j;++j)
+                        {
+                            std::vector<std::string>::const_iterator first = tokens.begin() + i;
+                            std::vector<std::string>::const_iterator last = tokens.end() - j;
+                            std::vector<std::string> tmp(first, last);
 
-                        std::string tok_tmp = std::join("-",tmp);
+                            std::string tok_tmp = std::join("-",tmp);
 
-                        if(real.find(tok_tmp) != std::string::npos)
-                            res = MAX(res,-i);
-                    }
-
-                    for(int i =_size -1;i>0;--i)
-                    {
-                        std::vector<std::string>::const_iterator first = tokens.begin() + i;
-                        std::vector<std::string>::const_iterator last = tokens.end();
-                        std::vector<std::string> tmp(first, last);
-
-                        std::string tok_tmp = std::join("-",tmp);
-
-                        if(real.find(tok_tmp) != std::string::npos)
-                            res = MAX(res,i-_size);
+                            if(real.find(tok_tmp) != std::string::npos)
+                            {
+                                res = -i -j;
+                                break;
+                            }
+                        }
                     }
                 }
             }
-
             return res;
         }
 
-        Spectrum::Spectrum(const mgf::Spectrum& src,std::vector<harpe::Sequence>& src_seq) : propositions(src_seq.size())
+        Spectrum::Spectrum(const mgf::Spectrum& src,const std::vector<harpe::Sequence>& src_seq)
         {
             for(const std::string& s : src.getHeader().getSeq())
-                real_sequences.push_back(s);
+            {
+                std::string seq = s;
+                std::replace(seq,"I_L","L"); //to be sure
+                std::replace(seq,"I","L"); 
+                std::replace(seq,"L","I_L");
+                real_sequences.push_back(seq);
+                seq = join("-",std::split(seq,"-"),true);
+                real_sequences.push_back(std::move(seq));
+            }
 
+            propositions.reserve(src_seq.size());
             auto& self = *this;
             for(const harpe::Sequence& s : src_seq)
                 propositions.emplace_back(Sequence(self,s));
@@ -99,6 +110,19 @@ namespace harpe
             sort();
             //truncate
             //\todo TODO
+        }
+
+        std::ostream& operator<<(std::ostream& output,const Spectrum& self)
+        {
+            output<<"[real_sequences] size : "<<self.real_sequences.size()<<std::endl;
+            for(const std::string& s : self.real_sequences)
+                output<<s<<std::endl;
+
+            output<<"[proposition] size : "<<self.propositions.size()<<std::endl;
+            for(const Sequence& s : self.propositions)
+                output<<s<<std::endl;
+
+            return output;
         }
 
         void Spectrum::sort()

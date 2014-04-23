@@ -9,6 +9,7 @@ set(ROOT_SRC
 )
 set(ROOT_HEADER
     ${INCROOT}/Entity.hpp
+    ${INCROOT}/Entity.tpl
     ${INCROOT}/Sequence.hpp
     ${INCROOT}/Spectrum.hpp
     ${INCROOT}/std.hpp
@@ -30,6 +31,9 @@ set(FILES_SRC
 )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
+
+add_library(empty_sort SHARED empty_sort.cpp)
 
 #find_library(MONITORING_LIB Monitoring)
 #set(LIBS ${LIBS} ${MGF_LIB} ${MONITORING_LIB} ${HARPE_ALGO_LIB})

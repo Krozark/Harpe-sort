@@ -15,10 +15,17 @@ namespace std
     std::vector<std::string> split(const std::string& string,const std::string& del);
 
     /**
+     * \brief find and replace
+     */
+    void replace(string& source, string const& find, string const& replace);
+
+    /**
      * \brief like the python join
      */
     template<typename T>
-    std::string join(const std::string& del,const std::vector<T>& datas);
+    std::string join(const std::string& del,const std::vector<T>& datas,bool reverse=false);
+
+    template <typename T> int sign(T val);
 
 }
 #include <harpe-sort-learning/std.tpl>
