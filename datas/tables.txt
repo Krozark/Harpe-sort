@@ -1,0 +1,98 @@
+====== xml =======
+- El
+|- Nme @
+|- ANr @
+|- Sym @
+|- iso[] @
+ |- Mss @
+ |-Pry @
+
+- AA
+|- Nme @
+|- TLC @
+|- OLC @
+|- Fma @
+|- pK
+|- NpK
+|- Cpk
+|- NTe => can N terminal
+|- Cte => can cterminal
+|- RfAA => reférance to AA with his name @
+|- RfM => référence to modification with his name @
+
+- Mod
+|- Nme @ (Protein Terminal ... => CTerminal, N-Terminal, Protein N-Terminal, C-Terminal)
+|- TLC (char[3+])
+|- Tgt+ => AA names (targets)
+|- TS (2~255) => type of mod (terminal, C-ter, N-ter, porotéine [N/C] ter ...)
+    255 => partoout
+    4 => Proteine Terminal
+    8 => Proteine C-Terminal
+    10 => C-Terminal
+    4 => Proteine N-Terminal
+    5 => N-Terminal
+    5 => Terminal
+
+|- Fma => formule
+|- RpF => formule
+|- NLF => formule
+|- IIF => Formule
+|- Chg (0,1)
+
+- CAgt
+|- Nme
+|- TLC
+|- CA+ (C terminal cut)
+|- CNB (not cut if bound with)
+|- CB  (N-Terminal)
+|- HB
+
+-AIn
+|- Nme
+|- Fma
+|- Chg
+
+======== SQL =======
+- Atom (EL)
+|- name (Nme)
+|- pk (tableau periodique) (ANr)
+|- slug (Sym)
+
+- isotope (El->Iso)
+|- fk(Atom) (El.pk)
+|- masse (Mss)
+|- frequence (Pyr)
+
+- AA (AA)
+|- name (name)
+|- slug (TLC) char[3]
+|- symbol (OLC) char[1]
+|- formule (Fma)
+|- mass (to calc with formule or RfAA.masse + RfM.mass)
+|- is_natural (not OLC.empty())
+|- RfAA (RfAA)
+|- RfM (RfM)
+
+- Mod (Mod)
+|- name (Nme)
+|- slug (TLC)
+|- delta (to calc)
+|- type (new)
+|- position (n/c ter)
+|- M2M AA (Tgt)
+
+- Agent
+|- name (Nme)
+|- slug (TLC)
+|- cuts []
+  |- AA
+  |- sens (C/N ter)
+|- imposible cuts []
+  |- AA1
+  |- AA2
+  |- sens (C/N)
+
+
+
+
+

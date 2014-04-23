@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DataDictionary>
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+	<!-- XENOBIOTIC MODIFICATIONS    -->
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+
+	<Mod rKey="0">
+		<Nme>Benzyl</Nme>
+		<TLC>Bnz</TLC>
+		<Tgt>Cysteine</Tgt>
+		<TS>255</TS>
+		<Fma>C7H7</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Boc</Nme>
+		<TLC>Boc</TLC>
+		<TS>4</TS>
+		<Fma>C5H9O2</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>CBZ(Benzyloxycarbonyl)</Nme>
+		<TLC>CBZ</TLC>
+		<TS>4</TS>
+		<Fma>C8H7O2</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Dinitrophenyl</Nme>
+		<TLC>2Np</TLC>
+		<TS>255</TS>
+		<Fma>C6H3N2O4</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Fmoc</Nme>
+		<TLC>Fmc</TLC>
+		<TS>4</TS>
+		<Fma>C15H11O2</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Hydrazide</Nme>
+		<TLC>Hyz</TLC>
+		<TS>255</TS>
+		<Fma>H3N2</Fma>
+		<RpF>HO</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Naphthyl</Nme>
+		<TLC>Npl</TLC>
+		<Tgt>Alanine</Tgt>
+		<TS>255</TS>
+		<Fma>C10H7</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Napthylacetyl</Nme>
+		<TLC>NpA</TLC>
+		<TS>255</TS>
+		<Fma>C12H9O</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Trifluoroacetyl</Nme>
+		<TLC>TFA</TLC>
+		<TS>255</TS>
+		<Fma>C2OF3</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Trinitrophenyl</Nme>
+		<TLC>3Np</TLC>
+		<TS>255</TS>
+		<Fma>C6H2N3O6</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Terminal Trinitrophenyl</Nme>
+		<DisplayName>Trinitrophenyl</DisplayName>
+		<TLC>3Np</TLC>
+		<TS>5</TS>
+		<Fma>C6H2N3O6</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>PMC</Nme>
+		<TLC>PMC</TLC>
+		<Tgt>Arginine</Tgt>
+		<TS>255</TS>
+		<Fma>C14H18O3S</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+</DataDictionary>

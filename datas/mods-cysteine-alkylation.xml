@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DataDictionary>
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+	<!-- CYSTEINE ALKYLATION MODIFICATIONS -->
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+
+	<Mod rKey="0">
+		<Nme>Acetyl-PEO-Biotin</Nme>
+		<TLC>PEO</TLC>
+		<Tgt>Cysteine</Tgt>
+		<Tgt>Lysine</Tgt>
+		<TS>255</TS>
+		<Fma>C18H30N4O5S</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>	
+
+	<Mod rKey="0">
+		<Nme>Terminal Acetyl-PEO-Biotin</Nme>
+		<DisplayName>Acetyl-PEO-Biotin</DisplayName>
+		<TLC>PEO</TLC>
+		<TS>5</TS>
+		<Fma>C18H30N4O5S</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>	
+
+	<Mod rKey="0">
+		<Nme>Carboxymethyl</Nme>
+		<TLC>Cmc</TLC>
+		<Tgt>Cysteine</Tgt>
+		<Tgt>Lysine</Tgt>
+		<Tgt>Histidine</Tgt>
+		<Tgt>Aspartic Acid</Tgt>
+		<Tgt>Glutamic Acid</Tgt>
+		<Tgt>Selenocysteine</Tgt>
+		<TS>255</TS>
+		<Fma>C2H3O2</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Terminal Carboxymethyl</Nme>
+		<DisplayName>Carboxymethyl</DisplayName>
+		<TLC>Cmc</TLC>
+		<TS>5</TS>
+		<Fma>C2H3O2</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Carbamidomethyl</Nme>
+		<TLC>CAM</TLC>
+		<Tgt>Cysteine</Tgt>
+		<Tgt>Lysine</Tgt>
+		<Tgt>Histidine</Tgt>
+		<Tgt>Aspartic Acid</Tgt>
+		<Tgt>Glutamic Acid</Tgt>
+		<Tgt>Selenocysteine</Tgt>
+		<Tgt>Serine</Tgt>
+		<Tgt>Threonine</Tgt>
+		<Tgt>Tyrosine</Tgt>
+		<TS>255</TS>
+		<Fma>C2H4NO</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Terminal Carbamidomethyl</Nme>
+		<DisplayName>Carbamidomethyl</DisplayName>
+		<TLC>CAM</TLC>
+		<TS>5</TS>
+		<Fma>C2H4NO</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Dicarbamidomethyl</Nme>
+		<TLC>2CM</TLC>
+		<Tgt>Aspartic Acid</Tgt>
+		<TS>255</TS>
+		<Fma>C4H8N2O2</Fma>
+		<RpF>H2</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Cys-&gt;pyro-CAM</Nme>
+		<TLC>PCa</TLC>
+		<Tgt>Cysteine</Tgt>
+		<TS>5</TS>
+		<Fma>C2O</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Cys-&gt;pyro-CmC</Nme>
+		<TLC>PCm</TLC>
+		<Tgt>Cysteine</Tgt>
+		<TS>5</TS>
+		<Fma>C2O</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- CmC to pyro-CmC cyclization -->
+	<Mod rKey="0">
+		<Nme>Terminal Dehydrated</Nme>
+		<DisplayName>Dehydrated</DisplayName>
+		<TLC>Dhy</TLC>
+		<Tgt>Cysteine</Tgt>
+		<TS>5</TS>
+		<Fma></Fma>
+		<RpF>H2O</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Dethiomethyl</Nme>
+		<TLC>DTM</TLC>
+		<Tgt>Methionine</Tgt>
+		<TS>255</TS>
+		<Fma></Fma>
+		<RpF>CH4S</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!--  Anal Biochem. 2004 Oct 1;333(1):174-81 -->
+	<Mod rKey="0">
+		<Nme>Ethanolyl</Nme>
+		<TLC>EtO</TLC>
+		<Tgt>Cysteine</Tgt>
+		<Tgt>Lysine</Tgt>
+		<Tgt>Selenocysteine</Tgt>
+		<TS>255</TS>
+		<Fma>C2H5O</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>	
+
+	<Mod rKey="0">
+		<Nme>Terminal Ethanolyl</Nme>
+		<DisplayName>Ethanolyl</DisplayName>
+		<TLC>EtO</TLC>
+		<TS>5</TS>
+		<Fma>C2H5O</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>N-Ethylmaleimide</Nme>
+		<TLC>NEM</TLC>
+		<Tgt>Cysteine</Tgt>
+		<Tgt>Lysine</Tgt>
+		<TS>255</TS>
+		<Fma>H7C6NO2</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Terminal N-Ethylmaleimide</Nme>
+		<DisplayName>N-Ethylmaleimide</DisplayName>
+		<TLC>NEM</TLC>
+		<TS>5</TS>
+		<Fma>H7C6NO2</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>N-Ethylmaleimide+water</Nme>
+		<TLC>NMH</TLC>
+		<Tgt>Cysteine</Tgt>
+		<Tgt>Lysine</Tgt>
+		<TS>255</TS>
+		<Fma>H9C6NO3</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Terminal N-Ethylmaleimide+water</Nme>
+		<DisplayName>N-Ethylmaleimide+water</DisplayName>
+		<TLC>NMH</TLC>
+		<TS>5</TS>
+		<Fma>H9C6NO3</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Met-&gt;Carbamidomethyl-Hcy</Nme>
+		<TLC>CaS</TLC>
+		<Tgt>Methionine</Tgt>
+		<TS>255</TS>
+		<Fma>C2H4NO</Fma>
+		<RpF>CH3</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Met-&gt;Carboxymethyl-Hcy</Nme>
+		<TLC>CoS</TLC>
+		<Tgt>Methionine</Tgt>
+		<TS>255</TS>
+		<Fma>C2H3O2</Fma>
+		<RpF>CH3</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>N-Methylmaleimide</Nme>
+		<TLC>NMM</TLC>
+		<Tgt>Cysteine</Tgt>
+		<Tgt>Lysine</Tgt>
+		<TS>255</TS>
+		<Fma>H5C5NO2</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Terminal N-Methylmaleimide</Nme>
+		<DisplayName>N-Methylmaleimide</DisplayName>
+		<TLC>NMM</TLC>
+		<TS>5</TS>
+		<Fma>H5C5NO2</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>N-Methylmaleimide+water</Nme>
+		<TLC>MMH</TLC>
+		<Tgt>Cysteine</Tgt>
+		<Tgt>Lysine</Tgt>
+		<TS>255</TS>
+		<Fma>H7C5NO3</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Terminal N-Methylmaleimide+water</Nme>
+		<DisplayName>N-Methylmaleimide+water</DisplayName>
+		<TLC>MMH</TLC>
+		<TS>5</TS>
+		<Fma>H7C5NO3</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Pyridylethyl</Nme>
+		<TLC>Pye</TLC>
+		<Tgt>Cysteine</Tgt>
+		<Tgt>Lysine</Tgt>
+		<TS>255</TS>
+		<Fma>C7H8N</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Terminal Pyridylethyl</Nme>
+		<DisplayName>Pyridylethyl</DisplayName>
+		<TLC>Pye</TLC>
+		<TS>5</TS>
+		<Fma>C7H8N</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+</DataDictionary>

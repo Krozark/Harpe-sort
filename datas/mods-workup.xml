@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DataDictionary>
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+	<!-- WORKUP MODIFICATIONS GENERAL -->
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+
+	<!-- Was called Aminoethyl and incorrectly define wrt cysteine prior to Pilot 4.0 but was never translated -->
+	<Mod rKey="0">
+		<Nme>AEC-MAEC</Nme>
+		<TLC>Aec</TLC>
+		<Tgt>Serine</Tgt>
+		<Tgt>Threonine</Tgt>
+		<TS>255</TS>
+		<Fma>C2H5NS</Fma>
+		<RpF>O</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Terminal Amidated</Nme>
+		<DisplayName>Amidated</DisplayName>
+		<TLC>Ami</TLC>
+		<TS>10</TS>
+		<Fma>H2N</Fma>
+		<RpF>HO</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Amino</Nme>
+		<TLC>Amn</TLC>
+		<Tgt>Tyrosine</Tgt>
+		<TS>255</TS>
+		<Fma>NH2</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- This is half of transpeptidation - the addition of Arg to any peptide N-term -->
+	<Mod rKey="0">	
+		<Nme>Arg-add</Nme>
+		<TLC>+1R</TLC>
+		<Tgt></Tgt>
+		<TS>5</TS>
+		<Fma>H12C6N4O</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- This is half of transpeptidation - the removal of Arg from a peptide C-term having Arginine -->
+	<Mod rKey="0">	
+		<Nme>Arg-loss</Nme>
+		<TLC>-1R</TLC>
+		<Tgt>Arginine</Tgt>
+		<TS>10</TS>
+		<Fma></Fma>
+		<RpF>H12C6N4O</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- Oxidation followed by loss of H5CN3. Amino Acids (2003) 25: 221-226. -->
+	<Mod rKey="0">
+		<Nme>Arg-&gt;GluSA</Nme>
+		<TLC>AGA</TLC>
+		<Tgt>Arginine</Tgt>
+		<TS>255</TS>
+		<Fma>O</Fma>
+		<RpF>H5CN3</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- Side reaction in urea denaturation -->
+	<Mod rKey="0">
+		<Nme>Carbamyl</Nme>
+		<TLC>CRM</TLC>
+		<Tgt>Lysine</Tgt>
+		<Tgt>Cysteine</Tgt>
+		<Tgt>Arginine</Tgt>
+		<Tgt>Methionine</Tgt>
+		<TS>255</TS>
+		<Fma>CH2NO</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- Side reaction in urea denaturation -->
+	<Mod rKey="0">
+		<Nme>Terminal Carbamyl</Nme>
+		<DisplayName>Carbamyl</DisplayName>
+		<TLC>CRM</TLC>
+		<TS>5</TS>
+		<Fma>CH2NO</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- Side reaction in urea denaturation -->
+	<Mod rKey="0">
+		<Nme>Protein Terminal Carbamyl</Nme>
+		<TLC>CRM</TLC>
+		<TS>4</TS>
+		<Fma>CH2NO</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Cys-&gt;Dha</Nme>
+		<TLC>DHA</TLC>
+		<Tgt>Cysteine</Tgt>
+		<TS>255</TS>
+		<Fma></Fma>
+		<RpF>H2S</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- Arginine to citrulline conversion is also being dubbed deamidated, as proposed in the standards spreadsheet. Thus, Arg to Cit has been removed here in version 3 onward -->
+	<Mod rKey="0">
+		<Nme>Deamidated</Nme>
+		<TLC>Dea</TLC>
+		<TS>255</TS>
+		<Tgt>Asparagine</Tgt>
+		<Tgt>Glutamine</Tgt>
+		<Tgt>AsnOrAsp</Tgt>
+		<Tgt>GlnOrGlu</Tgt>
+		<Tgt>Arginine</Tgt>
+		<Fma>HO</Fma>
+		<RpF>H2N</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Dehydrated</Nme>
+		<TLC>Dhy</TLC>
+		<Tgt>Aspartic Acid</Tgt>
+		<Tgt>Glutamic Acid</Tgt>
+		<Tgt>Serine</Tgt>
+ 		<Tgt>Threonine</Tgt>
+		<Tgt>Tyrosine</Tgt>
+ 		<TS>255</TS>
+		<Fma></Fma>
+		<RpF>H2O</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Protein Terminal Dehydrated</Nme>
+		<TLC>Dhy</TLC>
+		<Tgt>Asparagine</Tgt>
+		<Tgt>Glutamine</Tgt>
+ 		<TS>8</TS>
+		<Fma></Fma>
+		<RpF>H2O</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- Half of a disulfide bridge -->
+	<Mod rKey="0">	
+		<Nme>Dehydro</Nme>
+		<TLC>-1H</TLC>
+		<Tgt>Cysteine</Tgt>
+		<Tgt>Selenocysteine</Tgt>
+		<TS>255</TS>
+		<Fma></Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Delta:H(2)C(2)</Nme>
+		<TLC>AAS</TLC>
+		<Tgt>Lysine</Tgt>
+		<Tgt>Histidine</Tgt>
+		<TS>255</TS>
+		<Fma>C2H2</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Terminal Delta:H(2)C(2)</Nme>
+		<DisplayName>Delta:H(2)C(2)</DisplayName>
+		<TLC>AAS</TLC>
+		<TS>5</TS>
+		<Fma>C2H2</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Delta:H(4)C(2)</Nme>
+		<TLC>AAR</TLC>
+		<Tgt>Lysine</Tgt>
+		<Tgt>Histidine</Tgt>
+		<TS>255</TS>
+		<Fma>C2H4</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Terminal Delta:H(4)C(2)</Nme>
+		<DisplayName>Delta:H(4)C(2)</DisplayName>
+		<TLC>AAR</TLC>
+		<TS>5</TS>
+		<Fma>C2H4</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Ethylamide</Nme>
+		<TLC>EAm</TLC>
+		<Tgt>Glutamic Acid</Tgt>
+		<Tgt>Aspartic Acid</Tgt>
+		<TS>255</TS>
+		<Fma>C2H5</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Gln-&gt;pyro-Glu</Nme>
+		<TLC>PGQ</TLC>
+		<Tgt>Glutamine</Tgt>
+		<TS>5</TS>
+		<Fma></Fma>
+		<RpF>H3N</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Glu-&gt;pyro-Glu</Nme>
+		<TLC>PGE</TLC>
+		<Tgt>Glutamic Acid</Tgt>
+		<TS>5</TS>
+		<Fma></Fma>
+		<RpF>H2O</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- Conversion of lysine to homoarginine improves ionization. -->
+	<!-- Analytical Biochem 287, 110-117 (2000) -->
+	<!-- Official PSI name of the modification where lysine is converted to homoarginine is Guanidinyl -->
+	<Mod rKey="0">
+		<Nme>Guanidinyl</Nme>
+		<TLC>1Gu</TLC>
+		<Tgt>Lysine</Tgt>
+		<TS>255</TS>
+		<Fma>H2CN2</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+	<Mod rKey="0">
+		<Nme>Terminal Guanidinyl</Nme>
+		<DisplayName>Guanidinyl</DisplayName>
+		<TLC>1Gu</TLC>
+		<TS>5</TS>
+		<Fma>H2CN2</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+
+	<!-- Oxidation followed by loss of NH3. Amino Acids (2003) 25: 221-226. Can be biological mod too. -->
+	<Mod rKey="0">
+		<Nme>Lys-&gt;Allysine</Nme>
+		<TLC>LAA</TLC>
+		<Tgt>Lysine</Tgt>
+		<TS>255</TS>
+		<Fma>O</Fma>
+		<RpF>H3N</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- Really a biological mod? -->
+	<Mod rKey="0">
+		<Nme>Lys-&gt;Hydroxyallysine</Nme>
+		<TLC>HAA</TLC>
+		<Tgt>Lysine</Tgt>
+		<TS>255</TS>
+		<Fma>O2</Fma>
+		<RpF>H3N</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- This is half of transpeptidation - the addition of Lys to any peptide N-term -->
+	<Mod rKey="0">	
+		<Nme>Lys-add</Nme>
+		<TLC>+1K</TLC>
+		<Tgt></Tgt>
+		<TS>5</TS>
+		<Fma>H12C6N2O</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- This is half of transpeptidation - the removal of Lys from a peptide C-term having Lysine -->
+	<Mod rKey="0">	
+		<Nme>Lys-loss</Nme>
+		<TLC>-1K</TLC>
+		<Tgt>Lysine</Tgt>
+		<TS>10</TS>
+		<Fma></Fma>
+		<RpF>H12C6N2O</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">	
+		<Nme>Protein Terminal Lys-loss</Nme>
+		<TLC>-1K</TLC>
+		<Tgt>Lysine</Tgt>
+		<TS>8</TS>
+		<Fma></Fma>
+		<RpF>H12C6N2O</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- BONCAT mod -->
+	<Mod rKey="0">
+		<Nme>Met-&gt;Aha</Nme>
+		<TLC>MAH</TLC>
+		<Tgt>Methionine</Tgt>
+		<TS>255</TS>
+		<Fma>N3</Fma>
+		<RpF>CH3S</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- BONCAT mod -->
+	<Mod rKey="0">
+		<Nme>Met-&gt;Aha+tag</Nme>
+		<TLC>MAT</TLC>
+		<Tgt>Methionine</Tgt>
+		<TS>255</TS>
+		<Fma>C4H5N5O</Fma>
+		<RpF>S</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- BONCAT mod -->
+	<Mod rKey="0">
+		<Nme>Met-&gt;Aha+tagMCL</Nme>
+		<TLC>MAC</TLC>
+		<Tgt>Methionine</Tgt>
+		<TS>255</TS>
+		<Fma>C26H37N11O14</Fma>
+		<RpF>S</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- Note that oxidation (including hydroxylation) can arise during workup or biologically -->
+	<Mod rKey="0">	
+		<Nme>Oxidation</Nme>
+		<TLC>Oxi</TLC>
+		<Tgt>Methionine</Tgt>
+		<Tgt>Tryptophan</Tgt>
+		<Tgt>Histidine</Tgt>
+		<Tgt>Cysteine</Tgt>
+		<Tgt>Aspartic Acid</Tgt>
+		<Tgt>Asparagine</Tgt>
+		<Tgt>Tyrosine</Tgt>
+		<Tgt>Phenylalanine</Tgt>
+		<Tgt>Lysine</Tgt>
+		<Tgt>Proline</Tgt>
+		<Tgt>Arginine</Tgt>
+		<Tgt>Selenocysteine</Tgt>
+		<TS>255</TS>
+		<Fma>O</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">	
+		<Nme>Terminal Oxidation</Nme>
+		<TLC>Oxi</TLC>
+		<Tgt>Glycine</Tgt>
+		<TS>10</TS>
+		<Fma>O</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- For backwards compatibility of 3 letter codes -->
+	<Mod rKey="0">
+		<Nme>Hydroxy Old3LetterCode</Nme>
+		<TLC>1OH</TLC>
+		<TS>255</TS>
+		<Fma>O</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- For backwards compatibility of 3 letter codes -->
+	<Mod rKey="0">
+		<Nme>Cysteine sulfenic acid Old3LetterCode</Nme>
+		<TLC>CSA</TLC>
+		<TS>255</TS>
+		<Fma>O</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- For backwards compatibility of 3 letter codes -->
+	<Mod rKey="0">
+		<Nme>Proglutamicsealde Old3LetterCode</Nme>
+		<TLC>PGa</TLC>
+		<TS>255</TS>
+		<Fma>O</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Dioxidation</Nme>
+		<TLC>2Ox</TLC>
+		<Tgt>Methionine</Tgt>
+		<Tgt>Tryptophan</Tgt>
+		<Tgt>Tyrosine</Tgt>
+		<Tgt>Cysteine</Tgt>
+		<Tgt>Phenylalanine</Tgt>
+		<Tgt>Lysine</Tgt>
+		<Tgt>Proline</Tgt>
+		<Tgt>Arginine</Tgt>
+		<Tgt>Selenocysteine</Tgt>
+		<TS>255</TS>
+		<Fma>O2</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- For backwards compatibility of 3 letter codes -->
+	<Mod rKey="0">
+		<Nme>Dihydroxy Old3LetterCode</Nme>
+		<TLC>2OH</TLC>
+		<TS>255</TS>
+		<Fma>O2</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- For backwards compatibility of 3 letter codes -->
+	<Mod rKey="0">
+		<Nme>Dihydroxy-Phe Old3LetterCode</Nme>
+		<TLC>DHF</TLC>
+		<TS>255</TS>
+		<Fma>O2</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- For backwards compatibility of 3 letter codes -->
+	<Mod rKey="0">
+		<Nme>Formylkynurenin Old3LetterCode</Nme>
+		<TLC>Fky</TLC>
+		<TS>255</TS>
+		<Fma>O2</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Trioxidation</Nme>
+		<TLC>3Ox</TLC>
+		<Tgt>Cysteine</Tgt>
+		<Tgt>Tryptophan</Tgt>
+		<Tgt>Tyrosine</Tgt>
+		<TS>255</TS>
+		<Fma>O3</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- For backwards compatibility of 3 letter codes -->
+	<Mod rKey="0">
+		<Nme>Trioxidation Old3LetterCode</Nme>
+		<TLC>CAa</TLC>
+		<Tgt>Cysteine</Tgt>
+		<Tgt>Tryptophan</Tgt>
+		<TS>255</TS>
+		<Fma>O3</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- Berlett, Barbara S.; Stadtman, Earl R. Journal of Biological Chemistry (1997), 272(33), 20313-20316. Reaction 4 -->
+	<Mod rKey="0">
+		<Nme>Pro-&gt;Pyrrolidinone</Nme>
+		<TLC>PYD</TLC>
+		<Tgt>Proline</Tgt>
+		<TS>10</TS>
+		<Fma></Fma>
+		<RpF>H2CO</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- Side reaction in 2D electrophoresis gels -->
+	<Mod rKey="0">
+		<Nme>Propionamide</Nme>
+		<TLC>PPa</TLC>
+		<Tgt>Cysteine</Tgt>
+		<Tgt>Lysine</Tgt>
+		<Tgt>Selenocysteine</Tgt>
+		<TS>255</TS>
+		<Fma>C3H5NO</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- Side reaction in 2D electrophoresis gels -->
+	<Mod rKey="0">
+		<Nme>Terminal Propionamide</Nme>
+		<DisplayName>Propionamide</DisplayName>
+		<TLC>PPa</TLC>
+		<TS>5</TS>
+		<Fma>C3H5NO</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- NOT a cyclization reaction. (Proline is already cyclized!). Biological mod? -->
+	<Mod rKey="0">
+		<Nme>Pro-&gt;pyro-Glu</Nme>
+		<TLC>PGP</TLC>
+		<Tgt>Proline</Tgt>
+		<TS>255</TS>
+		<Fma>O</Fma>
+		<RpF>H2</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Sec-&gt;Dha</Nme>
+		<TLC>UHA</TLC>
+		<Tgt>Selenocysteine</Tgt>
+		<TS>255</TS>
+		<Fma></Fma>
+		<RpF>H2Se</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Trp-&gt;Kynurenin</Nme>
+		<TLC>Kyn</TLC>
+		<Tgt>Tryptophan</Tgt>
+		<TS>255</TS>
+		<Fma>O</Fma>
+		<RpF>C</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Trp-&gt;Hydroxykynurenin</Nme>
+		<TLC>HKy</TLC>
+		<Tgt>Tryptophan</Tgt>
+		<TS>255</TS>
+		<Fma>O2</Fma>
+		<RpF>C</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+</DataDictionary>

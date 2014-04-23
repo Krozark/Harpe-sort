@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DataDictionary>
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+	<!-- ADDUCT IONS -->
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+	<AIn rKey="0">
+		<Nme>Acetate</Nme>
+		<Fma>C5H9O</Fma>
+		<Chg>-1</Chg>
+	</AIn>
+	<AIn rKey="0">
+		<Nme>Ammonium</Nme>
+		<Fma>H4N</Fma>
+		<Chg>1</Chg>
+	</AIn>
+	<AIn rKey="0">
+		<Nme>Hydrogen</Nme>
+		<Fma>H</Fma>
+		<Chg>1</Chg>
+	</AIn>
+	<AIn rKey="0">
+		<Nme>Iron</Nme>
+		<Fma>Fe</Fma>
+		<Chg>3</Chg>
+	</AIn>
+	<AIn rKey="0">
+		<Nme>Potassium</Nme>
+		<Fma>K</Fma>
+		<Chg>1</Chg>
+	</AIn>
+	<AIn rKey="0">
+		<Nme>Sodium</Nme>
+		<Fma>Na</Fma>
+		<Chg>1</Chg>
+	</AIn>
+</DataDictionary>

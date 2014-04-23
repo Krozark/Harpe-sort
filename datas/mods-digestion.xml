@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DataDictionary>
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+	<!-- MODIFICATIONS RESULTING FROM DIGESTION -->
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+
+	<!-- CNBr cleavage also causes methionine cyclization at C-terminal, resulting in the formation of homoserine lactone. -->
+	<!-- Analytical Biochemistry 266, 1-8 (1999) -->
+	<Mod rKey="0">
+		<Nme>Met-&gt;Hsl</Nme>
+		<TLC>Hsl</TLC>
+		<Tgt>Methionine</Tgt>
+		<TS>2</TS>
+		<Fma></Fma>
+		<RpF>CH4S</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- Addition of water to homoserine lactone results in the formation of homoserine -->
+	<Mod rKey="0">
+		<Nme>Met-&gt;Hse</Nme>
+		<TLC>Hse</TLC>
+		<Tgt>Methionine</Tgt>
+		<TS>2</TS>
+		<Fma>H2O</Fma>
+		<RpF>CH4S</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- For backwards compatibility of 3 letter codes -->
+	<Mod rKey="0">
+		<Nme>Met-&gt;HseLactone Old3LetterCode</Nme>
+		<TLC>HSL</TLC>
+		<Tgt>Methionine</Tgt>
+		<TS>2</TS>
+		<Fma></Fma>
+		<RpF>CH4S</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- For backwards compatibility of 3 letter codes -->
+	<Mod rKey="0">
+		<Nme>Met-&gt;Hse Old3LetterCode</Nme>
+		<TLC>HSr</TLC>
+		<Tgt>Methionine</Tgt>
+		<TS>2</TS>
+		<Fma>H2O</Fma>
+		<RpF>CH4S</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+</DataDictionary>

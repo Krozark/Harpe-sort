@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DataDictionary>
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+	<!-- DIGESTION AGENTS -->
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+
+	<CAgt rKey="0">
+		<Nme>Acid Cleavage</Nme>
+		<TLC>A</TLC>
+		<CA>Aspartic Acid</CA>
+		<CA>Proline</CA>
+	</CAgt>
+	
+	<CAgt rKey="0">
+		<Nme>Arg C</Nme>
+		<TLC>AC</TLC>
+		<CA>Arginine</CA>
+	</CAgt>
+	
+	<CAgt rKey="0">
+		<Nme>Asp N</Nme>
+		<TLC>AN</TLC>
+		<CB>Aspartic Acid</CB>
+	</CAgt>
+
+	<CAgt rKey="0">
+		<Nme>CNBr</Nme>
+		<TLC>Cb</TLC>
+		<CA>Methionine</CA>
+		<CMd>Met-&gt;Hsl</CMd>
+		<CMd>Met-&gt;Hse</CMd>
+	</CAgt>
+
+	<CAgt rKey="0">
+		<Nme>Chymotrypsin</Nme>
+		<TLC>C</TLC>
+		<CA>Isoleucine</CA>
+		<CA>Leucine</CA>
+		<CA>Phenylalanine</CA>
+		<CA>Tryptophan</CA>
+		<CA>Tyrosine</CA>
+		<CNB>Proline</CNB>
+	</CAgt>
+	<CAgt rKey="0">
+		<Nme>Glu C(V8 Protease)</Nme>
+		<TLC>G</TLC>
+		<CA>Aspartic Acid</CA>
+		<CA>Glutamic Acid</CA>
+		<CNB>Proline</CNB>
+	</CAgt>
+	<CAgt rKey="0">
+		<Nme>Lys C</Nme>
+		<TLC>L</TLC>
+		<CA>Lysine</CA>
+	</CAgt>
+	<CAgt rKey="0">
+		<Nme>Thermolysin</Nme>
+		<TLC>TLN</TLC>
+		<CB>Isoleucine</CB>
+		<CB>Leucine</CB>
+		<CB>Phenylalanine</CB>
+		<CB>Valine</CB>
+		<CB>Methionine</CB>
+		<CB>Alanine</CB>
+	</CAgt>
+	<CAgt rKey="0">
+		<Nme>Trypsin</Nme>
+		<TLC>T</TLC>
+		<CA>Arginine</CA>
+		<CA>Lysine</CA>
+		<CNB>Proline</CNB>
+		<HB>Aspartic Acid</HB>
+		<HB>Glutamic Acid</HB>
+	</CAgt>
+	<CAgt rKey="0">
+		<Nme>Trypsin + Chymotrypsin</Nme>
+		<TLC>T+C</TLC>
+		<CA>Arginine</CA>
+		<CA>Lysine</CA>
+		<CNB>Proline</CNB>
+		<HB>Aspartic Acid</HB>
+		<HB>Glutamic Acid</HB>
+		<CA>Isoleucine</CA>
+		<CA>Leucine</CA>
+		<CA>Phenylalanine</CA>
+		<CA>Tryptophan</CA>
+		<CA>Tyrosine</CA>
+	</CAgt>
+	<CAgt rKey="0">
+		<Nme>Trypsin + Glu C</Nme>
+		<TLC>T+G</TLC>
+		<CA>Arginine</CA>
+		<CA>Lysine</CA>
+		<CNB>Proline</CNB>
+		<CA>Aspartic Acid</CA>
+		<CA>Glutamic Acid</CA>
+	</CAgt>
+	<CAgt rKey="0">
+		<Nme>Trypsin + Asp N</Nme>
+		<TLC>T+A</TLC>
+		<CA>Arginine</CA>
+		<CA>Lysine</CA>
+		<CNB>Proline</CNB>
+		<CB>Aspartic Acid</CB>
+	</CAgt>
+	<CAgt rKey="0">
+		<Nme>Lys C + Chymotrypsin</Nme>
+		<TLC>L+C</TLC>
+		<CA>Lysine</CA>
+		<CA>Isoleucine</CA>
+		<CA>Leucine</CA>
+		<CA>Phenylalanine</CA>
+		<CA>Tryptophan</CA>
+		<CA>Tyrosine</CA>
+		<CNB>Proline</CNB>
+	</CAgt>
+	<CAgt rKey="0">
+		<Nme>Lys C + Glu C</Nme>
+		<TLC>L+G</TLC>
+		<CA>Aspartic Acid</CA>
+		<CA>Glutamic Acid</CA>
+		<CA>Lysine</CA>
+		<CNB>Proline</CNB>
+	</CAgt>
+
+	<CAgt rKey="0">
+		<Nme>Glu C + Asp N</Nme>
+		<TLC>G+A</TLC>
+		<CA>Aspartic Acid</CA>
+		<CA>Glutamic Acid</CA>
+		<CB>Aspartic Acid</CB>
+		<CNB>Proline</CNB>
+	</CAgt>
+
+	<!-- Lys N digestion ref - J Proteome Res. 2009 Mar 8(3):1415-22. -->
+	<CAgt rKey="0">
+		<Nme>Lys N</Nme>
+		<TLC>LN</TLC>
+		<CB>Lysine</CB>
+	</CAgt>
+</DataDictionary>

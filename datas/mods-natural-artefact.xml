@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DataDictionary>
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+	<!-- MODS THAT CAN BE BOTH NATURAL AND ARTIFACT - MODIFICATION SECTION -->
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+
+	<!-- Asparagine: N-Succinimide artifact -->
+	<Mod rKey="0">
+		<Nme>Ammonia-loss</Nme>
+		<DisplayName>Ammonia-loss</DisplayName>
+		<TLC>dAm</TLC>
+		<Tgt>Asparagine</Tgt>
+		<TS>255</TS>
+		<Fma></Fma>
+		<RpF>NH3</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- Cysteine: CAM to pyro-CAM cyclization artifact -->
+	<Mod rKey="0">
+		<Nme>Terminal Ammonia-loss</Nme>
+		<DisplayName>Ammonia-loss</DisplayName>
+		<TLC>dAm</TLC>
+		<Tgt>Cysteine</Tgt>
+		<TS>5</TS>
+		<Fma></Fma>
+		<RpF>NH3</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- Serine: Ser to pyruvic acid cyclization PTM -->
+	<!-- Threonine: Thr to 2-oxobutanoic acid cyclization PTM -->
+	<Mod rKey="0">
+		<Nme>Protein Terminal Ammonia-loss</Nme>
+		<DisplayName>Protein Terminal Ammonia-loss</DisplayName>
+		<TLC>dAm</TLC>
+		<Tgt>Serine</Tgt>
+		<Tgt>Threonine</Tgt>
+		<TS>4</TS>
+		<Fma></Fma>
+		<RpF>NH3</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Cation:Na</Nme>
+		<TLC>NaX</TLC>
+		<Tgt>Aspartic Acid</Tgt>
+		<Tgt>Glutamic Acid</Tgt>
+		<TS>255</TS>
+		<Fma>Na</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Terminal Cation:Na</Nme>
+		<DisplayName>Cation:Na</DisplayName>
+		<TLC>NaX</TLC>
+		<TS>10</TS>
+		<Fma>Na</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Cation:K</Nme>
+		<TLC>KXX</TLC>
+		<Tgt>Aspartic Acid</Tgt>
+		<Tgt>Glutamic Acid</Tgt>
+		<TS>255</TS>
+		<Fma>K</Fma>
+		<RpF>H</RpF>
+`		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Terminal Cation:K</Nme>
+		<DisplayName>Cation:K</DisplayName>
+		<TLC>KXX</TLC>
+		<TS>10</TS>
+		<Fma>K</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Cation:Cu[I]</Nme>
+		<TLC>CuX</TLC>
+		<Tgt>Aspartic Acid</Tgt>
+		<Tgt>Glutamic Acid</Tgt>
+		<TS>255</TS>
+		<Fma>Cu</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Terminal Cation:Cu[I]</Nme>
+		<DisplayName>Cation:Cu[I]</DisplayName>
+		<TLC>CuX</TLC>
+		<TS>10</TS>
+		<Fma>Cu</Fma>
+		<RpF>H</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- Biomods - Y and S, workup K and T -->
+	<!-- On Ser is oxoalanine formylglycine -->
+	<!-- Journal of Biological Chemistry, Vol. 278, 2212-2218 (2003) --> 
+	<Mod rKey="0">	
+		<Nme>Didehydro</Nme>
+		<TLC>-2H</TLC>
+		<Tgt>Serine</Tgt>
+		<Tgt>Threonine</Tgt>
+		<Tgt>Tyrosine</Tgt>
+		<TS>255</TS>
+		<Fma></Fma>
+		<RpF>H2</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- Lactone formation from C-terminal hydroxylysine --> 
+	<Mod rKey="0">	
+		<Nme>Terminal Didehydro</Nme>
+		<DisplayName>Didehydro</DisplayName>
+		<TLC>-2H</TLC>
+		<Tgt>Lysine</Tgt>
+		<TS>10</TS>
+		<Fma></Fma>
+		<RpF>H2</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Formyl</Nme>
+		<TLC>Frm</TLC>
+		<Tgt>Lysine</Tgt>
+		<Tgt>Serine</Tgt>
+		<Tgt>Threonine</Tgt>
+		<TS>255</TS>
+		<Fma>CHO</Fma>
+		<RpF>H</RpF>
+		<NLF>CO</NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Terminal Formyl</Nme>
+		<DisplayName>Formyl</DisplayName>
+		<TLC>Frm</TLC>
+		<TS>5</TS>
+		<Fma>CHO</Fma>
+		<RpF>H</RpF>
+		<NLF>CO</NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Protein Terminal Formyl</Nme>
+		<TLC>Frm</TLC>
+		<TS>4</TS>
+		<Fma>CHO</Fma>
+		<RpF>H</RpF>
+		<NLF>CO</NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>FormaldehydeAdduct</Nme>
+		<TLC>FRT</TLC>
+		<Tgt>Tryptophan</Tgt>
+		<TS>255</TS>
+		<Fma>CH2O</Fma>
+		<RpF>H2O</RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<!-- Propionyl can be chemical ex. from propionic anhydride treatment or biological - ex putatively a histone mod -->
+	<Mod rKey="0">
+		<Nme>Propionyl</Nme>
+		<TLC>Poy</TLC>
+		<Tgt>Lysine</Tgt>
+		<Tgt>Serine</Tgt>
+		<Tgt>Threonine</Tgt>
+		<Tgt>Tyrosine</Tgt>
+		<TS>255</TS>
+		<Fma>C3H4O</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Terminal Propionyl</Nme>
+		<DisplayName>Propionyl</DisplayName>
+		<TLC>Poy</TLC>
+		<TS>5</TS>
+		<Fma>C3H4O</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+
+	<Mod rKey="0">
+		<Nme>Protein Terminal Propionyl</Nme>
+		<DisplayName>Propionyl</DisplayName>
+		<TLC>Poy</TLC>
+		<TS>4</TS>
+		<Fma>C3H4O</Fma>
+		<RpF></RpF>
+		<NLF></NLF>
+		<IIF></IIF>
+		<Chg>0</Chg>
+	</Mod>
+</DataDictionary>
