@@ -12,11 +12,11 @@
 |- TLC @
 |- OLC @
 |- Fma @
-|- pK
-|- NpK
-|- Cpk
-|- NTe => can N terminal
-|- Cte => can cterminal
+|- pK X
+|- NpK X
+|- Cpk X
+|- NTe => can N terminal X
+|- Cte => can cterminal X
 |- RfAA => reférance to AA with his name @
 |- RfM => référence to modification with his name @
 

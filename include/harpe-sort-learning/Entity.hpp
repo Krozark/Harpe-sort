@@ -105,7 +105,7 @@ namespace learning
                     static inline float div(float _1,float _2); ///< fonction divisé
                     static inline float add(float _1,float _2); ///< fonction addition
                     static inline float moins_b(float _1,float _2);///< fonction de soustraction
-                    /*5 sous programme?*/
+                   /*5 sous programme?*/
                     
                     enum FUNCTIONS {
                         SIN = 0,
