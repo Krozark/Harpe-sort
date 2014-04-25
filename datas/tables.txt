@@ -76,7 +76,7 @@
 - Mod (Mod)
 |- name (Nme)
 |- slug (TLC)
-|- delta (to calc)
+|- delta (to calc) (Fma - RpF)
 |- type (new)
 |- position (n/c ter)
 |- M2M AA (Tgt)

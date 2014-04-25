@@ -1549,8 +1549,12 @@
 		<TLC>PyP</TLC>
 		<Tgt>Lysine</Tgt>
 		<TS>255</TS>
-		<Fma></Fma>
-		<RpF>H8C8NO5P</RpF>
+		<Fma>C8H10NO6P</Fma>
+		<RpF>H2O</RpF>
+        <!--
+        <Fma>0</Fma>
+        <RpF>H8C8NO5P</RpF>
+        -->
 		<NLF></NLF>
 		<IIF></IIF>
 		<Chg>0</Chg>
