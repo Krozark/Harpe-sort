@@ -33,6 +33,8 @@
     5 => N-Terminal
     5 => Terminal
 
+    
+
 |- Fma => formule
 |- RpF => formule
 |- NLF => formule
