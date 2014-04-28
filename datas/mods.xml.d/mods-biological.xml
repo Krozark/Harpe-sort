@@ -948,7 +948,7 @@
 
     <!-- For backwards compatibility of 3 letter codes -->
     <Mod rKey="0">
-        <Nme>Isopropyl Old3LetterCode</Nme>
+        <Nme>Isopropyl</Nme>
         <TLC>Ipr</TLC>
         <TS>255</TS>
         <Fma>C3H9</Fma>
@@ -1129,7 +1129,7 @@
 
     <!-- For backwards compatibility of 3 letter codes -->
     <Mod rKey="0">
-        <Nme>MMTS Old3LetterCode</Nme>
+        <Nme>MMTS</Nme>
         <TLC>MMT</TLC>
         <TS>255</TS>
         <Fma>SCH3</Fma>
@@ -1401,66 +1401,14 @@
         <TLC>Pho</TLC>
         <Tgt>Tyrosine</Tgt>
         <Tgt>Histidine</Tgt>
-        <Tgt>Lysine</Tgt>
         <Tgt>Aspartic Acid</Tgt>
         <Tgt>Arginine</Tgt>
         <Tgt>Cysteine</Tgt>
-        <TS>255</TS>
-        <Fma>H2O3P</Fma>
-        <RpF>H</RpF>
-        <IIF></IIF>
-        <Chg>0</Chg>
-    </Mod>
-
-    <Mod rKey="0">
-        <Nme>Phospho(Ser,Thr)</Nme>
-        <DisplayName>Phospho</DisplayName>
-        <TLC>Pho</TLC>
         <Tgt>Serine</Tgt>
         <Tgt>Threonine</Tgt>
         <TS>255</TS>
         <Fma>H2O3P</Fma>
         <RpF>H</RpF>
-        <NLF>H3PO4</NLF>
-        <IIF></IIF>
-        <Chg>0</Chg>
-    </Mod>
-
-    <!-- For backwards compatibility of 3 letter codes -->
-    <Mod rKey="0">
-        <Nme>N-Phosphoryl Old3LetterCode</Nme>
-        <TLC>PhN</TLC>
-        <Tgt>Histidine</Tgt>
-        <Tgt>Lysine</Tgt>
-        <TS>255</TS>
-        <Fma>H2O3P</Fma>
-        <RpF>H</RpF>
-        <IIF></IIF>
-        <Chg>0</Chg>
-    </Mod>
-
-    <!-- For backwards compatibility of 3 letter codes -->
-    <Mod rKey="0">
-        <Nme>O-Phosphoryl Neut. Loss Old3LetterCode</Nme>
-        <TLC>PhL</TLC>
-        <TS>255</TS>
-        <Fma></Fma>
-        <RpF>H2O</RpF>
-        <NLF></NLF>
-        <IIF></IIF>
-        <Chg>0</Chg>
-    </Mod>
-
-    <!-- For backwards compatibility of 3 letter codes -->
-    <Mod rKey="0">
-        <Nme>Phospho(Ser,Thr) Old3LetterCode</Nme>
-        <TLC>PhO</TLC>
-        <Tgt>Serine</Tgt>
-        <Tgt>Threonine</Tgt>
-        <TS>255</TS>
-        <Fma>H2O3P</Fma>
-        <RpF>H</RpF>
-        <NLF>H3PO4</NLF>
         <IIF></IIF>
         <Chg>0</Chg>
     </Mod>
