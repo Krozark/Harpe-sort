@@ -74,14 +74,14 @@ int main(int argc,char* argv[])
     rand_init();
     int nb_threads = 1;
     float mutation_taux = 0.1;
-    std::string filename = "test";
-    int pop_size = 10;
+    std::string filename = "calc_score";
+    int pop_size = 2000;
     int pop_child = pop_size*0.8;
     harpe::learning::Entity::Node::max_indice = harpe::Sequence::Stats::SIZE;
 
 
     GeneticEngine<harpe::learning::Entity> engine(nb_threads,mutation_taux,filename,pop_size,pop_child,TREE_INIT_PROONDEUR);
-    engine.setTimeout(1000);
+    engine.setTimeout(5000);
     engine.setEvaluateAll(false);
 
     bool(*stop)(const harpe::learning::Entity&, const int) = [](const harpe::learning::Entity& best, const int generation)

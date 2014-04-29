@@ -44,6 +44,7 @@ namespace harpe
                 else
                     break;
             }
+            //TODO res/=(double)MIN(_size,10)
             return res;
 
         }

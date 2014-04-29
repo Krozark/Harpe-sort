@@ -12,7 +12,7 @@ namespace learning
 {
     std::list<harpe::learning::Spectrum> Entity::learning_spectums;
 
-    Entity::Entity(): genome(0),score(0)/*, seuil(1.f)*/
+    Entity::Entity(): genome(nullptr),score(0)/*, seuil(1.f)*/
     {
     };
 
@@ -154,27 +154,29 @@ namespace learning
 
         std::stack<Node*> pile;
         if(res->genome->nb_sub_nodes > 1)
-            pile = res->get(random(1,genome->nb_sub_nodes-1));
+        {
+            int c = random(1,genome->nb_sub_nodes-1);
+            pile = res->get(c);
+        }
         else
             pile.push(res->genome);
 
-        Node* other_node;
+        Node* other_node = nullptr;
         if(other.genome->nb_sub_nodes > 1)
         {
             int c = random(1,other.genome->nb_sub_nodes-1);
             other_node = other.get_node(c);
-            other_node->clone();
+            other_node = other_node->clone();
         }
         else
             other_node = other.genome->clone();
 
-
+        
         Node* current = pile.top();
         pile.pop();
-
         if (not pile.empty())//pas la racine
         {
-            if(pile.top()->fils1 == current)
+            if(pile.top()->fils1 == current)//remplacement
                 pile.top()->fils1= other_node;
             else
                 pile.top()->fils2= other_node;
@@ -184,7 +186,6 @@ namespace learning
             res->genome = other_node;
         }
         delete current;
-
         while(not pile.empty())
         {
             current = pile.top();
@@ -198,7 +199,12 @@ namespace learning
 
     std::ostream& operator<<(std::ostream& output,const Entity& individu)
     {
-        output<<individu.genome;
+        output<<"extern \"C\" {\n"
+            "double calc_score(const double* const vals)\n"
+            "{\n"
+            "\treturn "<<individu.genome<<";\n"
+            "}\n"
+            "}";
         return output;
     };
 
@@ -213,7 +219,7 @@ namespace learning
 
     void Entity::minimize(Entity::Node* root)
     {
-        /*switch(root->type)
+        switch(root->type)
         {
             case Entity::Node::Type::CONSTANTE:
             case Entity::Node::Type::VALS_INDICE:
@@ -224,15 +230,15 @@ namespace learning
                 minimize(root->fils1);
                 if (root->fils1->type == Entity::Node::Type::CONSTANTE)
                 {
-                    root->value = root->eval(0);
+                    root->value = root->eval(nullptr);
                     root->type = Entity::Node::Type::CONSTANTE;
 
                     delete root->fils1;
-                    root->fils1 = 0;
+                    root->fils1 = nullptr;
                     if(root->fils2)
                     {
                         delete root->fils2;
-                        root->fils2 = 0;
+                        root->fils2 = nullptr;
                     }
                     root->nb_sub_nodes = 1;
                 }
@@ -243,13 +249,13 @@ namespace learning
                 minimize(root->fils1);
                 if (root->fils1->type == Entity::Node::Type::CONSTANTE and root->fils2->type == Entity::Node::Type::CONSTANTE)
                 {
-                    root->value = root->eval(0);
+                    root->value = root->eval(nullptr);
                     root->type = Entity::Node::Type::CONSTANTE;
 
                     delete root->fils1;
-                    root->fils1 = 0;
+                    root->fils1 = nullptr;
                     delete root->fils2;
-                    root->fils2 = 0;
+                    root->fils2 = nullptr;
 
                     root->nb_sub_nodes = 1;
                 }
@@ -259,7 +265,7 @@ namespace learning
                 std::cerr<<"ERROR on Entity::minimize. Unknow node type :"<<root->type<<std::endl<<std::flush;
                 exit(4);
             }break;
-        }*/
+        }
     };
 
     /* le nemero doit etre entre 1 et genome->nb_sub_nodes */
@@ -308,7 +314,7 @@ namespace learning
     };
 
     ///////////////////////// NODE ///////////////////////////////////
-    Entity::Node::Node(): fils1(0),fils2(0)
+    Entity::Node::Node(): fils1(nullptr),fils2(nullptr)
     {
     };
 
@@ -350,18 +356,20 @@ namespace learning
 
     Entity::Node::Node(float cst) : type(Entity::Node::Type::CONSTANTE), value(cst), nb_sub_nodes(1)
     {
-        fils1= fils2 = 0;
+        fils1 = nullptr;
+        fils2 = nullptr;
     };
 
     Entity::Node::Node(int index) : type(Entity::Node::Type::VALS_INDICE), indice(index), nb_sub_nodes(1)
     {
-        fils1= fils2 = 0;
+        fils1 = nullptr;
+        fils2 = nullptr;
     };
 
     Entity::Node::Node(float(*f)(float),Node* _1) : type(Entity::Node::Type::UNAIRE), funaire(f)
     {
         fils1 = _1;
-        fils2 = 0;
+        fils2 = nullptr;
         nb_sub_nodes = _1->nb_sub_nodes + 1;
     };
 
@@ -381,15 +389,7 @@ namespace learning
     Entity::Node* Entity::Node::clone() const
     {
         //copie en profondeur
-        Node* res = new Node();
-        if(fils1)
-            res->fils1 = fils1->clone();
-
-        if(fils2)
-            res->fils2 = fils2->clone();
-
-        res->type = this->type;
-        res->nb_sub_nodes = this->nb_sub_nodes;
+        Node* res = new Node;
 
         switch(this->type)
         {
@@ -416,6 +416,15 @@ namespace learning
             }break;
         }
 
+        if(fils1)
+            res->fils1 = fils1->clone();
+
+        if(fils2)
+            res->fils2 = fils2->clone();
+
+        res->type = this->type;
+        res->nb_sub_nodes = this->nb_sub_nodes;
+
 
         return res;
     };
@@ -436,7 +445,7 @@ namespace learning
             {
                 std::cerr<<"Error on Entity::Node::eval. Unknow type of node: "<<this->type<<std::endl<<std::flush;
                 exit(6);
-            }
+            }break;
         }
     };
     Entity::Node* Entity::Node::CreateRandTree(const int profondeur)
@@ -460,7 +469,7 @@ namespace learning
                 {
                     std::cerr<<"Error on Entity::Node::CreateRandTree. choice is not a correct value("<<choice<<")"<<std::endl<<std::flush;
                     exit(1);
-                }
+                }break;
             }
         }
         else //autre node pour les fils
@@ -493,7 +502,7 @@ namespace learning
                 {
                     std::cerr<<"Error on Entity::Node::CreateRandTree. choice is not a correct value("<<choice<<")"<<std::endl<<std::flush;
                     exit(2);
-                }
+                }break;
             }
         }
 
@@ -541,7 +550,9 @@ namespace learning
                 output<<root->fils2;
             }break;
             default:
+            {
                 output<<"???";
+            }break;
         }
         output<<")"; 
         return output;
