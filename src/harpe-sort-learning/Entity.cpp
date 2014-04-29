@@ -4,16 +4,7 @@
 #include <iostream>
 
 #include <harpe-sort-learning/Entity.hpp>
-
-int random(int,int)
-{
-    return 0;
-}
-
-int random(float,float)
-{
-    return 0;
-}
+#include <GeneticEngine/random.hpp>
 
 namespace harpe
 {
@@ -80,55 +71,65 @@ namespace learning
         }
         else //petite (changement de type de node)
         {
-            if(current->type == Node::CONSTANTE)
+            if(current->type == Entity::Node::Type::CONSTANTE)
                 current->value+= random(-1.f,1.f);//on ajoute un bruit
-            else if(current->type == Node::VALS_INDICE)
+            else if(current->type == Entity::Node::Type::VALS_INDICE)
                 current->indice = random(0,Node::max_indice-1);//on change l'index
             else //fonctions
             {
-                switch (random(0,4))
+                switch (random(Entity::Node::FUNCTIONS::SIN,Entity::Node::FUNCTIONS::SIZE-1))
                 {
                     /* unaire */
-                    case 0:/* sin*/
-                        current->type = Node::UNAIRE;
+                    case Entity::Node::FUNCTIONS::SIN:/* sin*/
+                    {
+                        current->type = Entity::Node::Type::UNAIRE;
                         current->funaire = Node::sin_f;
-                        break;
-                    case 1:/*mul*/
-                        current->type = Node::BINAIRE;
+                    }break;
+                    case Entity::Node::FUNCTIONS::MUL:/*mul*/
+                    {
+                        current->type = Entity::Node::Type::BINAIRE;
                         current->fbinaire = Node::mul;
                         if(not current->fils2)
                         {
                             current->fils2 = Node::CreateRandTree(TREE_SUB_INIT_PROFONDEUR);
                             recalc = true;
                         }
-                        break;
-                    case 2:/*div*/
-                        current->type = Node::BINAIRE;
+                    }break;
+                    case Entity::Node::FUNCTIONS::DIV:/*div*/
+                    {
+                        current->type = Entity::Node::Type::BINAIRE;
                         current->fbinaire = Node::div;
                         if(not current->fils2)
                         {
                             current->fils2 = Node::CreateRandTree(TREE_SUB_INIT_PROFONDEUR);
                             recalc = true;
                         }
-                        break;
-                    case 3:/*add*/
-                        current->type = Node::BINAIRE;
+                    }break;
+                    case Entity::Node::FUNCTIONS::ADD:/*add*/
+                    {
+                        current->type = Entity::Node::Type::BINAIRE;
                         current->fbinaire = Node::add;
                         if(not current->fils2)
                         {
                             current->fils2 = Node::CreateRandTree(TREE_SUB_INIT_PROFONDEUR);
                             recalc = true;
                         }
-                        break;
-                    case 4:/*moins_b*/
-                        current->type = Node::BINAIRE;
+                    }break;
+                    case Entity::Node::FUNCTIONS::MOINS_B:/*moins_b*/
+                    {
+                        current->type = Entity::Node::Type::BINAIRE;
                         current->fbinaire = Node::moins_b;
                         if(not current->fils2)
                         {
                             current->fils2 = Node::CreateRandTree(TREE_SUB_INIT_PROFONDEUR);
                             recalc = true;
                         }
-                        break;
+                    }break;
+                    default:
+                    {
+                        std::cerr<<"ERROR on Entity::mutate. The new nod type is not valid"<<std::endl<<std::flush;
+                        exit(3);
+                    }break;
                 }
             }
         }
@@ -159,7 +160,11 @@ namespace learning
 
         Node* other_node;
         if(other.genome->nb_sub_nodes > 1)
-            other_node = other.get_node(random(1,other.genome->nb_sub_nodes-1))->clone();
+        {
+            int c = random(1,other.genome->nb_sub_nodes-1);
+            other_node = other.get_node(c);
+            other_node->clone();
+        }
         else
             other_node = other.genome->clone();
 
@@ -208,37 +213,38 @@ namespace learning
 
     void Entity::minimize(Entity::Node* root)
     {
-        switch(root->type)
+        /*switch(root->type)
         {
-            case Node::CONSTANTE:
-            case Node::VALS_INDICE:
-                return;
-            case Node::UNAIRE:
-                {
-                    minimize(root->fils1);
-                    if (root->fils1->type == Node::CONSTANTE)
-                    {
-                        root->value = root->eval(0);
-                        root->type = Node::CONSTANTE;
-
-                        delete root->fils1;
-                        root->fils1 = 0;
-                        if(root->fils2)
-                        {
-                            delete root->fils2;
-                            root->fils2 = 0;
-                        }
-                        root->nb_sub_nodes = 1;
-                    }
-                    return;
-                }
-            case Node::BINAIRE:
-                minimize(root->fils2);
+            case Entity::Node::Type::CONSTANTE:
+            case Entity::Node::Type::VALS_INDICE:
+            {
+            }break;
+            case Entity::Node::Type::UNAIRE:
+            {
                 minimize(root->fils1);
-                if (root->fils1->type == Node::CONSTANTE and root->fils2->type == Node::CONSTANTE)
+                if (root->fils1->type == Entity::Node::Type::CONSTANTE)
                 {
                     root->value = root->eval(0);
-                    root->type = Node::CONSTANTE;
+                    root->type = Entity::Node::Type::CONSTANTE;
+
+                    delete root->fils1;
+                    root->fils1 = 0;
+                    if(root->fils2)
+                    {
+                        delete root->fils2;
+                        root->fils2 = 0;
+                    }
+                    root->nb_sub_nodes = 1;
+                }
+            }break;
+            case Entity::Node::Type::BINAIRE:
+            {
+                minimize(root->fils2);
+                minimize(root->fils1);
+                if (root->fils1->type == Entity::Node::Type::CONSTANTE and root->fils2->type == Entity::Node::Type::CONSTANTE)
+                {
+                    root->value = root->eval(0);
+                    root->type = Entity::Node::Type::CONSTANTE;
 
                     delete root->fils1;
                     root->fils1 = 0;
@@ -247,9 +253,13 @@ namespace learning
 
                     root->nb_sub_nodes = 1;
                 }
-                return;
-        }
-
+            }break;
+            default:
+            {
+                std::cerr<<"ERROR on Entity::minimize. Unknow node type :"<<root->type<<std::endl<<std::flush;
+                exit(4);
+            }break;
+        }*/
     };
 
     /* le nemero doit etre entre 1 et genome->nb_sub_nodes */
@@ -335,30 +345,27 @@ namespace learning
         return res;
     };
 
-
-
-
     /* NODE */
     int Entity::Node::max_indice = 0;
 
-    Entity::Node::Node(float cst) : type(Node::CONSTANTE), value(cst), nb_sub_nodes(1)
+    Entity::Node::Node(float cst) : type(Entity::Node::Type::CONSTANTE), value(cst), nb_sub_nodes(1)
     {
         fils1= fils2 = 0;
     };
 
-    Entity::Node::Node(int index) : type(Node::VALS_INDICE), indice(index), nb_sub_nodes(1)
+    Entity::Node::Node(int index) : type(Entity::Node::Type::VALS_INDICE), indice(index), nb_sub_nodes(1)
     {
         fils1= fils2 = 0;
     };
 
-    Entity::Node::Node(float(*f)(float),Node* _1) : type(Node::UNAIRE), funaire(f)
+    Entity::Node::Node(float(*f)(float),Node* _1) : type(Entity::Node::Type::UNAIRE), funaire(f)
     {
         fils1 = _1;
         fils2 = 0;
         nb_sub_nodes = _1->nb_sub_nodes + 1;
     };
 
-    Entity::Node::Node(float(*f)(float,float),Node* _1,Node* _2) : type(Node::BINAIRE), fbinaire(f)
+    Entity::Node::Node(float(*f)(float,float),Node* _1,Node* _2) : type(Entity::Node::Type::BINAIRE), fbinaire(f)
     {
         fils1 = _1;
         fils2 = _2;
@@ -367,10 +374,8 @@ namespace learning
 
     Entity::Node::~Node()
     {
-        if(fils1)
-            delete fils1;
-        if(fils2)
-            delete fils2;
+        delete fils1;
+        delete fils2;
     };
 
     Entity::Node* Entity::Node::clone() const
@@ -383,31 +388,55 @@ namespace learning
         if(fils2)
             res->fils2 = fils2->clone();
 
-        res->type = type;
-        switch(type)
+        res->type = this->type;
+        res->nb_sub_nodes = this->nb_sub_nodes;
+
+        switch(this->type)
         {
-            case Node::CONSTANTE : res->value = value;break;
-            case Node::VALS_INDICE : res->indice = indice;break;
-            case Node::UNAIRE : res->funaire = funaire;break;
-            case Node::BINAIRE : res->fbinaire = fbinaire;break;
+            case Entity::Node::Type::CONSTANTE :
+            {
+                res->value = value;
+            }break;
+            case Entity::Node::Type::VALS_INDICE :
+            {
+                res->indice = indice;
+            }break;
+            case Entity::Node::Type::UNAIRE : 
+            {
+                res->funaire = funaire;
+            }break;
+            case Entity::Node::Type::BINAIRE : 
+            {
+                res->fbinaire = fbinaire;
+            }break;
+            default:
+            {
+                std::cerr<<"Error on Entity::Node::clone. Unknow type :"<<this->type<<std::endl<<std::flush;
+                exit(5);
+            }break;
         }
 
-        res->nb_sub_nodes = nb_sub_nodes;
 
         return res;
     };
 
     float Entity::Node::eval(const double * const vals) const
     {
-        switch(type)
+        switch(this->type)
         {
-            case Node::CONSTANTE : return value;
-            case Node::VALS_INDICE : return vals[indice];
-            case Node::UNAIRE : return funaire(fils1->eval(vals));
-            case Node::BINAIRE : return fbinaire(fils1->eval(vals),fils2->eval(vals));
+            case Entity::Node::Type::CONSTANTE :
+                return value;
+            case Entity::Node::Type::VALS_INDICE :
+                return vals[indice];
+            case Entity::Node::Type::UNAIRE :
+                return funaire(fils1->eval(vals));
+            case Entity::Node::Type::BINAIRE : 
+                return fbinaire(fils1->eval(vals),fils2->eval(vals));
             default:
-                std::cerr<<"Unknow type of node"<<std::endl;
-                return 0;
+            {
+                std::cerr<<"Error on Entity::Node::eval. Unknow type of node: "<<this->type<<std::endl<<std::flush;
+                exit(6);
+            }
         }
     };
     Entity::Node* Entity::Node::CreateRandTree(const int profondeur)
@@ -416,42 +445,55 @@ namespace learning
         if (profondeur <= 1 or random(0.f,1.f)> 0.9) //feuille
         {
             //creation d'une feuille aléatoire
-            int choice = random(Node::CONSTANTE,Node::VALS_INDICE);
+            int choice = random(Entity::Node::Type::CONSTANTE,Entity::Node::Type::VALS_INDICE);
             switch (choice)
             {
-                case Node::CONSTANTE :
+                case Entity::Node::Type::CONSTANTE :
+                {
                     res = new Node(random(0.f,1.f));
-                    break;
-                case Node::VALS_INDICE :
+                }break;
+                case Entity::Node::Type::VALS_INDICE :
+                {
                     res = new Node(random(0,Node::max_indice-1));
-                    break;
+                }break;
+                default:
+                {
+                    std::cerr<<"Error on Entity::Node::CreateRandTree. choice is not a correct value("<<choice<<")"<<std::endl<<std::flush;
+                    exit(1);
+                }
             }
         }
         else //autre node pour les fils
         {
-            int choice = random(0,FUNCTIONS::SIZE);
+            int choice = random(Entity::Node::FUNCTIONS::SIN,Entity::Node::FUNCTIONS::SIZE -1);
             switch (choice)
             {
                 /* unaire */
-                case FUNCTIONS::SIN:/* sin*/
+                case Entity::Node::FUNCTIONS::SIN:/* sin*/
+                {
                     res = new Node(Node::sin_f,Node::CreateRandTree(profondeur-1));
-                    break;
-                    /*case 1://moin_u
-                      res = new Node(Node::moins_u,Node::CreateRandTree(profondeur-1));
-                      break;*/
-                    /* binaire */
-                case FUNCTIONS::MUL:/*mul*/
+                }break;
+                case Entity::Node::FUNCTIONS::MUL:/*mul*/
+                {
                     res = new Node(Node::mul,Node::CreateRandTree(profondeur-1),Node::CreateRandTree(profondeur-1));
-                    break;
-                case FUNCTIONS::DIV:/*div*/
+                }break;
+                case Entity::Node::FUNCTIONS::DIV:/*div*/
+                {
                     res = new Node(Node::div,Node::CreateRandTree(profondeur-1),Node::CreateRandTree(profondeur-1));
-                    break;
-                case FUNCTIONS::ADD:/*add*/
+                }break;
+                case Entity::Node::FUNCTIONS::ADD:/*add*/
+                {
                     res = new Node(Node::add,Node::CreateRandTree(profondeur-1),Node::CreateRandTree(profondeur-1));
-                    break;
-                case FUNCTIONS::MOINS_B:/*moins_b*/
+                }break;
+                case Entity::Node::FUNCTIONS::MOINS_B:/*moins_b*/
+                {
                     res = new Node(Node::moins_b,Node::CreateRandTree(profondeur-1),Node::CreateRandTree(profondeur-1));
-                    break;
+                }break;
+                default:
+                {
+                    std::cerr<<"Error on Entity::Node::CreateRandTree. choice is not a correct value("<<choice<<")"<<std::endl<<std::flush;
+                    exit(2);
+                }
             }
         }
 
@@ -463,41 +505,43 @@ namespace learning
         output<<"("; 
         switch(root->type)
         {
-            case Entity::Node::CONSTANTE:
-                {
-                    output<<root->value;
-                }break;
-            case Entity::Node::VALS_INDICE :
-                {
-                    output<<"vals["<<root->indice<<"]";
-                }break;
-            case Entity::Node::UNAIRE:
-                {
-                    //operator
-                    if(root->funaire == Entity::Node::sin_f)
-                        output<<"sin";
-                    /*else if (root->funaire == Entity::Node::moins_u)
-                      output<<"-";*/
-                    else
-                        output<<"ERROR_UNAIRE";
-                    output<<root->fils1;
-                }break;
-            case Entity::Node::BINAIRE:
-                {
-                    output<<root->fils1;
-                    if(root->fbinaire == Entity::Node::mul)
-                        output<<"*";
-                    else if (root->fbinaire == Entity::Node::div)
-                        output<<"/";
-                    else if (root->fbinaire == Entity::Node::add)
-                        output<<"+";
-                    else if (root->fbinaire == Entity::Node::moins_b)
-                        output<<"-";
-                    else
-                        output<<"ERROR_BINAIRE";
-                    //operator
-                    output<<root->fils2;
-                }break;
+            case Entity::Node::Type::CONSTANTE:
+            {
+                output<<root->value;
+            }break;
+            case Entity::Node::Type::VALS_INDICE :
+            {
+                output<<"vals["<<root->indice<<"]";
+            }break;
+            case Entity::Node::Type::UNAIRE:
+            {
+                //operator
+                if(root->funaire == Entity::Node::sin_f)
+                    output<<"sin";
+                /*else if (root->funaire == Entity::Node::moins_u)
+                  output<<"-";*/
+                else
+                    output<<"ERROR_UNAIRE";
+                output<<root->fils1;
+            }break;
+            case Entity::Node::Type::BINAIRE:
+            {
+                output<<root->fils1;
+                if(root->fbinaire == Entity::Node::mul)
+                    output<<"*";
+                else if (root->fbinaire == Entity::Node::div)
+                    output<<"/";
+                else if (root->fbinaire == Entity::Node::add)
+                    output<<"+";
+                else if (root->fbinaire == Entity::Node::moins_b)
+                    output<<"-";
+                else
+                    output<<"ERROR_BINAIRE";
+                //operator
+                output<<root->fils2;
+            }break;
+            default:
+                output<<"???";
         }
         output<<")"; 
         return output;

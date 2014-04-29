@@ -1,4 +1,5 @@
 add_subdirectory(${CMAKE_PROJECT_NAME})
 if(BUILD_LEARNING)
+    add_subdirectory(GeneticEngine)
     add_subdirectory(${CMAKE_PROJECT_NAME}-learning)
 endif()

@@ -9,6 +9,9 @@
 #include <harpe-sort-learning/Spectrum.hpp>
 #include <harpe-sort-learning/Entity.hpp>
 
+#include <GeneticEngine/random.hpp>
+#include <GeneticEngine/GeneticEngine.hpp>
+
 int main(int argc,char* argv[])
 {
     if (not harpe::Context::loadFromLib("./libempty_sort.so")) //just to be ok, even if not used
@@ -66,8 +69,35 @@ int main(int argc,char* argv[])
             delete spectrum;
         }
         file.close();
-
     }
+
+    rand_init();
+    int nb_threads = 1;
+    float mutation_taux = 0.1;
+    std::string filename = "test";
+    int pop_size = 10;
+    int pop_child = pop_size*0.8;
+    harpe::learning::Entity::Node::max_indice = harpe::Sequence::Stats::SIZE;
+
+
+    GeneticEngine<harpe::learning::Entity> engine(nb_threads,mutation_taux,filename,pop_size,pop_child,TREE_INIT_PROONDEUR);
+    engine.setTimeout(1000);
+    engine.setEvaluateAll(false);
+
+    bool(*stop)(const harpe::learning::Entity&, const int) = [](const harpe::learning::Entity& best, const int generation)
+    {
+        return generation > 200;
+    };
+    
+    engine.setCreationMode(GeneticEngine<harpe::learning::Entity>::CreationMode::TOURNAMENT);
+    engine.setReductionMode(GeneticEngine<harpe::learning::Entity>::ReductionMode::TOURNAMENT);
+    
+    harpe::learning::Entity* best = engine.run_while(stop);
+
+    std::cout<<*best<<std::endl;
+    delete best;
+
+
     harpe::Context::closeLib();
     return r;
 }

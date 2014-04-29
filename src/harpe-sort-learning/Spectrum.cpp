@@ -28,11 +28,12 @@ namespace harpe
                 data[i].second = propositions[i].eval(entity);
             }
 
-            std::sort(data.begin(),
-                      data.end(),
-                      [](const std::pair<const Sequence*,double> _1,const std::pair<const Sequence*,double> _2){
-                          return _1.second > _2.second;
-                      });
+            std::partial_sort(data.begin(),
+                              data.begin()+10,
+                              data.end(),
+                              [](const std::pair<const Sequence*,double> _1,const std::pair<const Sequence*,double> _2){
+                                  return _1.second > _2.second;
+                              });
 
             int res = 0;
             for(int i=0;i<_size and i < 10;++i)
