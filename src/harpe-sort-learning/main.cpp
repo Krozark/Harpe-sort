@@ -25,7 +25,8 @@ using namespace std;
     <<"\t -delete (defaut = tournament) [stupid/tournament] delete mode delete mode"<<endl\
     <<"\t -eval (default = 0) [1/0] always eval new"<<endl\
     <<"\t -threads (defaut = -1) [-1 pour le max possible] nombre de thread à utiliser"<<endl\
-    <<"\t -max (default = 90) [0~100] scrore moyen à obtenir (en pourcentage de réussite)"<<endl\
+    <<"\t -max (default = 90) [0~100] score moyen à obtenir (en pourcentage de réussite)"<<endl\
+    <<"\t -timeout (default = 30000) timeout pour la diffusion des meilleurs individus"<<endl\
     ;exit(1);\
 }
 
@@ -44,6 +45,7 @@ int main(int argc,char* argv[])
     string del = "tournament";
     bool eval = false;
     std::string mgf;
+    int timeout = 3000;
 
     {
         int i=1;
@@ -149,6 +151,15 @@ int main(int argc,char* argv[])
                 else
                     SHOW_ARGS("Pas de nombre précisé")
             }
+            else if(arg == "-timeout")
+            {
+                if(++i < argc)
+                {
+                    timeout = atoi(argv[i]);
+                }
+                else
+                    SHOW_ARGS("Pas de nombre précisé")
+            }
             else
                 SHOW_ARGS(string(argv[i])+": Mauvais argument");
             ++i;
@@ -170,7 +181,8 @@ int main(int argc,char* argv[])
     <<"\n delelte: "<<del
     <<"\n eval: "<<eval
     <<"\n threads: "<<nb_threads
-    <<"\n max:"<<_max*100
+    <<"\n max: "<<_max*100
+    <<"\t timeout: "<<timeout
     <<endl;
 
 
@@ -237,7 +249,7 @@ int main(int argc,char* argv[])
         harpe::learning::Entity::Node::max_indice = harpe::Sequence::Stats::SIZE;
 
         GeneticEngine<harpe::learning::Entity> engine(nb_threads,mutation_taux,filename,pop_size,pop_child,TREE_INIT_PROONDEUR);
-        engine.setTimeout(30000);
+        engine.setTimeout(timeout);
         engine.setEvaluateAll(eval);
 
         bool(*stop)(const harpe::learning::Entity&, const int) = [](const harpe::learning::Entity& best, const int generation)
