@@ -105,6 +105,7 @@ class GeneticThread
         */
         void end();
 
+
         /* save current best in file using << operator */
         void save(const std::string& name);
 

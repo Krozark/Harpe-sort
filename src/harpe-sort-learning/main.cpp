@@ -72,7 +72,7 @@ int main(int argc,char* argv[])
     }
 
     rand_init();
-    int nb_threads = 1;
+    int nb_threads = -1;
     float mutation_taux = 0.1;
     std::string filename = "calc_score";
     int pop_size = 2000;

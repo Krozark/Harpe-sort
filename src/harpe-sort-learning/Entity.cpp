@@ -354,7 +354,7 @@ namespace learning
     /* NODE */
     int Entity::Node::max_indice = 0;
 
-    Entity::Node::Node(float cst) : type(Entity::Node::Type::CONSTANTE), value(cst), nb_sub_nodes(1)
+    Entity::Node::Node(double cst) : type(Entity::Node::Type::CONSTANTE), value(cst), nb_sub_nodes(1)
     {
         fils1 = nullptr;
         fils2 = nullptr;
@@ -366,14 +366,14 @@ namespace learning
         fils2 = nullptr;
     };
 
-    Entity::Node::Node(float(*f)(float),Node* _1) : type(Entity::Node::Type::UNAIRE), funaire(f)
+    Entity::Node::Node(double(*f)(double),Node* _1) : type(Entity::Node::Type::UNAIRE), funaire(f)
     {
         fils1 = _1;
         fils2 = nullptr;
         nb_sub_nodes = _1->nb_sub_nodes + 1;
     };
 
-    Entity::Node::Node(float(*f)(float,float),Node* _1,Node* _2) : type(Entity::Node::Type::BINAIRE), fbinaire(f)
+    Entity::Node::Node(double(*f)(double,double),Node* _1,Node* _2) : type(Entity::Node::Type::BINAIRE), fbinaire(f)
     {
         fils1 = _1;
         fils2 = _2;
@@ -429,7 +429,7 @@ namespace learning
         return res;
     };
 
-    float Entity::Node::eval(const double * const vals) const
+    double Entity::Node::eval(const double * const vals) const
     {
         switch(this->type)
         {

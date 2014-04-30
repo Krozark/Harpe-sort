@@ -54,7 +54,7 @@ namespace learning
 
             void eval();///< fonction d'évaluation, affect le score
 
-            inline float eval(const double * const)const;
+            inline double eval(const double * const)const;
 
             inline bool need_eval();///< pour le moteur, eviter les eval inutile
 
@@ -85,26 +85,26 @@ namespace learning
                         BINAIRE ///< Fonction binaire
                     };
 
-                    Node(float cst); ///< construit une constante
+                    Node(double cst); ///< construit une constante
                     Node(int indice); ///< construit une valeur avec indice
-                    Node(float (*funaire)(float),Node* _1); ///< construit une fonction unaire
-                    Node(float (*funaire)(float,float),Node* _1,Node* _2); ///< construit une fonction binaire
+                    Node(double (*funaire)(double),Node* _1); ///< construit une fonction unaire
+                    Node(double (*funaire)(double,double),Node* _1,Node* _2); ///< construit une fonction binaire
                     ~Node();///< recursif
 
                     Node* clone() const;///< copie recursif
-                    float eval(const double * const vals) const; ///< évalue et met le score
+                    double eval(const double * const vals) const; ///< évalue et met le score
 
                     static Node* CreateRandTree(const int max_profondeur); ///< cré un arbre de manière aléatoire
 
                     /* FONCTIONS */
                     //unaire
-                    static inline float sin_f(float _1);///< fonction sinus
-                    //*6*/static float moins_u(float _1) {return -_1;};
+                    static inline double sin_f(double _1);///< fonction sinus
+                    //*6*/static double moins_u(double _1) {return -_1;};
                     //binaire
-                    static inline float mul(float _1,float _2);///< fonction multiplié
-                    static inline float div(float _1,float _2); ///< fonction divisé
-                    static inline float add(float _1,float _2); ///< fonction addition
-                    static inline float moins_b(float _1,float _2);///< fonction de soustraction
+                    static inline double mul(double _1,double _2);///< fonction multiplié
+                    static inline double div(double _1,double _2); ///< fonction divisé
+                    static inline double add(double _1,double _2); ///< fonction addition
+                    static inline double moins_b(double _1,double _2);///< fonction de soustraction
                    /*5 sous programme?*/
                     
                     enum FUNCTIONS {
@@ -143,10 +143,10 @@ namespace learning
                      **/
                     union
                     {
-                        float value; ///< valeur
+                        double value; ///< valeur
                         int indice; ///< indice
-                        float (*funaire)(float _1); ///< pointeur sur fonctionunaire
-                        float (*fbinaire)(float _1,float _2); ///< pointeur sur fonction binaire
+                        double (*funaire)(double _1); ///< pointeur sur fonctionunaire
+                        double (*fbinaire)(double _1,double _2); ///< pointeur sur fonction binaire
                     };
 
                     int nb_sub_nodes; ///< nombre de fils.\n Note : 1 => feuilles
@@ -154,7 +154,7 @@ namespace learning
 
             static float tauxMutation; ///< taux de miutation des nouveaux nés
 
-            inline int get_score()const;///< \return de score
+            inline double get_score()const;///< \return de score
             inline int size()const;///< \return le nombre de noeud
 
             inline void minimize();///< fusionne les noeud constants
@@ -166,7 +166,7 @@ namespace learning
             inline Node* get_node(int numero) const;///< entre ]1,genome->nb_sub_nodes[ , genome->nb_sub_nodes est le numero de la racine
 
             Node* genome; ///< noeud racine
-            int score; ///< score
+            double score; ///< score
 
             void minimize(Node* root); ///< minimizer l'arbre
 

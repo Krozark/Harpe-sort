@@ -16,6 +16,7 @@ template <typename ... Args>
 GeneticThread<T>::GeneticThread(float taux_mut,std::string filename,int pop_size,int pop_child, Args&& ... args) : size(pop_size), size_child(pop_child), mutation_taux(taux_mut), generation(0), prefix("best/"+filename), running(false)
 {
     mutex.lock();
+    best = nullptr;
     individus = new T*[size+size_child];
     for(int i=0;i<size;++i)
     {
@@ -112,12 +113,14 @@ void GeneticThread<T>::corps()
     //reduce pop
     (this->*reducePopFunc)();
 
-    mutex.unlock();
 
-    std::cout<<"["<<thread.get_id()<<"] generation #"<<generation++<<std::endl;
     #ifdef GENETIQUE_SAVE_RESULTS
         save(std::to_string(best->get_score()));
     #endif
+    mutex.unlock();
+
+    std::cout<<"["<<thread.get_id()<<"] generation #"<<generation++<<std::endl;
+
 };
 
 
@@ -310,20 +313,20 @@ void GeneticThread<T>::tournamentReduction()
         worst[1] = (*id_rand[4].second>*id_rand[5].second)?id_rand[5]:id_rand[4];
         worst[1] = (*id_rand[6].second>*worst[1].second)?worst[1]:id_rand[6];
     
-        worst[3] = (*worst[0].second>*worst[1].second)?worst[1]:worst[0];
+        worst[2] = (*worst[0].second>*worst[1].second)?worst[1]:worst[0];
 
         //delete worst
-        delete worst[3].second;
+        delete worst[2].second;
 
         //move last at new free place
-        individus[worst[3].first] = individus[i];
+        individus[worst[2].first] = individus[i];
         individus[i] = 0;
 
-        /*if(best == worst[3].second)
+        /*if(best == worst[2].second)
         {
-            if(worst[3].second == worst[1].second)
+            if(worst[2].second == worst[1].second)
                 best = worst[0].second;
-            else // worst[3] = worst[0]
+            else // worst[2] = worst[0]
                 best = worst[1].second;
         }*/
     }
