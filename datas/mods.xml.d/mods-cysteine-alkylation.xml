@@ -58,18 +58,6 @@
 	</Mod>
 
 	<Mod rKey="0">
-		<Nme>Terminal Carbamidomethyl</Nme>
-		<DisplayName>Carbamidomethyl</DisplayName>
-		<TLC>CAM</TLC>
-		<TS>5</TS>
-		<Fma>C2H4NO</Fma>
-		<RpF>H</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
-
-	<Mod rKey="0">
 		<Nme>Dicarbamidomethyl</Nme>
 		<TLC>2CM</TLC>
 		<Tgt>Aspartic Acid</Tgt>
@@ -214,18 +202,6 @@
 		<Tgt>Methionine</Tgt>
 		<TS>255</TS>
 		<Fma>C2H4NO</Fma>
-		<RpF>CH3</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
-
-	<Mod rKey="0">
-		<Nme>Met-&gt;Carboxymethyl-Hcy</Nme>
-		<TLC>CoS</TLC>
-		<Tgt>Methionine</Tgt>
-		<TS>255</TS>
-		<Fma>C2H3O2</Fma>
 		<RpF>CH3</RpF>
 		<NLF></NLF>
 		<IIF></IIF>

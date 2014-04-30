@@ -132,12 +132,12 @@
     </Mod>
 
     <Mod rKey="0">
-        <Nme>Carboxy</Nme>
+        <Nme>Carboxylation</Nme>
         <TLC>Cox</TLC>
         <Tgt>Aspartic Acid</Tgt>
         <Tgt>Glutamic Acid</Tgt>
-        <Tgt>Methionine</Tgt>
         <Tgt>Lysine</Tgt>
+        <Tgt>W<Tgt>
         <TS>255</TS>
         <Fma>CHO2</Fma>
         <RpF>H</RpF>
@@ -147,12 +147,12 @@
     </Mod>
 
     <Mod rKey="0">
-        <Nme>Carboxy-&gt;Thiocarboxy</Nme>
-        <TLC>Scx</TLC>
-        <Tgt>Glycine</Tgt>
-        <TS>8</TS>
-        <Fma>S</Fma>
-        <RpF>O</RpF>
+        <Nme>Carboxylation N-terminal</Nme>
+        <TLC>Cox</TLC>
+        <Tgt>Methionine</Tgt>
+        <TS>4</TS>
+        <Fma>CHO2</Fma>
+        <RpF>H</RpF>
         <NLF></NLF>
         <IIF></IIF>
         <Chg>0</Chg>
@@ -253,7 +253,7 @@
     </Mod>
 
     <Mod rKey="0">
-        <Nme>Cysteinyl</Nme>
+        <Nme>Cysteinylation</Nme>
         <TLC>SCC</TLC>
         <Tgt>Cysteine</Tgt>
         <TS>255</TS>
@@ -1212,10 +1212,22 @@
     </Mod>
 
     <Mod rKey="0">
-        <Nme>Myristoyl</Nme>
+        <Nme>Myristoylation</Nme>
         <TLC>Myr</TLC>
         <Tgt>Lysine</Tgt>
         <Tgt>Cysteine</Tgt>
+        <TS>255</TS>
+        <Fma>C14H27O</Fma>
+        <RpF>H</RpF>
+        <NLF></NLF>
+        <IIF></IIF>
+        <Chg>0</Chg>
+    </Mod>
+
+    <Mod rKey="0">
+        <Nme>Myristoylation N-terminale</Nme>
+        <TLC>Myr</TLC>
+        <Tgt>G</Tgt>
         <TS>4</TS>
         <Fma>C14H27O</Fma>
         <RpF>H</RpF>
@@ -1303,13 +1315,13 @@
     </Mod>
 
     <Mod rKey="0">
-        <Nme>Palmitoyl</Nme>
+        <Nme>Palmitoylation</Nme>
         <TLC>Pal</TLC>
         <Tgt>Cysteine</Tgt>
         <Tgt>Serine</Tgt>
         <Tgt>Threonine</Tgt>
         <Tgt>Lysine</Tgt>
-        <TS>255</TS>
+        <TS>4</TS>
         <Fma>C16H31O</Fma>
         <RpF>H</RpF>
         <NLF></NLF>
@@ -1563,12 +1575,9 @@
     </Mod>
 
     <Mod rKey="0">
-        <Nme>Sulfo</Nme>
+        <Nme>Sulfation</Nme>
         <TLC>SuO</TLC>
-        <Tgt>Serine</Tgt>
-        <Tgt>Threonine</Tgt>
         <Tgt>Tyrosine</Tgt>
-        <Tgt>Cysteine</Tgt>
         <TS>255</TS>
         <Fma>HO3S</Fma>
         <RpF>H</RpF>
