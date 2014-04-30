@@ -12,10 +12,167 @@
 #include <GeneticEngine/random.hpp>
 #include <GeneticEngine/GeneticEngine.hpp>
 
+using namespace std;
+
+#define SHOW_ARGS(x) {cout<<x<<endl\
+    <<"\t -h, -help, montre ce message"<<endl\
+    <<"\t -f mgf input file (obligatoire)"<<endl\
+    <<"\t -pop-total (defaut = 1000) population"<<endl\
+    <<"\t -pop-enf (defaut = 1000) population d'enfants"<<endl\
+    <<"\t -mutation (defaut = 1 %) [entre 0 et 100]) taux de mutation"<<endl\
+    <<"\t -prefix prefix du nom de fichier de log (default = calc_score)"<<endl\
+    <<"\t -create (defaut = tournament) [stupid/tournament] creation mode"<<endl\
+    <<"\t -delete (defaut = tournament) [stupid/tournament] delete mode delete mode"<<endl\
+    <<"\t -eval (default = 0) [1/0] always eval new"<<endl\
+    <<"\t -threads (defaut = -1) [-1 pour le max possible] nombre de thread à utiliser"<<endl\
+    <<"\t -max (default = 90) [0~100] scrore moyen à obtenir (en pourcentage de réussite)"<<endl\
+    ;exit(1);\
+}
+
+double _max = 90;
 int main(int argc,char* argv[])
 {
     if (not harpe::Context::loadFromLib("./libempty_sort.so")) //just to be ok, even if not used
         return 1;
+
+    int pop_size = 1000;
+    int pop_child = 1000;
+    float mutation_taux = 1;
+    std::string filename= "calc_score";
+    int nb_threads = -1;
+    string creation = "tournament";
+    string del = "tournament";
+    bool eval = false;
+    std::string mgf;
+
+    {
+        int i=1;
+        while(i<argc)
+        {
+            string arg = string(argv[i]);
+            if(arg == "-f")
+            {
+                if(++i < argc)
+                {
+                    mgf = argv[i];
+                }
+                else
+                    SHOW_ARGS("Pas de fichier spécifié")
+            }
+            else if (arg =="-pop-total")
+            {
+                if(++i <argc)
+                {
+                    pop_size = atoi(argv[i]);
+                    if(pop_size <0)
+                        SHOW_ARGS("Pas de population négative possible")
+                }
+                else
+                    SHOW_ARGS("Pas de population de précisée")
+            }
+            else if (arg == "-pop-enf")
+            {
+                if(++i <argc)
+                {
+                    pop_child = atoi(argv[i]);
+                    if(pop_child <0)
+                        SHOW_ARGS("Pas de population négative possible")
+                }
+                else
+                    SHOW_ARGS("Pas de population de précisée")
+            }
+            else if(arg == "-mutation")
+            {
+                if(++i <argc)
+                {
+                    mutation_taux = atoi(argv[i]);
+                    if(mutation_taux <0 or mutation_taux > 100)
+                        SHOW_ARGS("Taux de mutation mauvais")
+
+                }
+                else
+                    SHOW_ARGS("Pas de mutation de précisée")
+            }
+            else if (arg == "-prefix")
+            {
+                if(++i <argc)
+                {
+                    filename = argv[i];
+                }
+                else
+                    SHOW_ARGS("Pas de préfix de précisé")
+            }
+            else if(arg == "-threads")
+            {
+                if(++i < argc)
+                {
+                    nb_threads = atoi(argv[i]);
+                }
+                else
+                    SHOW_ARGS("Pas de nombre de précisé");
+            }
+            else if (arg =="-h" or arg=="-help")
+                SHOW_ARGS("Aide")            
+            else if(arg == "-create")
+            {
+                if(++i < argc)
+                {
+                    creation = argv[i];
+                }
+                else
+                    SHOW_ARGS("Pas de mode de précisé");
+            }
+            else if(arg == "-delete")
+            {
+               if(++i < argc)
+               {
+                   del = argv[i];
+               }
+               else
+                   SHOW_ARGS("Pas de mode de précisé");
+            }
+            else if (arg == "-eval")
+            {
+                if(++i < argc)
+                {
+                    eval = (atoi(argv[i])==1);
+                }
+                else
+                    SHOW_ARGS("Pas de nombre de précisé");
+            }
+            else if(arg == "-max")
+            {
+                if(++i < argc)
+                {
+                    _max = atoi(argv[i]);
+                }
+                else
+                    SHOW_ARGS("Pas de nombre précisé")
+            }
+            else
+                SHOW_ARGS(string(argv[i])+": Mauvais argument");
+            ++i;
+        }
+
+        mutation_taux /=100;
+        _max /=100;
+
+        if (mgf == "")
+            SHOW_ARGS("Pas de fichier mgf spécifié")
+    }
+
+    cout<<"Aguments: "
+    <<"\n pop-size: "<<pop_size
+    <<"\n pop-enf: "<< pop_child
+    <<"\n mutation: "<<mutation_taux*100
+    <<"\n prefix: "<<filename
+    <<"\n create: "<<creation
+    <<"\n delelte: "<<del
+    <<"\n eval: "<<eval
+    <<"\n threads: "<<nb_threads
+    <<"\n max:"<<_max*100
+    <<endl;
+
 
     harpe::Context::error=0.05;
     harpe::Context::finds_max_size=1000000;
@@ -45,7 +202,7 @@ int main(int argc,char* argv[])
     harpe::Context::aa_tab.sort();
 
     int r=0;
-    std::ifstream file(argv[1], std::ifstream::in);
+    std::ifstream file(mgf, std::ifstream::in);
 
     if (file.good())
     {
@@ -53,49 +210,57 @@ int main(int argc,char* argv[])
         mgf::Driver driver(file);
         mgf::Spectrum* spectrum = nullptr;
         int status = 0;
+        std::cout<<"Initialisation des données d'apprentissage"<<std::endl;
+        int i = 1;
         while((spectrum = driver.next()) != nullptr)
         {
-            spectrum->__print__(std::cout);
             std::vector<harpe::Sequence> res = harpe::Analyser::analyse(*spectrum,status,-1);
-            std::cout<<"status: "<<status<<std::endl;
-
-
-            //convert for learning
-            harpe::learning::Entity::learning_spectums.push_back(harpe::learning::Spectrum::convert(*spectrum,res));
-
-            std::cout<<harpe::learning::Entity::learning_spectums.back()<<std::endl;
+            if (status == 1)
+            {
+                std::cout<<"Ajout du spectre no: "<<i<<". status : Ok"<<std::endl;
+                //convert for learning
+                harpe::learning::Entity::learning_spectums.push_back(harpe::learning::Spectrum::convert(*spectrum,res));
+            }
+            else
+            {
+                std::cout<<"Ajout du spectre no: "<<i<<". status : Erreur. Merci de corriger le fichier d'entrée"<<std::endl;
+            }
 
             harpe::Analyser::free();
             delete spectrum;
+            ++i;
         }
         file.close();
+    
+
+        rand_init();
+        harpe::learning::Entity::Node::max_indice = harpe::Sequence::Stats::SIZE;
+
+        GeneticEngine<harpe::learning::Entity> engine(nb_threads,mutation_taux,filename,pop_size,pop_child,TREE_INIT_PROONDEUR);
+        engine.setTimeout(30000);
+        engine.setEvaluateAll(eval);
+
+        bool(*stop)(const harpe::learning::Entity&, const int) = [](const harpe::learning::Entity& best, const int generation)
+        {
+            return best.get_score() > _max; //tant qu'on a pas 99% de réussite
+        };
+
+        if (creation == "tournament")
+            engine.setCreationMode(GeneticEngine<harpe::learning::Entity>::CreationMode::TOURNAMENT);
+        else
+            engine.setCreationMode(GeneticEngine<harpe::learning::Entity>::CreationMode::STUPIDE);
+
+        if(del == "tournament")
+            engine.setReductionMode(GeneticEngine<harpe::learning::Entity>::ReductionMode::TOURNAMENT);
+        else
+            engine.setReductionMode(GeneticEngine<harpe::learning::Entity>::ReductionMode::STUPIDE);
+
+        std::cout<<"Initialisation du moteur génétique"<<std::endl;
+        harpe::learning::Entity* best = engine.run_while(stop);
+
+        std::cout<<*best<<std::endl;
+        delete best;
     }
-
-    rand_init();
-    int nb_threads = -1;
-    float mutation_taux = 0.1;
-    std::string filename = "calc_score";
-    int pop_size = 2000;
-    int pop_child = pop_size*0.8;
-    harpe::learning::Entity::Node::max_indice = harpe::Sequence::Stats::SIZE;
-
-
-    GeneticEngine<harpe::learning::Entity> engine(nb_threads,mutation_taux,filename,pop_size,pop_child,TREE_INIT_PROONDEUR);
-    engine.setTimeout(5000);
-    engine.setEvaluateAll(false);
-
-    bool(*stop)(const harpe::learning::Entity&, const int) = [](const harpe::learning::Entity& best, const int generation)
-    {
-        return generation > 200;
-    };
-    
-    engine.setCreationMode(GeneticEngine<harpe::learning::Entity>::CreationMode::TOURNAMENT);
-    engine.setReductionMode(GeneticEngine<harpe::learning::Entity>::ReductionMode::TOURNAMENT);
-    
-    harpe::learning::Entity* best = engine.run_while(stop);
-
-    std::cout<<*best<<std::endl;
-    delete best;
 
 
     harpe::Context::closeLib();

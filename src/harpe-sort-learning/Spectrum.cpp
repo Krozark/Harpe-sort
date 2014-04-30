@@ -8,6 +8,8 @@
 #define MAX(x,y) (((x)>(y))?(x):(y))
 #define MIN(x,y) (((x)<(y))?(x):(y))
 
+#define TO_BE_SORT 10
+
 namespace harpe
 {
     namespace learning
@@ -17,7 +19,7 @@ namespace harpe
             return Spectrum(src,src_seq);
         }
 
-        int Spectrum::eval(const Entity& entity)const
+        double Spectrum::eval(const Entity& entity)const
         {
             const int _size = propositions.size();
             std::vector<std::pair<const Sequence *,double>> data(_size);
@@ -29,14 +31,15 @@ namespace harpe
             }
 
             std::partial_sort(data.begin(),
-                              data.begin()+10,
+                              data.begin()+TO_BE_SORT,
                               data.end(),
                               [](const std::pair<const Sequence*,double> _1,const std::pair<const Sequence*,double> _2){
                                   return _1.second > _2.second;
                               });
 
             int res = 0;
-            for(int i=0;i<_size and i < 10;++i)
+            const int _max = MIN(_size,TO_BE_SORT);
+            for(int i=0;i<_max;++i)
             {
                 if(propositions[i].sequence == data[i].first->sequence
                     and std::sign(propositions[i].real_score) == std::sign(data[i].second))
@@ -44,9 +47,8 @@ namespace harpe
                 else
                     break;
             }
-            //TODO res/=(double)MIN(_size,10)
-            return res;
 
+            return res/double(_max);
         }
 
         int Spectrum::rate(const std::string& seq)const

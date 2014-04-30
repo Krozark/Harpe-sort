@@ -30,7 +30,7 @@ namespace harpe
 
                 int rate(const std::string& seq)const;
 
-                int eval(const Entity& entity)const;
+                double eval(const Entity& entity)const;
 
                 friend std::ostream& operator<<(std::ostream& output,const Spectrum& self);
 

@@ -214,6 +214,7 @@ namespace learning
         Entity& self = *this;
         for(Spectrum& spectrum : learning_spectums)
             self.score += spectrum.eval(self);
+        this->score/=learning_spectums.size();
         evaluate = true;
     };
 
