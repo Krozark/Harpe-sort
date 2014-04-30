@@ -26,7 +26,7 @@ using namespace std;
     <<"\t -eval (default = 0) [1/0] always eval new"<<endl\
     <<"\t -threads (defaut = -1) [-1 pour le max possible] nombre de thread à utiliser"<<endl\
     <<"\t -max (default = 90) [0~100] score moyen à obtenir (en pourcentage de réussite)"<<endl\
-    <<"\t -timeout (default = 30000) timeout pour la diffusion des meilleurs individus"<<endl\
+    <<"\t -timeout (default = 30000) in ms timeout pour la diffusion des meilleurs individus"<<endl\
     ;exit(1);\
 }
 
