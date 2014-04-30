@@ -184,7 +184,7 @@ int main(int argc,char* argv[])
     <<"\n eval: "<<eval
     <<"\n threads: "<<nb_threads
     <<"\n max: "<<_max*100
-    <<"\t timeout: "<<timeout
+    <<"\n timeout: "<<timeout
     <<endl;
 
 
