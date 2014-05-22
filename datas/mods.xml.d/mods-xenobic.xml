@@ -120,18 +120,6 @@
 	</Mod>
 
 	<Mod rKey="0">
-		<Nme>Terminal Trinitrophenyl</Nme>
-		<DisplayName>Trinitrophenyl</DisplayName>
-		<TLC>3Np</TLC>
-		<TS>5</TS>
-		<Fma>C6H2N3O6</Fma>
-		<RpF>H</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
-
-	<Mod rKey="0">
 		<Nme>PMC</Nme>
 		<TLC>PMC</TLC>
 		<Tgt>Arginine</Tgt>

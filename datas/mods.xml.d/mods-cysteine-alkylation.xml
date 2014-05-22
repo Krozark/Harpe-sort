@@ -24,7 +24,7 @@
 		<Nme>Terminal Acetyl-PEO-Biotin</Nme>
 		<DisplayName>Acetyl-PEO-Biotin</DisplayName>
 		<TLC>PEO</TLC>
-		<TS>5</TS>
+		<TS>4</TS>
 		<Fma>C18H30N4O5S</Fma>
 		<RpF></RpF>
 		<NLF></NLF>
@@ -73,7 +73,7 @@
 		<Nme>Cys-&gt;pyro-CAM</Nme>
 		<TLC>PCa</TLC>
 		<Tgt>Cysteine</Tgt>
-		<TS>5</TS>
+		<TS>4</TS>
 		<Fma>C2O</Fma>
 		<RpF></RpF>
 		<NLF></NLF>
@@ -83,25 +83,11 @@
 
 	<Mod rKey="0">
 		<Nme>Cys-&gt;pyro-CmC</Nme>
-		<TLC>PCm</TLC>
+		<TLC>cysToPyro</TLC>
 		<Tgt>Cysteine</Tgt>
-		<TS>5</TS>
+		<TS>4</TS>
 		<Fma>C2O</Fma>
 		<RpF></RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
-
-	<!-- CmC to pyro-CmC cyclization -->
-	<Mod rKey="0">
-		<Nme>Terminal Dehydrated</Nme>
-		<DisplayName>Dehydrated</DisplayName>
-		<TLC>Dhy</TLC>
-		<Tgt>Cysteine</Tgt>
-		<TS>5</TS>
-		<Fma></Fma>
-		<RpF>H2O</RpF>
 		<NLF></NLF>
 		<IIF></IIF>
 		<Chg>0</Chg>
@@ -138,7 +124,7 @@
 		<Nme>Terminal Ethanolyl</Nme>
 		<DisplayName>Ethanolyl</DisplayName>
 		<TLC>EtO</TLC>
-		<TS>5</TS>
+		<TS>4</TS>
 		<Fma>C2H5O</Fma>
 		<RpF>H</RpF>
 		<NLF></NLF>
@@ -163,7 +149,7 @@
 		<Nme>Terminal N-Ethylmaleimide</Nme>
 		<DisplayName>N-Ethylmaleimide</DisplayName>
 		<TLC>NEM</TLC>
-		<TS>5</TS>
+		<TS>4</TS>
 		<Fma>H7C6NO2</Fma>
 		<RpF></RpF>
 		<NLF></NLF>
@@ -188,7 +174,7 @@
 		<Nme>Terminal N-Ethylmaleimide+water</Nme>
 		<DisplayName>N-Ethylmaleimide+water</DisplayName>
 		<TLC>NMH</TLC>
-		<TS>5</TS>
+		<TS>4</TS>
 		<Fma>H9C6NO3</Fma>
 		<RpF></RpF>
 		<NLF></NLF>
@@ -225,7 +211,7 @@
 		<Nme>Terminal N-Methylmaleimide</Nme>
 		<DisplayName>N-Methylmaleimide</DisplayName>
 		<TLC>NMM</TLC>
-		<TS>5</TS>
+		<TS>4</TS>
 		<Fma>H5C5NO2</Fma>
 		<RpF></RpF>
 		<NLF></NLF>
@@ -250,7 +236,7 @@
 		<Nme>Terminal N-Methylmaleimide+water</Nme>
 		<DisplayName>N-Methylmaleimide+water</DisplayName>
 		<TLC>MMH</TLC>
-		<TS>5</TS>
+		<TS>4</TS>
 		<Fma>H7C5NO3</Fma>
 		<RpF></RpF>
 		<NLF></NLF>
@@ -275,7 +261,7 @@
 		<Nme>Terminal Pyridylethyl</Nme>
 		<DisplayName>Pyridylethyl</DisplayName>
 		<TLC>Pye</TLC>
-		<TS>5</TS>
+		<TS>4</TS>
 		<Fma>C7H8N</Fma>
 		<RpF>H</RpF>
 		<NLF></NLF>

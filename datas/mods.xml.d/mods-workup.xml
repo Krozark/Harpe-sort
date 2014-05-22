@@ -137,51 +137,6 @@
 		<Chg>0</Chg>
 	</Mod>
 
-	<!-- Arginine to citrulline conversion is also being dubbed deamidated, as proposed in the standards spreadsheet. Thus, Arg to Cit has been removed here in version 3 onward -->
-	<Mod rKey="0">
-		<Nme>Deamidated</Nme>
-		<TLC>Dea</TLC>
-		<TS>255</TS>
-		<Tgt>Asparagine</Tgt>
-		<Tgt>Glutamine</Tgt>
-		<Tgt>AsnOrAsp</Tgt>
-		<Tgt>GlnOrGlu</Tgt>
-		<Tgt>Arginine</Tgt>
-		<Fma>HO</Fma>
-		<RpF>H2N</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
-
-	<Mod rKey="0">
-		<Nme>Dehydrated</Nme>
-		<TLC>Dhy</TLC>
-		<Tgt>Aspartic Acid</Tgt>
-		<Tgt>Glutamic Acid</Tgt>
-		<Tgt>Serine</Tgt>
- 		<Tgt>Threonine</Tgt>
-		<Tgt>Tyrosine</Tgt>
- 		<TS>255</TS>
-		<Fma></Fma>
-		<RpF>H2O</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
-
-	<Mod rKey="0">
-		<Nme>Protein Terminal Dehydrated</Nme>
-		<TLC>Dhy</TLC>
-		<Tgt>Asparagine</Tgt>
-		<Tgt>Glutamine</Tgt>
- 		<TS>8</TS>
-		<Fma></Fma>
-		<RpF>H2O</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
 
 	<!-- Half of a disulfide bridge -->
 	<Mod rKey="0">	
@@ -356,18 +311,6 @@
 		<TLC>-1K</TLC>
 		<Tgt>Lysine</Tgt>
 		<TS>10</TS>
-		<Fma></Fma>
-		<RpF>H12C6N2O</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
-
-	<Mod rKey="0">	
-		<Nme>Protein Terminal Lys-loss</Nme>
-		<TLC>-1K</TLC>
-		<Tgt>Lysine</Tgt>
-		<TS>8</TS>
 		<Fma></Fma>
 		<RpF>H12C6N2O</RpF>
 		<NLF></NLF>

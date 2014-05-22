@@ -53,7 +53,8 @@
 		<TS>255</TS>
 		<Tgt>Asparagine</Tgt>
 		<Tgt>Glutamine</Tgt>
-		<Tgt>AsnOrAsp</Tgt>
+        <Tgt>Asn</Tgt>
+        <Tgt>Asp</Tgt>
 		<Fma>HOb</Fma>
 		<RpF>H2N</RpF>
 		<NLF></NLF>
@@ -243,19 +244,6 @@
 		<IIF></IIF>
 		<Chg>0</Chg>
 	</Mod>
-
-	<Mod rKey="0">
-		<Nme>Terminal iTRAQ4plex</Nme>
-		<DisplayName>iTRAQ4plex</DisplayName>
-		<TLC>IT4</TLC>
-		<TS>5</TS>
-		<Fma>C4Cb3H13NNcO</Fma>
-		<RpF>H</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
-
 	<Mod rKey="0">
 		<Nme>Protein Terminal iTRAQ4plex</Nme>
 		<TLC>IT4</TLC>
@@ -282,18 +270,6 @@
 		<IIF></IIF>
 		<Chg>0</Chg>
 	</Mod>  
-
-	<Mod rKey="0">
-		<Nme>Terminal iTRAQ8plex</Nme>
-		<DisplayName>iTRAQ8plex</DisplayName>
-		<TLC>IT8</TLC>
-		<TS>5</TS>
-		<Fma>C7Cb7H25N3NcO3</Fma>
-		<RpF>H</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
 
 	<Mod rKey="0">
 		<Nme>Protein Terminal iTRAQ8plex</Nme>
@@ -323,18 +299,6 @@
 	</Mod>
 
 	<Mod rKey="0">
-		<Nme>Terminal iTRAQ8plexCold</Nme>
-		<DisplayName>iTRAQ8plexCold</DisplayName>
-		<TLC>T8C</TLC>
-		<TS>5</TS>
-		<Fma>C14H25N4O3</Fma>
-		<RpF>H</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
-
-	<Mod rKey="0">
 		<Nme>Protein Terminal iTRAQ8plexCold</Nme>
 		<TLC>T8C</TLC>
 		<TS>4</TS>
@@ -345,45 +309,6 @@
 		<Chg>0</Chg>
 	</Mod>
   
-	<!-- For backwards compatibility of 3 letter codes -->
-	<Mod rKey="0">
-		<Nme>iTRAQ4plex Old3LetterCode</Nme>
-		<TLC>ITR</TLC>
-		<Tgt>Lysine</Tgt>
-		<Tgt>Tyrosine</Tgt>
-		<TS>255</TS>
-		<Fma>C4Cb3H13NNcO</Fma>
-		<RpF>H</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
-
-	<!-- For backwards compatibility of 3 letter codes -->
-	<Mod rKey="0">
-		<Nme>Protein Terminal iTRAQ4plex Old3LetterCode</Nme>
-		<TLC>PTR</TLC>
-		<TS>4</TS>
-		<Fma>C4Cb3H13NNcO</Fma>
-		<RpF>H</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
-
-	<!-- For backwards compatibility of 3 letter codes -->
-	<Mod rKey="0">
-		<Nme>iTRAQ8plex Old3LetterCode</Nme>
-		<TLC>TR8</TLC>
-		<Tgt>Lysine</Tgt>
-		<Tgt>Tyrosine</Tgt>
-		<TS>255</TS>
-		<Fma>C7Cb7H25N3NcO3</Fma>
-		<RpF>H</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
 
 	<!-- For display purposes in ProteinPilot UI only (supply DisplayName) -->
 	<Mod rKey="0">
@@ -410,107 +335,6 @@
 		<TLC>IT4</TLC>
 		<TS>5</TS>
 		<Fma>C4Cb3H13NNcO</Fma>
-		<RpF>H</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
-
-	<!-- For display purposes in ProteinPilot UI only (supply DisplayName) -->
-	<Mod rKey="0">
-		<Nme>Protein Terminal iTRAQ</Nme>
-		<DisplayName>Protein Terminal iTRAQ4plex</DisplayName>
-		<TLC>IT4</TLC>
-		<TS>4</TS>
-		<Fma>C4Cb3H13NNcO</Fma>
-		<RpF>H</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
-
-	<!-- For display purposes in ProteinPilot UI only (supply DisplayName) -->
-	<Mod rKey="0">
-		<Nme>iTRAQ4Plex</Nme>
-		<DisplayName>iTRAQ4plex</DisplayName>
-		<TLC>IT4</TLC>
-		<Tgt>Lysine</Tgt>
-		<Tgt>Tyrosine</Tgt>
-		<Tgt>Histidine</Tgt>
-		<Tgt>Serine</Tgt>
-		<Tgt>Threonine</Tgt>
-		<TS>255</TS>
-		<Fma>C4Cb3H13NNcO</Fma>
-		<RpF>H</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
-
-	<!-- For display purposes in ProteinPilot UI only (supply DisplayName) -->
-	<Mod rKey="0">
-		<Nme>Terminal iTRAQ4Plex</Nme>
-		<DisplayName>iTRAQ4plex</DisplayName>
-		<TLC>IT4</TLC>
-		<TS>5</TS>
-		<Fma>C4Cb3H13NNcO</Fma>
-		<RpF>H</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
-
-	<!-- For display purposes in ProteinPilot UI only (supply DisplayName) -->
-	<Mod rKey="0">
-		<Nme>Protein Terminal iTRAQ4Plex</Nme>
-		<DisplayName>Protein Terminal iTRAQ4plex</DisplayName>
-		<TLC>IT4</TLC>
-		<TS>4</TS>
-		<Fma>C4Cb3H13NNcO</Fma>
-		<RpF>H</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
-
-	<!-- For display purposes in ProteinPilot UI only (supply DisplayName) -->
-	<Mod rKey="0">
-		<Nme>iTRAQ8Plex</Nme>
-		<DisplayName>iTRAQ8plex</DisplayName>
-		<TLC>IT8</TLC>
-		<Tgt>Lysine</Tgt>
-		<Tgt>Tyrosine</Tgt>
-		<Tgt>Histidine</Tgt>
-		<Tgt>Serine</Tgt>
-		<Tgt>Threonine</Tgt>
-		<TS>255</TS>
-		<Fma>C7Cb7H25N3NcO3</Fma>
-		<RpF>H</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>  
-
-	<!-- For display purposes in ProteinPilot UI only (supply DisplayName) -->
-	<Mod rKey="0">
-		<Nme>Terminal iTRAQ8Plex</Nme>
-		<DisplayName>iTRAQ8plex</DisplayName>
-		<TLC>IT8</TLC>
-		<TS>5</TS>
-		<Fma>C7Cb7H25N3NcO3</Fma>
-		<RpF>H</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
-
-	<!-- For display purposes in ProteinPilot UI only (supply DisplayName) -->
-	<Mod rKey="0">
-		<Nme>Protein Terminal iTRAQ8Plex</Nme>
-		<DisplayName>Protein Terminal iTRAQ8plex</DisplayName>
-		<TLC>IT8</TLC>
-		<TS>4</TS>
-		<Fma>C7Cb7H25N3NcO3</Fma>
 		<RpF>H</RpF>
 		<NLF></NLF>
 		<IIF></IIF>
@@ -547,21 +371,6 @@
 		<IIF></IIF>
 		<Chg>0</Chg>
 	</Mod>
-
-	<!-- For display purposes in ProteinPilot UI only (supply DisplayName) -->
-	<Mod rKey="0">
-		<Nme>Protein Terminal iTRAQ8PlexCold</Nme>
-		<DisplayName>Protein Terminal iTRAQ8plexCold</DisplayName>
-		<TLC>T8C</TLC>
-		<TS>4</TS>
-		<Fma>C14H25N4O3</Fma>
-		<RpF>H</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
-
-
 
 
 	<Mod rKey="0">
@@ -805,47 +614,6 @@
 		<Chg>0</Chg>
 	</Mod>	
 	
-	<!-- For backwards compatibility of 3 letter codes -->
-	<Mod rKey="0">
-		<Nme>Label:13C(6)15N(2) Old3LetterCode</Nme>
-		<TLC>K+8</TLC>
-		<Tgt>Lysine</Tgt>
-		<TS>255</TS>
-		<Fma>Cb6Nc2</Fma>
-		<RpF>C6N2</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
-	
-	<!-- For backwards compatibility of 3 letter codes -->
-	<Mod rKey="0">
-		<Nme>Label:13C(6) Old3LetterCode</Nme>
-		<TLC>SK6</TLC>
-		<Tgt>Lysine</Tgt>
-		<Tgt>Arginine</Tgt>
-		<Tgt>Isoleucine</Tgt>
-		<TS>255</TS>
-		<Fma>Cb6</Fma>
-		<RpF>C6</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>
-
-	<!-- For backwards compatibility of 3 letter codes -->
-	<Mod rKey="0">
-		<Nme>Label:13C(6)15N(4) Old3LetterCode</Nme>
-		<TLC>SRT</TLC>
-		<Tgt>Arginine</Tgt>
-		<Tgt>Lysine</Tgt>
-		<TS>255</TS>
-		<Fma>Cb6Nc4</Fma>
-		<RpF>C6N4</RpF>
-		<NLF></NLF>
-		<IIF></IIF>
-		<Chg>0</Chg>
-	</Mod>	
 
 	<Mod rKey="0">
 		<Nme>Label:18O(1)</Nme>

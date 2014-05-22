@@ -137,7 +137,7 @@
         <Tgt>Aspartic Acid</Tgt>
         <Tgt>Glutamic Acid</Tgt>
         <Tgt>Lysine</Tgt>
-        <Tgt>W<Tgt>
+        <Tgt>W</Tgt>
         <TS>255</TS>
         <Fma>CHO2</Fma>
         <RpF>H</RpF>
@@ -211,7 +211,7 @@
         <TLC>Disulphide</TLC>
         <TS>255</TS>
         <Fma></Fma>
-        <RpF>H2</Rpf>
+        <RpF>H2</RpF>
         <NLF></NLF>
         <IIF></IIF>
         <Chg>0</Chg>
@@ -389,7 +389,7 @@
         <Tgt>K</Tgt>
         <Tgt>S</Tgt>
         <Fma>COH</Fma>
-        <RpF>H</Rpf>
+        <RpF>H</RpF>
         <NLF></NLF>
         <IIF></IIF>
         <Chg></Chg>
@@ -405,7 +405,7 @@
         <Tgt>C</Tgt>
         <Tgt>M</Tgt>
         <Fma>O</Fma>
-        <RpF></Rpf>
+        <RpF></RpF>
         <NLF></NLF>
         <IIF></IIF>
         <Chg>0</Chg>
@@ -419,7 +419,7 @@
         <Tgt>T</Tgt>
         <Tgt>S</Tgt>
         <Fma></Fma>
-        <RpF>H2O</Rpf>
+        <RpF>H2O</RpF>
         <NLF></NLF>
         <IIF></IIF>
         <Chg>0</Chg>
@@ -432,7 +432,7 @@
         <Tgt>N</Tgt>
         <Tgt>Q</Tgt>
         <Fma></Fma>
-        <RpF>H2O</Rpf>
+        <RpF>H2O</RpF>
         <NLF></NLF>
         <IIF></IIF>
         <Chg>0</Chg>
@@ -444,7 +444,7 @@
         <TS>10</TS>
         <Tgt>C</Tgt>
         <Fma></Fma>
-        <RpF>H2O</Rpf>
+        <RpF>H2O</RpF>
         <NLF></NLF>
         <IIF></IIF>
         <Chg>0</Chg>
@@ -503,7 +503,7 @@
         <TLC>Pyroglutamic acid</TLC>
         <TS>4</TS>
         <Fma></Fma>
-        <RpF>HO</Rpf>
+        <RpF>HO</RpF>
         <NLF></NLF>
         <IIF></IIF>
         <Chg>0</Chg>
@@ -840,7 +840,7 @@
         <Tgt>M</Tgt>
         <TS>10</TS>
         <Fma>O</Fma>
-        <RpF>CH2S</Fma>
+        <RpF>CH2S</RpF>
         <NLF></NLF>
         <IIF></IIF>
         <Chg>0</Chg>
@@ -853,7 +853,7 @@
         <Tgt>K</Tgt>
         <TS>255</TS>
         <Fma>H2CN2</Fma>
-        <RpF></Rpf>
+        <RpF></RpF>
         <NLF></NLF>
         <IIF></IIF>
         <Chg>0</Chg>
@@ -1030,7 +1030,7 @@
         <TLC>1Me</TLC>
         <TS>10</TS>
         <Tgt>R</Tgt>
-        <Tgt>Q</Tqt>
+        <Tgt>Q</Tgt>
         <Tgt>N</Tgt>
         <Tgt>K</Tgt>
         <Tgt>H</Tgt>

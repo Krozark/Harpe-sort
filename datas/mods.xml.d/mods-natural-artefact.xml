@@ -10,7 +10,6 @@
 	<!-- Asparagine: N-Succinimide artifact -->
 	<Mod rKey="0">
 		<Nme>Ammonia-loss</Nme>
-		<DisplayName>Ammonia-loss</DisplayName>
 		<TLC>dAm</TLC>
 		<Tgt>Asparagine</Tgt>
 		<TS>255</TS>
