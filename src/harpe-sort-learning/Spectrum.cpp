@@ -22,25 +22,25 @@ namespace harpe
 
         double Spectrum::eval(const Entity& entity)const
         {
-            const int _size = propositions.size();
+            const unsigned int _size = propositions.size();
             std::vector<std::pair<const Sequence *,double>> data(_size);
 
-            for(int i=0;i<_size;++i)
+            for(unsigned int i=0;i<_size;++i)
             {
                 data[i].first = &propositions[i];
                 data[i].second = propositions[i].eval(entity);
             }
 
+            const unsigned int _max = MIN(_size,TO_BE_SORT);
             std::partial_sort(data.begin(),
-                              data.begin()+TO_BE_SORT,
+                              data.begin()+_size,
                               data.end(),
                               [](const std::pair<const Sequence*,double> _1,const std::pair<const Sequence*,double> _2){
                                   return _1.second > _2.second;
                               });
 
-            int res = 0;
-            const int _max = MIN(_size,TO_BE_SORT);
-            for(int i=0;i<_max;++i)
+            unsigned int res = 0;
+            for(unsigned int i=0;i<_max;++i)
             {
                 if(propositions[i].sequence == data[i].first->sequence
                     and utils::maths::sign(propositions[i].real_score) == utils::maths::sign(data[i].second))

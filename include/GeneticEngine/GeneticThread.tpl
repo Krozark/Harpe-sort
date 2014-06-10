@@ -85,6 +85,7 @@ template <typename T>
 void GeneticThread<T>::init()
 {
     mutex.lock();
+    running = true;
 
     best = individus[0];
     individus[0]->eval();
@@ -99,7 +100,6 @@ void GeneticThread<T>::init()
         }
     }
 
-    running = true;
     mutex.unlock();
 };
 

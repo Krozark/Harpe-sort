@@ -225,7 +225,7 @@ int main(int argc,char* argv[])
     {
 
         {
-            utils::thread::Pool pool(4);
+            utils::thread::Pool pool(8);
 
             mgf::Driver driver(file);
             mgf::Spectrum* spectrum = nullptr;
@@ -244,9 +244,9 @@ int main(int argc,char* argv[])
                     std::vector<harpe::Sequence> res = harpe::Analyser::analyse(*spectrum,token_ptr,status,-1);
                     if (status == 1)
                     {
-                        std::cout<<"["<<i<<"] Ajout du spectre. status : Ok"<<std::endl;
                         //convert for learning
                         harpe::learning::Entity::learning_spectums.push_back(harpe::learning::Spectrum::convert(*spectrum,res));
+                        std::cout<<"["<<i<<"] Ajout du spectre. status : Ok"<<std::endl;
                     }
                     else
                     {
@@ -255,6 +255,7 @@ int main(int argc,char* argv[])
 
                     harpe::Analyser::free(token_ptr);
                     delete spectrum;
+                    std::cout<<"["<<i<<"] Fin du traitement du spectre"<<std::endl;
                 });
 
                 ++i;
@@ -263,6 +264,7 @@ int main(int argc,char* argv[])
             file.close();
             pool.wait();
         }
+        std::cout<<"Initialisation des données d'apprentissage : done"<<std::endl;
     
 
         rand_init();
