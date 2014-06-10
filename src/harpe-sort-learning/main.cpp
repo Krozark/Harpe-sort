@@ -246,7 +246,7 @@ int main(int argc,char* argv[])
                     {
                         //convert for learning
                         harpe::learning::Entity::learning_spectums.push_back(harpe::learning::Spectrum::convert(*spectrum,res));
-                        std::cout<<"["<<i<<"] Ajout du spectre avec "<<res..size()<<" proposition. Status : OK"<<std::endl;
+                        std::cout<<"["<<i<<"] Ajout du spectre avec "<<res.size()<<" proposition. Status : OK"<<std::endl;
                     }
                     else
                     {
