@@ -3,7 +3,6 @@
 
 #include <cstdlib>
 #include <iostream>
-#include <math.h>
 #include <vector>
 #include <stack>
 #include <list>
@@ -97,16 +96,6 @@ namespace learning
                     static Node* CreateRandTree(const int max_profondeur); ///< cré un arbre de manière aléatoire
 
                     /* FONCTIONS */
-                    //unaire
-                    static inline double sin_f(double _1);///< fonction sinus
-                    //*6*/static double moins_u(double _1) {return -_1;};
-                    //binaire
-                    static inline double mul(double _1,double _2);///< fonction multiplié
-                    static inline double div(double _1,double _2); ///< fonction divisé
-                    static inline double add(double _1,double _2); ///< fonction addition
-                    static inline double moins_b(double _1,double _2);///< fonction de soustraction
-                   /*5 sous programme?*/
-                    
                     enum FUNCTIONS {
                         SIN = 0,
                         MUL,

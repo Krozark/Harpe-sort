@@ -4,6 +4,8 @@
 #include <iostream>
 
 #include <harpe-sort-learning/Entity.hpp>
+#include <harpe-sort-learning/fkernel.hpp>
+
 #include <GeneticEngine/random.hpp>
 
 namespace harpe
@@ -83,12 +85,12 @@ namespace learning
                     case Entity::Node::FUNCTIONS::SIN:/* sin*/
                     {
                         current->type = Entity::Node::Type::UNAIRE;
-                        current->funaire = Node::sin_f;
+                        current->funaire = ker::sin_f;
                     }break;
                     case Entity::Node::FUNCTIONS::MUL:/*mul*/
                     {
                         current->type = Entity::Node::Type::BINAIRE;
-                        current->fbinaire = Node::mul;
+                        current->fbinaire = ker::mul;
                         if(not current->fils2)
                         {
                             current->fils2 = Node::CreateRandTree(TREE_SUB_INIT_PROFONDEUR);
@@ -98,7 +100,7 @@ namespace learning
                     case Entity::Node::FUNCTIONS::DIV:/*div*/
                     {
                         current->type = Entity::Node::Type::BINAIRE;
-                        current->fbinaire = Node::div;
+                        current->fbinaire = ker::div;
                         if(not current->fils2)
                         {
                             current->fils2 = Node::CreateRandTree(TREE_SUB_INIT_PROFONDEUR);
@@ -108,7 +110,7 @@ namespace learning
                     case Entity::Node::FUNCTIONS::ADD:/*add*/
                     {
                         current->type = Entity::Node::Type::BINAIRE;
-                        current->fbinaire = Node::add;
+                        current->fbinaire = ker::add;
                         if(not current->fils2)
                         {
                             current->fils2 = Node::CreateRandTree(TREE_SUB_INIT_PROFONDEUR);
@@ -118,7 +120,7 @@ namespace learning
                     case Entity::Node::FUNCTIONS::MOINS_B:/*moins_b*/
                     {
                         current->type = Entity::Node::Type::BINAIRE;
-                        current->fbinaire = Node::moins_b;
+                        current->fbinaire = ker::moins_b;
                         if(not current->fils2)
                         {
                             current->fils2 = Node::CreateRandTree(TREE_SUB_INIT_PROFONDEUR);
@@ -481,23 +483,23 @@ namespace learning
                 /* unaire */
                 case Entity::Node::FUNCTIONS::SIN:/* sin*/
                 {
-                    res = new Node(Node::sin_f,Node::CreateRandTree(profondeur-1));
+                    res = new Node(ker::sin_f,Node::CreateRandTree(profondeur-1));
                 }break;
                 case Entity::Node::FUNCTIONS::MUL:/*mul*/
                 {
-                    res = new Node(Node::mul,Node::CreateRandTree(profondeur-1),Node::CreateRandTree(profondeur-1));
+                    res = new Node(ker::mul,Node::CreateRandTree(profondeur-1),Node::CreateRandTree(profondeur-1));
                 }break;
                 case Entity::Node::FUNCTIONS::DIV:/*div*/
                 {
-                    res = new Node(Node::div,Node::CreateRandTree(profondeur-1),Node::CreateRandTree(profondeur-1));
+                    res = new Node(ker::div,Node::CreateRandTree(profondeur-1),Node::CreateRandTree(profondeur-1));
                 }break;
                 case Entity::Node::FUNCTIONS::ADD:/*add*/
                 {
-                    res = new Node(Node::add,Node::CreateRandTree(profondeur-1),Node::CreateRandTree(profondeur-1));
+                    res = new Node(ker::add,Node::CreateRandTree(profondeur-1),Node::CreateRandTree(profondeur-1));
                 }break;
                 case Entity::Node::FUNCTIONS::MOINS_B:/*moins_b*/
                 {
-                    res = new Node(Node::moins_b,Node::CreateRandTree(profondeur-1),Node::CreateRandTree(profondeur-1));
+                    res = new Node(ker::moins_b,Node::CreateRandTree(profondeur-1),Node::CreateRandTree(profondeur-1));
                 }break;
                 default:
                 {
@@ -526,7 +528,7 @@ namespace learning
             case Entity::Node::Type::UNAIRE:
             {
                 //operator
-                if(root->funaire == Entity::Node::sin_f)
+                if(root->funaire == ker::sin_f)
                     output<<"sin";
                 /*else if (root->funaire == Entity::Node::moins_u)
                   output<<"-";*/
@@ -537,13 +539,13 @@ namespace learning
             case Entity::Node::Type::BINAIRE:
             {
                 output<<root->fils1;
-                if(root->fbinaire == Entity::Node::mul)
+                if(root->fbinaire == ker::mul)
                     output<<"*";
-                else if (root->fbinaire == Entity::Node::div)
+                else if (root->fbinaire == ker::div)
                     output<<"/";
-                else if (root->fbinaire == Entity::Node::add)
+                else if (root->fbinaire == ker::add)
                     output<<"+";
-                else if (root->fbinaire == Entity::Node::moins_b)
+                else if (root->fbinaire == ker::moins_b)
                     output<<"-";
                 else
                     output<<"ERROR_BINAIRE";
