@@ -12,6 +12,8 @@
 #include <GeneticEngine/random.hpp>
 #include <GeneticEngine/GeneticEngine.hpp>
 
+#include <utils/thread.hpp>
+
 using namespace std;
 
 #define SHOW_ARGS(x) {cout<<x<<endl\
@@ -221,31 +223,45 @@ int main(int argc,char* argv[])
 
     if (file.good())
     {
+
         {
+            utils::thread::Pool pool(4);
+
             mgf::Driver driver(file);
             mgf::Spectrum* spectrum = nullptr;
-            int status = 0;
             std::cout<<"Initialisation des données d'apprentissage"<<std::endl;
             int i = 1;
+            std::mutex mutex_learning_spectrums;
+
             while((spectrum = driver.next()) != nullptr)
             {
-                std::vector<harpe::Sequence> res = harpe::Analyser::analyse(*spectrum,status,-1);
-                if (status == 1)
-                {
-                    std::cout<<"Ajout du spectre no: "<<i<<". status : Ok"<<std::endl;
-                    //convert for learning
-                    harpe::learning::Entity::learning_spectums.push_back(harpe::learning::Spectrum::convert(*spectrum,res));
-                }
-                else
-                {
-                    std::cout<<"Ajout du spectre no: "<<i<<". status : Erreur. Merci de corriger le fichier d'entrée"<<std::endl;
-                }
+                std::cout<<"Spectre no "<<i<<" mis en attente"<<std::endl;
 
-                harpe::Analyser::free();
-                delete spectrum;
+                pool.push([i,spectrum]()->void {
+                    int status = 0;
+                    std::vector<harpe::SequenceToken*> token_ptr;
+                    std::cout<<"["<<i<<"] Debut du traitement du spectre"<<std::endl;
+                    std::vector<harpe::Sequence> res = harpe::Analyser::analyse(*spectrum,token_ptr,status,-1);
+                    if (status == 1)
+                    {
+                        std::cout<<"["<<i<<"] Ajout du spectre. status : Ok"<<std::endl;
+                        //convert for learning
+                        harpe::learning::Entity::learning_spectums.push_back(harpe::learning::Spectrum::convert(*spectrum,res));
+                    }
+                    else
+                    {
+                        std::cout<<"["<<i<<"] Ajout du spectre status : Erreur. Merci de corriger le fichier d'entrée"<<std::endl;
+                    }
+
+                    harpe::Analyser::free(token_ptr);
+                    delete spectrum;
+                });
+
                 ++i;
             }
+
             file.close();
+            pool.wait();
         }
     
 
