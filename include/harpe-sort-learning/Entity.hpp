@@ -97,7 +97,10 @@ namespace learning
 
                     /* FONCTIONS */
                     enum FUNCTIONS {
+                        //unaire
                         SIN = 0,
+                        GAUSSIAN,
+                        //binaire
                         MUL,
                         DIV,
                         ADD,

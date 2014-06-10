@@ -1,5 +1,6 @@
 #include <harpe-sort-learning/Spectrum.hpp>
-#include <harpe-sort-learning/std.hpp>
+#include <utils/string.hpp>
+#include <utils/maths.hpp>
 
 #include <algorithm>
 #include <utility>
@@ -42,7 +43,7 @@ namespace harpe
             for(int i=0;i<_max;++i)
             {
                 if(propositions[i].sequence == data[i].first->sequence
-                    and std::sign(propositions[i].real_score) == std::sign(data[i].second))
+                    and utils::maths::sign(propositions[i].real_score) == utils::maths::sign(data[i].second))
                     res += 1;
                 else
                     break;
@@ -53,7 +54,7 @@ namespace harpe
 
         int Spectrum::rate(const std::string& seq)const
         {
-            const auto tokens = std::split(seq,"-");
+            const auto tokens = utils::string::split(seq,"-");
             const int _size = tokens.size();
 
 
@@ -78,7 +79,7 @@ namespace harpe
                             std::vector<std::string>::const_iterator last = tokens.end() - j;
                             std::vector<std::string> tmp(first, last);
 
-                            std::string tok_tmp = std::join("-",tmp);
+                            std::string tok_tmp = utils::string::join("-",tmp);
 
                             if(real.find(tok_tmp) != std::string::npos)
                             {
@@ -97,11 +98,11 @@ namespace harpe
             for(const std::string& s : src.getHeader().getSeq())
             {
                 std::string seq = s;
-                std::replace(seq,"I_L","L"); //to be sure
-                std::replace(seq,"I","L"); 
-                std::replace(seq,"L","I_L");
+                utils::string::replace(seq,"I_L","L"); //to be sure
+                utils::string::replace(seq,"I","L"); 
+                utils::string::replace(seq,"L","I_L");
                 real_sequences.push_back(seq);
-                seq = join("-",std::split(seq,"-"),true);
+                seq = utils::string::join("-",utils::string::split(seq,"-"),true);
                 real_sequences.push_back(std::move(seq));
             }
 

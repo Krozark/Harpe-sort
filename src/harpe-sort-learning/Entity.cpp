@@ -87,6 +87,11 @@ namespace learning
                         current->type = Entity::Node::Type::UNAIRE;
                         current->funaire = ker::sin_f;
                     }break;
+                    case Entity::Node::FUNCTIONS::GAUSSIAN:
+                    {
+                        current->type = Entity::Node::Type::UNAIRE;
+                        current->funaire = ker::gaussian;
+                    }break;
                     case Entity::Node::FUNCTIONS::MUL:/*mul*/
                     {
                         current->type = Entity::Node::Type::BINAIRE;
@@ -238,13 +243,12 @@ namespace learning
 
                     delete root->fils1;
                     root->fils1 = nullptr;
-                    if(root->fils2)
-                    {
-                        delete root->fils2;
-                        root->fils2 = nullptr;
-                    }
+                    delete root->fils2;
+                    root->fils2 = nullptr;
+
                     root->nb_sub_nodes = 1;
-                }
+                }else
+                    root->maj();
             }break;
             case Entity::Node::Type::BINAIRE:
             {
@@ -261,7 +265,8 @@ namespace learning
                     root->fils2 = nullptr;
 
                     root->nb_sub_nodes = 1;
-                }
+                }else
+                    root->maj();
             }break;
             default:
             {
@@ -485,6 +490,11 @@ namespace learning
                 {
                     res = new Node(ker::sin_f,Node::CreateRandTree(profondeur-1));
                 }break;
+                case Entity::Node::FUNCTIONS::GAUSSIAN:
+                {
+                    res = new Node(ker::gaussian,Node::CreateRandTree(profondeur-1));
+                }break;
+                //BINAIRE
                 case Entity::Node::FUNCTIONS::MUL:/*mul*/
                 {
                     res = new Node(ker::mul,Node::CreateRandTree(profondeur-1),Node::CreateRandTree(profondeur-1));
@@ -530,6 +540,8 @@ namespace learning
                 //operator
                 if(root->funaire == ker::sin_f)
                     output<<"sin";
+                else if (root->funaire == ker::gaussian)
+                    output<<"gaus";
                 /*else if (root->funaire == Entity::Node::moins_u)
                   output<<"-";*/
                 else

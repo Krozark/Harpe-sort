@@ -5,15 +5,12 @@ set(ROOT_SRC
     ${SRCROOT}/Entity.cpp
     ${SRCROOT}/Sequence.cpp
     ${SRCROOT}/Spectrum.cpp
-    ${SRCROOT}/std.cpp
 )
 set(ROOT_HEADER
     ${INCROOT}/Entity.hpp
     ${INCROOT}/Entity.tpl
     ${INCROOT}/Sequence.hpp
     ${INCROOT}/Spectrum.hpp
-    ${INCROOT}/std.hpp
-    ${INCROOT}/std.tpl
 )
 
 

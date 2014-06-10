@@ -17,6 +17,7 @@ using namespace std;
 #define SHOW_ARGS(x) {cout<<x<<endl\
     <<"\t -h, -help, montre ce message"<<endl\
     <<"\t -f mgf input file (obligatoire)"<<endl\
+    <<"\t -t mgf input test file (optional)"<<endl\
     <<"\t -pop-total (defaut = 1000) population"<<endl\
     <<"\t -pop-enf (defaut = 1000) .population d'enfants. if value is [0~1[,precent of [pop-total], else the number"<<endl\
     <<"\t -mutation (defaut = 1 %) [entre 0 et 100]) taux de mutation"<<endl\
@@ -220,31 +221,32 @@ int main(int argc,char* argv[])
 
     if (file.good())
     {
-
-        mgf::Driver driver(file);
-        mgf::Spectrum* spectrum = nullptr;
-        int status = 0;
-        std::cout<<"Initialisation des données d'apprentissage"<<std::endl;
-        int i = 1;
-        while((spectrum = driver.next()) != nullptr)
         {
-            std::vector<harpe::Sequence> res = harpe::Analyser::analyse(*spectrum,status,-1);
-            if (status == 1)
+            mgf::Driver driver(file);
+            mgf::Spectrum* spectrum = nullptr;
+            int status = 0;
+            std::cout<<"Initialisation des données d'apprentissage"<<std::endl;
+            int i = 1;
+            while((spectrum = driver.next()) != nullptr)
             {
-                std::cout<<"Ajout du spectre no: "<<i<<". status : Ok"<<std::endl;
-                //convert for learning
-                harpe::learning::Entity::learning_spectums.push_back(harpe::learning::Spectrum::convert(*spectrum,res));
-            }
-            else
-            {
-                std::cout<<"Ajout du spectre no: "<<i<<". status : Erreur. Merci de corriger le fichier d'entrée"<<std::endl;
-            }
+                std::vector<harpe::Sequence> res = harpe::Analyser::analyse(*spectrum,status,-1);
+                if (status == 1)
+                {
+                    std::cout<<"Ajout du spectre no: "<<i<<". status : Ok"<<std::endl;
+                    //convert for learning
+                    harpe::learning::Entity::learning_spectums.push_back(harpe::learning::Spectrum::convert(*spectrum,res));
+                }
+                else
+                {
+                    std::cout<<"Ajout du spectre no: "<<i<<". status : Erreur. Merci de corriger le fichier d'entrée"<<std::endl;
+                }
 
-            harpe::Analyser::free();
-            delete spectrum;
-            ++i;
+                harpe::Analyser::free();
+                delete spectrum;
+                ++i;
+            }
+            file.close();
         }
-        file.close();
     
 
         rand_init();

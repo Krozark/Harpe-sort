@@ -116,6 +116,8 @@ void GeneticEngine<T>::send()
             T* best = src.get_best()->clone();
             src.mutex.unlock();
 
+            best->minimize();
+
             std::cout<<"Sending value from ["<<src.thread.get_id()<<"] to ["<<dest->thread.get_id()<<"] score = "<<best->get_score()<<std::endl;
 
             send(best,*dest);

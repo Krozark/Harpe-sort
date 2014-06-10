@@ -28,10 +28,11 @@ set_option(BUILD_EXAMPLES FALSE BOOL "TRUE to build the examples, FALSE to ignor
 set_option(BUILD_DOC TRUE BOOL "TRUE to generate the API documentation, FALSE to ignore it")
 set_option(BUILD_LEARNING TRUE BOOL "TRUE to generate the function generator, FALSE to ignore it")
 
+find_library(UTILS_LIB utils)
+set(LIBS ${UTILS_LIB})
 
 #set(includepath "-I${CMAKE_CURRENT_SOURCE_DIR}/include")
 set(DEFINES "")
-set(LIBS "")
 set(WARNING "-Wall")
 set(FLAGS "-og -std=c++0x")
 set(CMAKE_CXX_FLAGS "${DEFINES} ${WARNING} ${FLAGS}")
