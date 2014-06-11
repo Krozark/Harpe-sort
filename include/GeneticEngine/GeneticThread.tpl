@@ -1,8 +1,8 @@
 extern std::default_random_engine generator;
 
 
-#include <iostream>
 #include <utility>
+#include <utils/log.hpp>
 
 /* return *x>*y */
 template <typename T>
@@ -84,6 +84,7 @@ void GeneticThread<T>::run_while(bool (*f)(const T&,const int))
 template <typename T>
 void GeneticThread<T>::init()
 {
+    utils::log::info(thread.get_id(),"Start init");
     mutex.lock();
     running = true;
 
@@ -101,6 +102,7 @@ void GeneticThread<T>::init()
     }
 
     mutex.unlock();
+    utils::log::info(thread.get_id(),"End init");
 };
 
 template <typename T>
@@ -119,7 +121,7 @@ void GeneticThread<T>::corps()
     #endif
     mutex.unlock();
 
-    std::cout<<"["<<thread.get_id()<<"] generation #"<<generation++<<std::endl;
+    utils::log::info(thread.get_id(),"generation #",generation++);
 
 };
 
@@ -145,6 +147,7 @@ T* GeneticThread<T>::makeNew(const T* parent1,const T& parent2)
 template <typename T>
 void GeneticThread<T>::end()
 {
+    utils::log::info(thread.get_id(),"Start end");
     mutex.lock();
     
     for(int i=0;i<size;++i)
@@ -153,6 +156,7 @@ void GeneticThread<T>::end()
     save("last");
     mutex.unlock();
     running = false;
+    utils::log::info(thread.get_id(),"End end");
 };
 
 template <typename T>
@@ -179,7 +183,7 @@ void GeneticThread<T>::save(const std::string& name)
             <<"\n"<<*best
             <<"\n";
         file.close();
-        std::cout<<"["<<thread.get_id()<<"] "<<format<<" best("<<best->get_score()<<"): "<<*best<<std::endl<<std::endl;
+        utils::log::ok(thread.get_id(),"best (score=",best->get_score(),"): ",*best);
     }
 };
 

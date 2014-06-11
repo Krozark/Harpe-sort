@@ -3,7 +3,7 @@
 #include <thread>
 #include <chrono>
 
-#include <iostream>
+#include <utils/log.hpp>
 
 
 template <class T>
@@ -41,7 +41,10 @@ template <class T>
 T* GeneticEngine<T>::run(const int nb_generation/*,Args& ... args*/)
 {
     for(int i=0;i<size;++i)
+    {
+        utils::log::info("GeneticEngine","Init island number",i);
         islands[i]->run(nb_generation/*,args ...*/);
+    }
     wait();
     return end();
 };
@@ -51,7 +54,10 @@ template <class T>
 T* GeneticEngine<T>::run_while(bool (*f)(const T&,const int)/*,Args& ... args*/)
 {
     for(int i=0;i<size;++i)
+    {
+        utils::log::info("GeneticEngine","Init island number",i);
         islands[i]->run_while(f/*,args ...*/);
+    }
     wait();
     return end();
 };
@@ -61,6 +67,7 @@ T* GeneticEngine<T>::run_while(bool (*f)(const T&,const int)/*,Args& ... args*/)
 template<class T>
 void GeneticEngine<T>::wait()
 {
+    utils::log::info("GeneticEngine","is waiting for the end of jobs");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     running = true;
     //sender thread
@@ -78,15 +85,19 @@ void GeneticEngine<T>::wait()
     //wait the end of the sender thread
     if(size > 1)
         thread.join();
+    utils::log::info("GeneticEngine","Sender is off");
 
-    for(int i=0;i<size;++i)
+    for(int i=0;i<size;++i){
+        utils::log::info("GeneticEngine","island",i,"is off");
         islands[i]->thread.join();
+    }
 };
 
 
 template<class T>
 void GeneticEngine<T>::stop()
 {
+    utils::log::info("GeneticEngine","stop all the islands");
     running = false;
     for(int i=0;i<size;++i)
     {
@@ -119,7 +130,7 @@ void GeneticEngine<T>::send()
 
             best->minimize();
 
-            std::cout<<"Sending value from ["<<src.thread.get_id()<<"] to ["<<dest->thread.get_id()<<"] score = "<<best->get_score()<<std::endl;
+            utils::log::info("GeneticEngine","Sending value from",src.thread.get_id(), "to",dest->thread.get_id(),"score =",best->get_score());
 
             send(best,*dest);
         }
