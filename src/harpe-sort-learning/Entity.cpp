@@ -122,10 +122,10 @@ namespace learning
                             recalc = true;
                         }
                     }break;
-                    case Entity::Node::FUNCTIONS::MOINS_B:/*moins_b*/
+                    case Entity::Node::FUNCTIONS::SUB:/*sub*/
                     {
                         current->type = Entity::Node::Type::BINAIRE;
-                        current->fbinaire = ker::moins_b;
+                        current->fbinaire = ker::sub;
                         if(not current->fils2)
                         {
                             current->fils2 = Node::CreateRandTree(TREE_SUB_INIT_PROFONDEUR);
@@ -507,9 +507,9 @@ namespace learning
                 {
                     res = new Node(ker::add,Node::CreateRandTree(profondeur-1),Node::CreateRandTree(profondeur-1));
                 }break;
-                case Entity::Node::FUNCTIONS::MOINS_B:/*moins_b*/
+                case Entity::Node::FUNCTIONS::SUB:/*SUB*/
                 {
-                    res = new Node(ker::moins_b,Node::CreateRandTree(profondeur-1),Node::CreateRandTree(profondeur-1));
+                    res = new Node(ker::sub,Node::CreateRandTree(profondeur-1),Node::CreateRandTree(profondeur-1));
                 }break;
                 default:
                 {
@@ -542,7 +542,7 @@ namespace learning
                     output<<"sin";
                 else if (root->funaire == ker::gaussian_default)
                     output<<"gaus";
-                /*else if (root->funaire == Entity::Node::moins_u)
+                /*else if (root->funaire == Entity::Node::sub_u)
                   output<<"-";*/
                 else
                     output<<"ERROR_UNAIRE";
@@ -557,7 +557,7 @@ namespace learning
                     output<<"/";
                 else if (root->fbinaire == ker::add)
                     output<<"+";
-                else if (root->fbinaire == ker::moins_b)
+                else if (root->fbinaire == ker::sub)
                     output<<"-";
                 else
                     output<<"ERROR_BINAIRE";

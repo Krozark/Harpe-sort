@@ -104,7 +104,7 @@ namespace learning
                         MUL,
                         DIV,
                         ADD,
-                        MOINS_B,
+                        SUB,
                         SIZE
                     };
 
