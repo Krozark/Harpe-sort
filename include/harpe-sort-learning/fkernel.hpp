@@ -2,6 +2,7 @@
 #define FKERNEL_HPP
 
 #include <math.h>
+#include <utils/maths.hpp>
 
 namespace ker
 {
@@ -26,7 +27,7 @@ namespace ker
     };
     inline double epanechnikov(double _1){
         if(abs(_1) <=1)
-            return 3.0/4.0*(1-_1*_1);
+            return 3.0/4.0*(1-utils::maths::power<2>::of(_1));
         return 0;
     };
     inline double quartic(double _1){
@@ -34,7 +35,7 @@ namespace ker
         if(abs(_1) <=1)
         {
             double c = 1-_1*_1;
-            return 15.0/16.0*c*c;
+            return 15.0/16.0*utils::maths::power<2>::of(c);
         }
         return 0;
     };
@@ -42,7 +43,7 @@ namespace ker
         if(abs(_1) <=1)
         {
             double c = 1-_1*_1;
-            return 35.0/32.0*c*c*c;
+            return 35.0/32.0*utils::maths::power<3>::of(c);
         }
         return 0;
     };
@@ -51,11 +52,12 @@ namespace ker
         if(ab <=1)
         {
             double c = 1-ab*ab*ab;
-            return 70.0/81.0*c*c*c;
+            return 70.0/81.0*utils::maths::power<3>::of(c);
         }
     };
     inline double gaussian(double _1){
-        return 1.0/sqrt(2*M_PI)*exp(0.5*_1*_1);
+        return (1.0/sqrt(2*M_PI))*exp(-0.5*utils::maths::power<2>::of(_1));
+        //return (1.0/_1*sqrt(2*M_PI))*exp(-0.5*utils::maths::power<2>::of((_1-_3)/_2));
     };
     inline double cosine(double _1){
         if(abs(_1)<=  1)
