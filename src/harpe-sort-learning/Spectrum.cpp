@@ -113,7 +113,7 @@ namespace harpe
 
             //sort
             sort();
-            //truncate
+            //truncate (take head and tail, delete middle)
             //\todo TODO
         }
 

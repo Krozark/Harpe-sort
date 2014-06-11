@@ -30,7 +30,7 @@ using namespace std;
     <<"\t -eval (default = 0) [1/0] always eval new"<<endl\
     <<"\t -threads (defaut = -1) [-1 pour le max possible] nombre de thread à utiliser"<<endl\
     <<"\t -max (default = 90) [0~100] score moyen à obtenir (en pourcentage de réussite)"<<endl\
-    <<"\t -timeout (default = 30000) in ms timeout pour la diffusion des meilleurs individus"<<endl\
+    <<"\t -timeout (default = 300000) in ms timeout pour la diffusion des meilleurs individus"<<endl\
     ;exit(1);\
 }
 
@@ -49,7 +49,7 @@ int main(int argc,char* argv[])
     string del = "tournament";
     bool eval = false;
     std::string mgf;
-    int timeout = 3000;
+    int timeout = 30000;
 
     {
         int i=1;
@@ -276,7 +276,8 @@ int main(int argc,char* argv[])
                 pool.wait();
             }
             utils::log::info("Fin Initialisation","données d'apprentissage");
-    utils::log::info("Total","ratio de propositions pour",harpe::learning::Entity::learning_spectums.size(),"spectres :",double(total)/harpe::learning::Entity::learning_spectums.size());
+            utils::log::info("Total","Spectres initiaux",i,", propositions:",total);
+            utils::log::info("Total","Spectres pris on compte",harpe::learning::Entity::learning_spectums.size()," propositions ratio : ",double(total)/harpe::learning::Entity::learning_spectums.size());
         }
     
 

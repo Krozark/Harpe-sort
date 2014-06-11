@@ -1,0 +1,4 @@
+11/06/14
+add massive paralélésation
+initial : 10 GO -> 70 learning datas
+after optimisation : 10 GO -> 6000 datas
