@@ -67,7 +67,7 @@ class GeneticThread
         bool initial_evaluation_req;
         T* best;
         /* Fonction to call to create children */
-        void (GeneticThread<T>::*creatChildFunc)();
+        void (GeneticThread<T>::*createChildFunc)();
         /* Fonction to call to  reduce pop */
         void (GeneticThread<T>::*reducePopFunc)();
 

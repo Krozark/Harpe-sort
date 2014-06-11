@@ -109,8 +109,8 @@ template <typename T>
 void GeneticThread<T>::corps()
 {
     mutex.lock();
-    // creat children
-    (this->*creatChildFunc)();
+    // create children
+    (this->*createChildFunc)();
 
     //reduce pop
     (this->*reducePopFunc)();
@@ -195,12 +195,12 @@ void GeneticThread<T>::setCreationMode(CreationMode val)
     switch(val)
     {
         case CreationMode::STUPIDE:
-            creatChildFunc = &GeneticThread<T>::stupideCreation;
+            createChildFunc = &GeneticThread<T>::stupideCreation;
             initial_evaluation_req = true;
         break;
 
         case CreationMode::TOURNAMENT:
-            creatChildFunc = &GeneticThread<T>::tournamentCreation;
+            createChildFunc = &GeneticThread<T>::tournamentCreation;
         break;
         
     }
