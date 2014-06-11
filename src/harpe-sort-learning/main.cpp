@@ -193,7 +193,7 @@ int main(int argc,char* argv[])
 
 
     harpe::Context::error=0.05;
-    harpe::Context::finds_max_size=1000000;
+    harpe::Context::finds_max_size=100000;
     harpe::Context::finds_max_size_tmp=harpe::Context::finds_max_size*5;
 
     harpe::Context::aa_tab.add(0,"A",71.037110);
@@ -228,7 +228,7 @@ int main(int argc,char* argv[])
             int i = 1;
             std::atomic<long unsigned int> total(0);
             {
-                utils::thread::Pool pool(7);
+                utils::thread::Pool pool(std::thread::hardware_concurrency());
 
                 mgf::Driver driver(file);
                 mgf::Spectrum* spectrum = nullptr;
@@ -247,7 +247,7 @@ int main(int argc,char* argv[])
 
                         std::vector<harpe::Sequence> res = harpe::Analyser::analyse(*spectrum,token_ptr,status,-1);
 
-                        if(res.size() <= 100000)
+                        if(res.size() <= harpe::Context::finds_max_size)
                         {
                             total += res.size();
 
@@ -261,7 +261,7 @@ int main(int argc,char* argv[])
                                 utils::log::error(i,"Ajout du spectre status : Erreur. Merci de corriger le fichier d'entrée");
                             }
                         }else{
-                            utils::log::warning(i,"Trop de propositions sont possible (",res.size(),"), le spectre n'est donc pas pris en compte pour des raisons de performances");
+                            utils::log::warning(i,"Trop de propositions sont possible (>",harpe::Context::finds_max_size,"), le spectre n'est donc pas pris en compte pour des raisons de performances");
                         }
                         harpe::Analyser::free(token_ptr);
                         delete spectrum;
@@ -288,7 +288,7 @@ int main(int argc,char* argv[])
 
         bool(*stop)(const harpe::learning::Entity&, const int) = [](const harpe::learning::Entity& best, const int generation)
         {
-            return best.get_score() > _max; //tant qu'on a pas 99% de réussite
+            return best.get_score() > _max; //tant qu'on a pas _max% de réussite
         };
 
         if (creation == "tournament")
