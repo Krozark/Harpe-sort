@@ -14,6 +14,7 @@
 
 #include <utils/thread.hpp>
 #include <utils/log.hpp>
+#include <utils/maths.hpp>
 
 using namespace std;
 
@@ -251,6 +252,15 @@ int main(int argc,char* argv[])
                         if (status == harpe::Analyser::Status::Ok)
                         {
                             //convert for learning
+                            size_t size = res.size();
+                            while(size > 4658) /// in wors case, produce a result of 2000
+                            {
+                                res = utils::maths::discretize(res,[size](double a)->double{ //do not touch the limits
+                                    return 1.0/utils::maths::ker::gaussian(a,0.55);
+                                });
+                                utils::log::ok(i,"Discrétisation des données.Passage de",size,"à",res.size(),"propositions");
+                                size = res.size();
+                            }
                             harpe::learning::Entity::learning_spectums.push_back(harpe::learning::Spectrum::convert(*spectrum,res));
 
                             utils::log::ok(i,"Ajout du spectre avec",res.size(),"proposition. Status : OK");
@@ -277,7 +287,7 @@ int main(int argc,char* argv[])
             }
             utils::log::info("Fin Initialisation","données d'apprentissage");
             utils::log::info("Total","Spectres initiaux",i,", propositions:",total);
-            utils::log::info("Total","Spectres pris on compte",harpe::learning::Entity::learning_spectums.size()," propositions ratio : ",double(total)/harpe::learning::Entity::learning_spectums.size());
+            utils::log::info("Total","Spectres pris en compte",harpe::learning::Entity::learning_spectums.size()," propositions ratio : ",double(total)/harpe::learning::Entity::learning_spectums.size());
         }
     
 
