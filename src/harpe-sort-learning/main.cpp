@@ -286,7 +286,7 @@ int main(int argc,char* argv[])
                 pool.wait();
             }
             utils::log::info("Fin Initialisation","données d'apprentissage");
-            utils::log::info("Total","Spectres initiaux",i,", propositions:",total);
+            utils::log::info("Total","Spectres initiaux",i-1,", propositions:",total);
             utils::log::info("Total","Spectres pris en compte",harpe::learning::Entity::learning_spectums.size()," propositions ratio : ",double(total)/harpe::learning::Entity::learning_spectums.size());
         }
     
