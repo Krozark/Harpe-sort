@@ -90,7 +90,7 @@ namespace learning
                     case Entity::Node::FUNCTIONS::GAUSSIAN:
                     {
                         current->type = Entity::Node::Type::UNAIRE;
-                        current->funaire = ker::gaussian;
+                        current->funaire = ker::gaussian_default;
                     }break;
                     case Entity::Node::FUNCTIONS::MUL:/*mul*/
                     {
@@ -492,7 +492,7 @@ namespace learning
                 }break;
                 case Entity::Node::FUNCTIONS::GAUSSIAN:
                 {
-                    res = new Node(ker::gaussian,Node::CreateRandTree(profondeur-1));
+                    res = new Node(ker::gaussian_default,Node::CreateRandTree(profondeur-1));
                 }break;
                 //BINAIRE
                 case Entity::Node::FUNCTIONS::MUL:/*mul*/
@@ -540,7 +540,7 @@ namespace learning
                 //operator
                 if(root->funaire == ker::sin_f)
                     output<<"sin";
-                else if (root->funaire == ker::gaussian)
+                else if (root->funaire == ker::gaussian_default)
                     output<<"gaus";
                 /*else if (root->funaire == Entity::Node::moins_u)
                   output<<"-";*/

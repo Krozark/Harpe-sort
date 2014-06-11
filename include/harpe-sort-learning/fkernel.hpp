@@ -55,9 +55,13 @@ namespace ker
             return 70.0/81.0*utils::maths::power<3>::of(c);
         }
     };
-    inline double gaussian(double _1){
-        return (1.0/sqrt(2*M_PI))*exp(-0.5*utils::maths::power<2>::of(_1));
-        //return (1.0/_1*sqrt(2*M_PI))*exp(-0.5*utils::maths::power<2>::of((_1-_3)/_2));
+
+    inline double gaussian(double _1,double _2=1,double _3=0){
+        return (1.0/_2*sqrt(2*M_PI))*exp(-0.5*utils::maths::power<2>::of((_1-_3)/_2));
+    };
+
+    inline double gaussian_default(double _1){
+        return gaussian(_1);
     };
     inline double cosine(double _1){
         if(abs(_1)<=  1)
