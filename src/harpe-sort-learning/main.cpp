@@ -253,7 +253,7 @@ int main(int argc,char* argv[])
                         {
                             //convert for learning
                             size_t size = res.size();
-                            while(size > 4658) /// in wors case, produce a result of 2000
+                            while(size > 4638) /// in wors case, produce a result of 2000
                             {
                                 res = utils::maths::discretize(res,[size](double a)->double{ //do not touch the limits
                                     return 1.0/utils::maths::ker::gaussian(a,0.55);
