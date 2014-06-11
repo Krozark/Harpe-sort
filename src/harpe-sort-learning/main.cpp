@@ -13,6 +13,7 @@
 #include <GeneticEngine/GeneticEngine.hpp>
 
 #include <utils/thread.hpp>
+#include <utils/log.hpp>
 
 using namespace std;
 
@@ -227,39 +228,44 @@ int main(int argc,char* argv[])
             int i = 1;
             std::atomic<long unsigned int> total(0);
             {
-                utils::thread::Pool pool(8);
+                utils::thread::Pool pool(7);
 
                 mgf::Driver driver(file);
                 mgf::Spectrum* spectrum = nullptr;
-                std::cout<<"Initialisation des données d'apprentissage"<<std::endl;
+                utils::log::info("Initialisation","données d'apprentissage");
 
 
                 while((spectrum = driver.next()) != nullptr)
                 {
-                    std::cout<<"Spectre no "<<i<<" mis en attente"<<std::endl;
+                    utils::log::todo(i,"Spectre mis en attente");
 
                     pool.push([i,spectrum,&total]()->void {
-                          int status = 0;
-                          std::vector<harpe::SequenceToken*> token_ptr;
-                          std::cout<<"["<<i<<"] Debut du traitement du spectre"<<std::endl;
-                          std::vector<harpe::Sequence> res = harpe::Analyser::analyse(*spectrum,token_ptr,status,-1);
+                        int status = 0;
+                        std::vector<harpe::SequenceToken*> token_ptr;
 
-                          total += res.size();
+                        utils::log::info(i,"Debut du traitement du spectre");
 
-                          if (status == 1)
-                          {
-                              //convert for learning
-                              harpe::learning::Entity::learning_spectums.push_back(harpe::learning::Spectrum::convert(*spectrum,res));
-                              std::cout<<"["<<i<<"] Ajout du spectre avec "<<res.size()<<" proposition. Status : OK"<<std::endl;
-                          }
-                          else
-                          {
-                              std::cout<<"["<<i<<"] Ajout du spectre status : Erreur. Merci de corriger le fichier d'entrée"<<std::endl;
-                          }
+                        std::vector<harpe::Sequence> res = harpe::Analyser::analyse(*spectrum,token_ptr,status,-1);
 
-                          harpe::Analyser::free(token_ptr);
-                          delete spectrum;
-                          std::cout<<"["<<i<<"] Fin du traitement du spectre"<<std::endl;
+                        if(res.size() <= 100000)
+                        {
+                            total += res.size();
+
+                            if (status == 1){
+                                //convert for learning
+                                harpe::learning::Entity::learning_spectums.push_back(harpe::learning::Spectrum::convert(*spectrum,res));
+
+                                utils::log::ok(i,"Ajout du spectre avec",res.size(),"proposition. Status : OK");
+                            }
+                            else{
+                                utils::log::error(i,"Ajout du spectre status : Erreur. Merci de corriger le fichier d'entrée");
+                            }
+                        }else{
+                            utils::log::warning(i,"Trop de propositions sont possible (",res.size(),"), le spectre n'est donc pas pris en compte pour des raisons de performances");
+                        }
+                        harpe::Analyser::free(token_ptr);
+                        delete spectrum;
+                        utils::log::info(i,"Fin du traitement du spectre");
                     });
 
                     ++i;
@@ -268,9 +274,8 @@ int main(int argc,char* argv[])
                 file.close();
                 pool.wait();
             }
-            std::cout<<"Initialisation des données d'apprentissage : done"<<std::endl;
-            --i;
-            std::cout<<"Total de "<<total<<" propositions pour "<<i<<" spectres (ratio : "<<double(total)/i<<")"<<std::endl;
+            utils::log::info("Fin Initialisation","données d'apprentissage");
+            utils::log::info("Total","propositions pour",harpe::learning::Entity::learning_spectums.size(),"spectres (ratio :",double(total)/harpe::learning::Entity::learning_spectums.size(),")");
         }
     
 
@@ -296,10 +301,10 @@ int main(int argc,char* argv[])
         else
             engine.setReductionMode(GeneticEngine<harpe::learning::Entity>::ReductionMode::STUPIDE);
 
-        std::cout<<"Initialisation du moteur génétique"<<std::endl;
+        utils::log::info("Initialisation","moteur génétique");
         harpe::learning::Entity* best = engine.run_while(stop);
 
-        std::cout<<*best<<std::endl;
+        utils::log::info("best",*best);
         delete best;
     }
 
