@@ -194,6 +194,7 @@ int main(int argc,char* argv[])
 
     harpe::Context::error=0.05;
     harpe::Context::finds_max_size=100000;
+    harpe::Context::mod = harpe::Context::MOD::LEARNING;
     harpe::Context::finds_max_size_tmp=harpe::Context::finds_max_size*5;
 
     harpe::Context::aa_tab.add(0,"A",71.037110);
@@ -247,21 +248,21 @@ int main(int argc,char* argv[])
 
                         std::vector<harpe::Sequence> res = harpe::Analyser::analyse(*spectrum,token_ptr,status,-1);
 
-                        if(res.size() <= harpe::Context::finds_max_size)
+                        if (status == harpe::Analyser::Status::Ok)
                         {
+                            //convert for learning
+                            harpe::learning::Entity::learning_spectums.push_back(harpe::learning::Spectrum::convert(*spectrum,res));
+
+                            utils::log::ok(i,"Ajout du spectre avec",res.size(),"proposition. Status : OK");
                             total += res.size();
-
-                            if (status == 1){
-                                //convert for learning
-                                harpe::learning::Entity::learning_spectums.push_back(harpe::learning::Spectrum::convert(*spectrum,res));
-
-                                utils::log::ok(i,"Ajout du spectre avec",res.size(),"proposition. Status : OK");
-                            }
-                            else{
-                                utils::log::error(i,"Ajout du spectre status : Erreur. Merci de corriger le fichier d'entrée");
-                            }
-                        }else{
+                        }
+                        else if(status == harpe::Analyser::Status::LearningTooMuchFindsError)
+                        {
                             utils::log::warning(i,"Trop de propositions sont possible (>",harpe::Context::finds_max_size,"), le spectre n'est donc pas pris en compte pour des raisons de performances");
+                        }
+                        else
+                        {
+                            utils::log::error(i,"Ajout du spectre status : Erreur <",harpe::Analyser::strErr(status),">. Merci de corriger le fichier d'entrée");
                         }
                         harpe::Analyser::free(token_ptr);
                         delete spectrum;
