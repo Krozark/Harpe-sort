@@ -1,11 +1,11 @@
 #ifndef FKERNEL_HPP
 #define FKERNEL_HPP
 
-#include <utils/kernel.hpp>
+#include <utils/maths.hpp>
 
 namespace ker
 {
-    using namespace utils::ker;
+    using namespace utils::maths::ker;
     //unaire
     inline double sin_f(double _1){
         return sin(_1);
