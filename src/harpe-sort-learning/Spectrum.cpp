@@ -39,17 +39,44 @@ namespace harpe
                                   return _1.second > _2.second;
                               });
 
-            unsigned int res = 0;
-            for(unsigned int i=0;i<_max;++i)
+            unsigned int i = 0;
+            for(;i<_max;++i)
             {
-                if(propositions[i].sequence == data[i].first->sequence
-                    and utils::maths::sign(propositions[i].real_score) == utils::maths::sign(data[i].second))
-                    res += 1;
-                else
+                if(propositions[i].sequence != data[i].first->sequence //because of double seq, do not compare ptr
+                    or utils::maths::sign(propositions[i].real_score) != utils::maths::sign(data[i].second))
                     break;
             }
 
-            return res/double(_max);
+            return i/double(_max);
+        }
+
+        double Spectrum::eval(double(*f)(const double* const))const
+        {
+            const unsigned int _size = propositions.size();
+            std::vector<std::pair<const Sequence *,double>> data(_size);
+
+            for(unsigned int i=0;i<_size;++i)
+            {
+                data[i].first = &propositions[i];
+                data[i].second = propositions[i].eval(f);
+            }
+
+            const unsigned int _max = MIN(_size,TO_BE_SORT);
+            std::partial_sort(data.begin(),
+                              data.begin()+_size,
+                              data.end(),
+                              [](const std::pair<const Sequence*,double> _1,const std::pair<const Sequence*,double> _2){
+                                  return _1.second > _2.second;
+                              });
+
+            unsigned int i = 0;
+            for(;i<_max;++i)
+            {
+                if(propositions[i].sequence != data[i].first->sequence) //because of double seq, do not compare ptr
+                    break;
+            }
+
+            return i/double(_max);
         }
 
         int Spectrum::rate(const std::string& seq)const

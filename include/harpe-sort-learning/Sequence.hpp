@@ -22,6 +22,7 @@ namespace harpe
                 Sequence& operator=(Sequence&&) = default;
 
                 double eval(const Entity& entity)const;
+                double eval(double(*f)(const double* const))const;
 
                 friend std::ostream& operator<<(std::ostream& output,const Sequence& self);
 
