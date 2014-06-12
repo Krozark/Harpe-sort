@@ -5,7 +5,6 @@
 #include <harpe-algo/Analyser.hpp>
 #include <harpe-algo/Context.hpp>
 
-#include <list>
 #include <harpe-sort-learning/Spectrum.hpp>
 #include <harpe-sort-learning/Entity.hpp>
 
@@ -221,13 +220,12 @@ int main(int argc,char* argv[])
 
     harpe::Context::aa_tab.sort();
 
-    int r=0;
     std::ifstream file(mgf, std::ifstream::in);
 
     if (file.good())
     {
         {
-            int i = 1;
+            unsigned int i = 1;
             std::atomic<long unsigned int> total(0);
             {
                 utils::thread::Pool pool(std::thread::hardware_concurrency());
@@ -282,14 +280,13 @@ int main(int argc,char* argv[])
                     ++i;
                 }
 
-                file.close();
                 pool.wait();
             }
             utils::log::info("Fin Initialisation","données d'apprentissage");
             utils::log::info("Total","Spectres initiaux",i-1,", propositions:",total);
             utils::log::info("Total","Spectres pris en compte",harpe::learning::Entity::learning_spectums.size()," propositions ratio : ",double(total)/harpe::learning::Entity::learning_spectums.size());
         }
-    
+        file.close();
 
         rand_init();
         harpe::learning::Entity::Node::max_indice = harpe::Sequence::Stats::SIZE;
@@ -322,5 +319,5 @@ int main(int argc,char* argv[])
 
 
     harpe::Context::closeLib();
-    return r;
+    return 0;
 }

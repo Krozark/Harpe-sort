@@ -12,6 +12,11 @@ namespace harpe
             return entity.eval(stats);
         }
 
+        double Sequence::eval(double(*f)(const double* const))const
+        {
+            return f(stats);
+        }
+
         std::ostream& operator<<(std::ostream& output,const Sequence& self)
         {
             output<<"[real_score :"<<self.real_score<<"]";
