@@ -256,7 +256,7 @@ int main(int argc,char* argv[])
                             while(size > 4638) /// in wors case, produce a result of 2000
                             {
                                 res = utils::maths::discretize(res,[size](double a)->double{ //do not touch the limits
-                                    return 1.0/utils::maths::ker::gaussian(a,0.55);
+                                    return 1.0-utils::maths::ker::gaussian(a,0.55);
                                 });
                                 utils::log::ok(i,"Discrétisation des données.Passage de",size,"à",res.size(),"propositions");
                                 size = res.size();
