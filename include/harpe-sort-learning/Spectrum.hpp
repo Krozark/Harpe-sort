@@ -30,8 +30,8 @@ namespace harpe
 
                 int rate(const std::string& seq)const;
 
-                double eval(const Entity& entity)const;
-                double eval(double(*f)(const double* const))const;
+                template<typename T>
+                double eval(T&& e)const;
 
                 friend std::ostream& operator<<(std::ostream& output,const Spectrum& self);
 
@@ -46,4 +46,5 @@ namespace harpe
         };
     }
 }
+#include <harpe-sort-learning/Spectrum.tpl>
 #endif
