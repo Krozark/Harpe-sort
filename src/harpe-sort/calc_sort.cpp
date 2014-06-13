@@ -1,14 +1,15 @@
-extern "C" {
 /*
-*	date: 11-04-2013 00:58
-*	score: 408
-*	size: 156
-*	generation: 1582
+*	date: 13-06-2014 16:56
+*	score: 1
+*	size: 16
+*	generation: 11
 */
-#include <math.h>
+#include <utils/maths.hpp>
+#define gauss utils::maths::ker::gaussian
+
+extern "C" {
 double calc_score(const double* const vals)
 {
-	double res=((((((sin((0.245154)/((vals[1])+(vals[7]))))*(sin(sin((vals[4])-(vals[2])))))-((sin(sin((((0.629917)/(vals[1]))/((0.531968)+(vals[8])))*(((0.885961)*((0.10436)/((((0.243595)-((((((0.585303)+((vals[0])+(vals[2])))-(vals[0]))*((-0.204624)-((vals[7])*(vals[3]))))*((((vals[7])-(vals[0]))-(((((0.0294235)*((vals[9])+(vals[4])))/(vals[2]))*((0.297933)+(((vals[0])/(0.24827))-((vals[1])/(0.620643)))))/(0.0972998)))-(vals[6])))+(0.691043)))/(0.587416))/(vals[9]))))/((0.430919)/(vals[4]))))))-(((sin((((vals[1])*(vals[1]))+(0.666014))/(((0.867776)/((0.77109)*((vals[8])/(0.0677342))))/(((((0.396075)/(vals[3]))*(vals[6]))-(sin(sin(vals[1]))))+((((vals[5])+(vals[8]))*(vals[3]))+(((vals[0])*(vals[5]))+(0.491176)))))))+(vals[8]))-((vals[6])*(0.236059)))))*((((vals[9])-(0.678286))*((vals[9])+(0.602292)))+(sin((vals[5])-(0.79846)))))/(vals[5]))*((0.801882)+(sin((vals[7])*(vals[1])))));
-	 return res;
+	return (((vals[2])/(gauss(vals[6])))/((0.825851)+(((vals[0])+(sin((0.544378)/(vals[0]))))*(sin(vals[5])))));
 }
 }

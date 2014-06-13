@@ -62,18 +62,18 @@ void GeneticThread<T>::run(const int nb_generation)
 };
 
 template <typename T>
-void GeneticThread<T>::run_while(bool (*f)(const T&,const int))
+void GeneticThread<T>::run_while(bool (*f)(const T&,int,std::thread::id))
 {
 
     //will be execute in thread
-    auto lambda = [&](bool (*f)(const T&,const int))
+    auto lambda = [&](bool (*f)(const T&,int,std::thread::id))
     {
         //eval initiale
         this->init();
         do
         {
             this->corps();
-        }while ((not f(*this->best,this->generation)) and this->running);
+        }while ((not f(*this->best,this->generation,this->thread.get_id())) and this->running);
         this->end();
     };
 
@@ -162,7 +162,7 @@ void GeneticThread<T>::end()
 template <typename T>
 void GeneticThread<T>::save(const std::string& name)
 {
-    std::string filename(prefix+"_"+name+".res");
+    std::string filename(prefix+"_"+name);
     if(not std::ifstream(filename))
     {
         time_t temps;

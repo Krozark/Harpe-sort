@@ -51,7 +51,7 @@ T* GeneticEngine<T>::run(const int nb_generation/*,Args& ... args*/)
 
 template <class T>
 //template <typename ... Args>
-T* GeneticEngine<T>::run_while(bool (*f)(const T&,const int)/*,Args& ... args*/)
+T* GeneticEngine<T>::run_while(bool (*f)(const T&,int,std::thread::id)/*,Args& ... args*/)
 {
     for(int i=0;i<size;++i)
     {

@@ -44,7 +44,7 @@ class GeneticThread
         * run until f return true
         */
         
-        void run_while(bool (*f)(const T&,const int));
+        void run_while(bool (*f)(const T&,int,std::thread::id));
 
         T* get_best()const {return best;};
 
