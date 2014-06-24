@@ -43,7 +43,7 @@ int main(int argc,char* argv[])
     int pop_size = 1000;
     float pop_child = 1000;
     float mutation_taux = 1;
-    std::string filename= "calc_score";
+    std::string filename= "calc_sort.cpp";
     int nb_threads = -1;
     string creation = "tournament";
     string del = "tournament";
@@ -295,7 +295,7 @@ int main(int argc,char* argv[])
         engine.setTimeout(timeout);
         engine.setEvaluateAll(eval);
 
-        bool(*stop)(const harpe::learning::Entity&, const int) = [](const harpe::learning::Entity& best, const int generation)
+        bool (*stop)(const harpe::learning::Entity&,int,std::thread::id) = [](const harpe::learning::Entity& best,int generation,std::thread::id id) -> bool
         {
             return best.get_score() > _max; //tant qu'on a pas _max% de réussite
         };

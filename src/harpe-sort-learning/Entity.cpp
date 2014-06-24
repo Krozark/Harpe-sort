@@ -206,7 +206,10 @@ namespace learning
 
     std::ostream& operator<<(std::ostream& output,const Entity& individu)
     {
-        output<<"extern \"C\" {\n"
+        output<<"#include <utils/maths.hpp>\n"
+            "#define gauss utils::maths::ker::gaussian\n"
+            "\n"
+            "extern \"C\" {\n"
             "double calc_score(const double* const vals)\n"
             "{\n"
             "\treturn "<<individu.genome<<";\n"
@@ -541,7 +544,7 @@ namespace learning
                 if(root->funaire == ker::sin_f)
                     output<<"sin";
                 else if (root->funaire == ker::gaussian_default)
-                    output<<"gaus";
+                    output<<"gauss";
                 /*else if (root->funaire == Entity::Node::sub_u)
                   output<<"-";*/
                 else

@@ -40,7 +40,7 @@ int main(int argc,char* argv[])
                 else
                     SHOW_ARGS("Pas de fichier spécifié")
             }
-            if(arg == "-l")
+            else if(arg == "-l")
             {
                 if(++i < argc)
                 {
@@ -92,6 +92,7 @@ int main(int argc,char* argv[])
 
     std::ifstream file(mgf, std::ifstream::in);
 
+
     if (file.good())
     {
         std::atomic<unsigned int> total(0);
@@ -120,7 +121,7 @@ int main(int argc,char* argv[])
                         harpe::learning::Spectrum s = harpe::learning::Spectrum::convert(*spectrum,res);
                         double d = s.eval(harpe::Context::f());
 
-                        utils::log::ok(i,"Ajout du spectre avec",d,"de réussite. Status : OK");
+                        utils::log::ok(i,"Ajout du spectre avec",d,"de réussite (sur",res.size()," spectre). Status : OK");
 
                         double current;
                         do{

@@ -12,6 +12,7 @@ set(ROOT_HEADER
     ${INCROOT}/fkernel.hpp
     ${INCROOT}/Sequence.hpp
     ${INCROOT}/Spectrum.hpp
+    ${INCROOT}/Spectrum.tpl
 )
 
 
