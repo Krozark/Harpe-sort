@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <utils/maths.hpp>
 
-#define TO_BE_SORT 7
+#define TO_BE_SORT 5
 
 namespace harpe
 {

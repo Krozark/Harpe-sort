@@ -6,12 +6,12 @@
 #include <vector>
 #include <stack>
 #include <list>
+#include <mutex>
 
 #include <harpe-sort-learning/Spectrum.hpp>
 
 #define TREE_INIT_PROONDEUR 7
 #define TREE_SUB_INIT_PROFONDEUR 5
-#define PRECISION_SORT 3
 
 namespace harpe
 {
@@ -23,7 +23,9 @@ namespace learning
     class Entity
     {
         public:
+            static std::mutex learning_mutex;
             static std::list<harpe::learning::Spectrum> learning_spectums;
+            static std::list<harpe::learning::Spectrum> learning_spectums_test;
 
             /**
              * \brief Constructeur
