@@ -14,6 +14,7 @@
 #include <utils/thread.hpp>
 #include <utils/log.hpp>
 #include <utils/maths.hpp>
+#include <utils/sys.hpp>
 
 using namespace std;
 
@@ -359,11 +360,17 @@ int main(int argc,char* argv[])
                 utils::log::info("Validation","Total Spectres initiaux",i-1,", propositions:",total);
                 utils::log::info("Validation","Total Spectres pris en compte",harpe::learning::Entity::learning_spectums_test.size()," propositions ratio : ",double(total)/harpe::learning::Entity::learning_spectums_test.size());
             }
+            else
+            {
+                utils::log::error("Validation","input file not valid");
+            }
             file.close();
         }
 
         rand_init();
         harpe::learning::Entity::Node::max_indice = harpe::Sequence::Stats::SIZE;
+
+        utils::sys::dir::create("best");
 
         GeneticEngine<harpe::learning::Entity> engine(nb_threads,mutation_taux,filename,pop_size,pop_child,TREE_INIT_PROONDEUR);
         engine.setTimeout(timeout);
@@ -381,7 +388,7 @@ int main(int argc,char* argv[])
                     sum += s.eval(best);
                 }
                 sum/=_size;
-                utils::log::info("Validation","Validation sur",_size,"spectres donne",sum,"% de réusite");
+                utils::log::info("Validation","Validation de",best.get_score(),"donne",sum,"de réusite");
             }
             return res;
         };
@@ -401,6 +408,10 @@ int main(int argc,char* argv[])
 
         utils::log::info("best",*best);
         delete best;
+    }
+    else
+    {
+        utils::log::error("Learning","input file not valid");
     }
 
 

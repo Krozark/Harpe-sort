@@ -68,7 +68,7 @@ int main(int argc,char* argv[])
         .link("utils")
         .get();
 
-    if (not harpe::Context::loadFromLib("calc_score-verif.so"))
+    if (not harpe::Context::loadFromLib("./calc_score-verif.so"))
     {
         utils::log::error("Verification","loadFromLib failed");
         return 1;
@@ -158,7 +158,7 @@ int main(int argc,char* argv[])
     }
     else
     {
-        utils::log::error("Verification","input file not valide");
+        utils::log::error("Verification","input file not valid");
     }
     file.close();
 
