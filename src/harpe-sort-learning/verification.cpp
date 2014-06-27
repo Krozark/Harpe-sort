@@ -10,14 +10,15 @@
 
 #include <utils/thread.hpp>
 #include <utils/log.hpp>
+#include <utils/sys.hpp>
 
 using namespace std;
 
-#define SHOW_ARGS(x) {cout<<x<<endl\
-    <<"\t -h, -help, montre ce message"<<endl\
-    <<"\t -f mgf input file (obligatoire)"<<endl\
-    <<"\t -l calc_score library (obligatoire)"<<endl\
-    ;exit(1);\
+#define SHOW_ARGS(x) {utils::log::info("Help",x\
+    ,"\n\t -h, -help, montre ce message"\
+    ,"\n\t -f mgf input file (obligatoire)"\
+    ,"\n\t -l calc_score source file (obligatoire)"\
+    );exit(1);\
 }
 
 int main(int argc,char* argv[])
@@ -60,8 +61,18 @@ int main(int argc,char* argv[])
             SHOW_ARGS("Pas de fichier mgf spécifié")
     }
 
-    if (not harpe::Context::loadFromLib(lib)) //just to be ok, even if not used
+    utils::sys::Compiler comp = utils::sys::Compiler::getCompiler();
+    comp.input(lib)
+        .output("calc_score-verif")
+        .flags("-o3","-Wall","-std=c++0x")
+        .link("utils")
+        .get();
+
+    if (not harpe::Context::loadFromLib("calc_score-verif.so"))
+    {
+        utils::log::error("Verification","loadFromLib failed");
         return 1;
+    }
 
     //harpe::Context::error=0.05;
     //harpe::Context::finds_max_size=1000;
@@ -143,7 +154,11 @@ int main(int argc,char* argv[])
             pool.wait();
         }
         double d = total_res/ total;
-        std::cout<<"Validation : "<<d<<std::endl;
+        utils::log::ok("Validation :",d);
+    }
+    else
+    {
+        utils::log::error("Verification","input file not valide");
     }
     file.close();
 
