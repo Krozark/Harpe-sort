@@ -268,8 +268,10 @@ int main(int argc,char* argv[])
                                 utils::log::ok("Learning",i,"Discrétisation des données.Passage de",size,"à",res.size(),"propositions");
                                 size = res.size();
                             }
+                            
+                            harpe::learning::Spectrum tmp = harpe::learning::Spectrum::convert(*spectrum,res);
                             harpe::learning::Entity::learning_mutex.lock();
-                            harpe::learning::Entity::learning_spectums.push_back(harpe::learning::Spectrum::convert(*spectrum,res));
+                            harpe::learning::Entity::learning_spectums.push_back(std::move(tmp));
                             harpe::learning::Entity::learning_mutex.unlock();
 
                             utils::log::ok("Learning",i,"Ajout du spectre avec",res.size(),"proposition. Status : OK");
@@ -292,7 +294,7 @@ int main(int argc,char* argv[])
                 }
 
                 pool.wait();
-            }
+            }// pool destructor here
             utils::log::ok("Larning","Fin Initialisation des données d'apprentissage");
             utils::log::info("Learning","Total Spectres initiaux",i-1,", propositions:",total);
             utils::log::info("Learning","Total Spectres pris en compte",harpe::learning::Entity::learning_spectums.size()," propositions ratio : ",double(total)/harpe::learning::Entity::learning_spectums.size());
@@ -327,9 +329,12 @@ int main(int argc,char* argv[])
                             if (status == harpe::Analyser::Status::Ok)
                             {
                                 //convert for learning
+
+                                harpe::learning::Spectrum tmp = harpe::learning::Spectrum::convert(*spectrum,res);
                                 harpe::learning::Entity::learning_mutex.lock();
-                                harpe::learning::Entity::learning_spectums_test.push_back(harpe::learning::Spectrum::convert(*spectrum,res));
+                                harpe::learning::Entity::learning_spectums_test.push_back(std::move(tmp));
                                 harpe::learning::Entity::learning_mutex.unlock();
+
                                 utils::log::ok("Validation",i,"Ajout du spectre avec",res.size(),"proposition. Status : OK");
                                 total += res.size();
                             }
@@ -347,7 +352,8 @@ int main(int argc,char* argv[])
                         });
                         ++i;
                     }
-                }
+                    pool.wait();
+                }//pool destructor here
 
                 utils::log::ok("Validation","Fin Initialisation données d'apprentissage");
                 utils::log::info("Validation","Total Spectres initiaux",i-1,", propositions:",total);
