@@ -4,6 +4,7 @@
 #include <utility>
 #include <fstream>
 #include <cmath>
+#include <chrono>
 
 #include <mgf/Driver.hpp>
 #include <harpe-algo/Analyser.hpp>
@@ -43,9 +44,20 @@ using namespace std;
 double _max = 90;
 
 utils::plot::Gnuplot graph;
+std::vector<std::ofstream*> files;
 
 void replot()
 {
+    static std::chrono::system_clock::time_point begin;
+    static std::mutex mutex;
+    std::lock_guard<std::mutex> lock(mutex);
+
+    std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+
+    if(now - begin < std::chrono::seconds(5))
+        return;
+    begin = now;
+
     graph.cmd("reset\nclear\n");
 
     unsigned int nb = std::thread::hardware_concurrency();
@@ -53,8 +65,11 @@ void replot()
     graph<<"set multiplot layout "<<int(sq)<<","<<ceil(sq)<<"\n";
 
     for(unsigned int i=0;i<nb;++i)
-        graph<<"plot \""<<i<<".dat\" title columnheader(1) with lines, \""<<i<<"-val.dat\" title columnheader(1) with lines\n";
-    graph<<"unset multiplot";
+    {
+        graph<<"set title \"island "<<i<<"\"\n";
+        graph<<"plot \"plot/"<<i<<".dat\" title columnheader(1) with lines, \"plot/"<<i<<"-val.dat\" title columnheader(1) with lines\n";
+    }
+    graph<<"unset multiplot\n";
 }
 
 int main(int argc,char* argv[])
@@ -397,23 +412,24 @@ int main(int argc,char* argv[])
         engine.setTimeout(timeout);
         engine.setEvaluateAll(eval);
 
-        std::vector<std::ofstream*[2]> files;
-        files.reserve(std::thread::hardware_concurrency());
+        utils::sys::dir::create("plot");
 
         for(unsigned int i=0; i<std::thread::hardware_concurrency();++i)
         {
-            files[i] = {new std::ofstream{std::to_string(i)+".dat", std::ofstream::out|std::ofstream::trunc},
-                        new std::ofstream{std::to_string(i)+"-val.dat", std::ofstream::out|std::ofstream::trunc}};
+            files.emplace_back(new std::ofstream("plot/"+std::to_string(i)+".dat",std::ofstream::trunc|std::ofstream::out));
+            (*files.back())<<"\"Learning\""<<std::endl;
 
-            *files[i][0]<<"\"Learning\"\n";
-            *files[i][1]<<"\"Validation\"\n";
-
+            files.emplace_back(new std::ofstream("plot/"+std::to_string(i)+"-val.dat",std::ofstream::trunc|std::ofstream::out));
+            (*files.back())<<"\"Validation\""<<std::endl;
         }
 
         bool (*stop)(const harpe::learning::Entity&,int,int id) = [](const harpe::learning::Entity& best,int generation,int id) -> bool
         {
             bool res = best.get_score() > _max; //tant qu'on a pas _max% de réussite
             unsigned int _size = harpe::learning::Entity::learning_spectums_test.size();
+
+            (*files[id*2])<<generation<<" "<<best.get_score()<<std::endl;
+
             if(_size>0)// tests
             {
                 double sum = 0;
@@ -423,6 +439,8 @@ int main(int argc,char* argv[])
                 }
                 sum/=_size;
                 utils::log::info("Validation","Validation de",best.get_score(),"donne",sum,"de réusite");
+
+                (*files[id*2+1])<<generation<<" "<<sum<<std::endl;
             }
             replot();
             return res;
@@ -440,6 +458,9 @@ int main(int argc,char* argv[])
 
         utils::log::info("Initialisation","moteur génétique");
         harpe::learning::Entity* best = engine.run_while(stop);
+
+        for(std::ofstream* f : files)
+            f->close();
 
         utils::log::info("best",*best);
         delete best;
