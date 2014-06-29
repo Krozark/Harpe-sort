@@ -3,7 +3,7 @@
 #include <vector>
 #include <utility>
 #include <fstream>
-#include <cmath>
+//#include <cmath>
 #include <chrono>
 
 #include <mgf/Driver.hpp>
@@ -66,6 +66,7 @@ void replot()
 
     for(unsigned int i=0;i<nb;++i)
     {
+        //set terminal wxt nb
         graph<<"set title \"island "<<i<<"\"\n";
         graph<<"plot \"plot/"<<i<<".dat\" title columnheader(1) with lines, \"plot/"<<i<<"-val.dat\" title columnheader(1) with lines\n";
     }
