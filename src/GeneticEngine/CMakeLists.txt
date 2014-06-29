@@ -3,7 +3,7 @@ set(SRCROOT ${PROJECT_SOURCE_DIR}/src/GeneticEngine)
 
 #ROOT files
 set(ROOT_SRC
-    ${SRCROOT}/GeneticThread
+    ${SRCROOT}/GeneticThread.cpp
 )
 set(ROOT_HEADER
     ${INCROOT}/GeneticEngine.hpp

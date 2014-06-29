@@ -23,7 +23,7 @@ using namespace std;
     <<"\t -f mgf input file (obligatoire)"<<endl\
     <<"\t -t mgf input test file (optional)"<<endl\
     <<"\t -pop-total (defaut = 1000) population"<<endl\
-    <<"\t -pop-enf (defaut = 1000) .population d'enfants. if value is [0~1[,precent of [pop-total], else the number"<<endl\
+    <<"\t -pop-enf (defaut = 0.8) .population d'enfants. if value is [0~1[,precent of [pop-total], else the number"<<endl\
     <<"\t -mutation (defaut = 1 %) [entre 0 et 100]) taux de mutation"<<endl\
     <<"\t -prefix prefix du nom de fichier de log (default = calc_score)"<<endl\
     <<"\t -create (defaut = tournament) [stupid/tournament] creation mode"<<endl\
@@ -42,7 +42,7 @@ int main(int argc,char* argv[])
         return 1;
 
     int pop_size = 1000;
-    float pop_child = 1000;
+    float pop_child = 0.8;
     float mutation_taux = 1;
     std::string filename= "calc_sort.cpp";
     int nb_threads = -1;
