@@ -376,7 +376,7 @@ int main(int argc,char* argv[])
         engine.setTimeout(timeout);
         engine.setEvaluateAll(eval);
 
-        bool (*stop)(const harpe::learning::Entity&,int,std::thread::id) = [](const harpe::learning::Entity& best,int generation,std::thread::id id) -> bool
+        bool (*stop)(const harpe::learning::Entity&,int,int id) = [](const harpe::learning::Entity& best,int generation,int id) -> bool
         {
             bool res = best.get_score() > _max; //tant qu'on a pas _max% de réussite
             unsigned int _size = harpe::learning::Entity::learning_spectums_test.size();

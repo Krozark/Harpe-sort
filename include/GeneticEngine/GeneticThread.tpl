@@ -13,7 +13,7 @@ struct gt_ptr : std::binary_function<T,T,bool>
 
 template <typename T>
 template <typename ... Args>
-GeneticThread<T>::GeneticThread(float taux_mut,std::string filename,int pop_size,int pop_child, Args&& ... args) : size(pop_size), size_child(pop_child), mutation_taux(taux_mut), generation(0), prefix("best/"+filename), running(false)
+GeneticThread<T>::GeneticThread(int id,float taux_mut,std::string filename,int pop_size,int pop_child, Args&& ... args) : id(id), size(pop_size), size_child(pop_child), mutation_taux(taux_mut), generation(0), prefix("best/"+filename), running(false)
 {
     mutex.lock();
     best = nullptr;
@@ -62,18 +62,18 @@ void GeneticThread<T>::run(const int nb_generation)
 };
 
 template <typename T>
-void GeneticThread<T>::run_while(bool (*f)(const T&,int,std::thread::id))
+void GeneticThread<T>::run_while(bool (*f)(const T&,int,int id))
 {
 
     //will be execute in thread
-    auto lambda = [&](bool (*f)(const T&,int,std::thread::id))
+    auto lambda = [&](bool (*f)(const T&,int,int id))
     {
         //eval initiale
         this->init();
         do
         {
             this->corps();
-        }while ((not f(*this->best,this->generation,this->thread.get_id())) and this->running);
+        }while ((not f(*this->best,this->generation,this->id)) and this->running);
         this->end();
     };
 
@@ -84,7 +84,7 @@ void GeneticThread<T>::run_while(bool (*f)(const T&,int,std::thread::id))
 template <typename T>
 void GeneticThread<T>::init()
 {
-    utils::log::info(thread.get_id(),"Start init");
+    utils::log::info(id,"Start init");
     mutex.lock();
     running = true;
 
@@ -102,7 +102,7 @@ void GeneticThread<T>::init()
     }
 
     mutex.unlock();
-    utils::log::info(thread.get_id(),"End init");
+    utils::log::info(id,"End init");
 };
 
 template <typename T>
@@ -121,7 +121,7 @@ void GeneticThread<T>::corps()
     #endif
     mutex.unlock();
 
-    utils::log::info(thread.get_id(),"generation #",generation++);
+    utils::log::info(id,"generation #",generation++);
 
 };
 
@@ -147,7 +147,7 @@ T* GeneticThread<T>::makeNew(const T* parent1,const T& parent2)
 template <typename T>
 void GeneticThread<T>::end()
 {
-    utils::log::info(thread.get_id(),"Start end");
+    utils::log::info(id,"Start end");
     mutex.lock();
     
     for(int i=0;i<size;++i)
@@ -156,7 +156,7 @@ void GeneticThread<T>::end()
     save("last");
     mutex.unlock();
     running = false;
-    utils::log::info(thread.get_id(),"End end");
+    utils::log::info(id,"End end");
 };
 
 template <typename T>
@@ -183,7 +183,7 @@ void GeneticThread<T>::save(const std::string& name)
             <<"\n"<<*best
             <<"\n";
         file.close();
-        utils::log::ok(thread.get_id(),"best (score=",best->get_score(),"): ",*best);
+        utils::log::ok(id,"best (score=",best->get_score(),"): ",*best);
     }
 };
 

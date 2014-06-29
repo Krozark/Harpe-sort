@@ -29,7 +29,7 @@ class GeneticThread
     *  size_child = number of child
     *  Args ... = argument to T(Args& ... args ) constructor */
         template <typename ... Args>
-        GeneticThread(float taux_mut,std::string filename,int pop_size,int pop_child,Args&& ... args);
+        GeneticThread(int id,float taux_mut,std::string filename,int pop_size,int pop_child,Args&& ... args);
 
         ~GeneticThread();
 
@@ -44,7 +44,7 @@ class GeneticThread
         * run until f return true
         */
         
-        void run_while(bool (*f)(const T&,int,std::thread::id));
+        void run_while(bool (*f)(const T&,int,int id));
 
         T* get_best()const {return best;};
 
@@ -58,6 +58,9 @@ class GeneticThread
 
     private:
         friend class GeneticEngine<T>;
+
+        const int id;
+
         T** individus;
         const int size;
         const int size_child;

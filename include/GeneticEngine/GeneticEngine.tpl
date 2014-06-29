@@ -18,7 +18,7 @@ GeneticEngine<T>::GeneticEngine(int nb_threads,float taux_mut,std::string filena
 
     islands = new  GeneticThread<T>*[size];
     for(int i=0;i<size;++i)
-        islands[i] = new GeneticThread<T>(taux_mut,filename,pop_size/size,pop_child/size,args ...);
+        islands[i] = new GeneticThread<T>(i,taux_mut,filename,pop_size/size,pop_child/size,args ...);
 
     setTimeout(1000);
 
@@ -51,7 +51,7 @@ T* GeneticEngine<T>::run(const int nb_generation/*,Args& ... args*/)
 
 template <class T>
 //template <typename ... Args>
-T* GeneticEngine<T>::run_while(bool (*f)(const T&,int,std::thread::id)/*,Args& ... args*/)
+T* GeneticEngine<T>::run_while(bool (*f)(const T&,int,int id)/*,Args& ... args*/)
 {
     for(int i=0;i<size;++i)
     {
@@ -130,7 +130,7 @@ void GeneticEngine<T>::send()
 
             best->minimize();
 
-            utils::log::info("GeneticEngine","Sending value from",src.thread.get_id(), "to",dest->thread.get_id(),"score =",best->get_score());
+            utils::log::info("GeneticEngine","Sending value from",src.id, "to",dest->id,"score =",best->get_score());
 
             send(best,*dest);
         }
