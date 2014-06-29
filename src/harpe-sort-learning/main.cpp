@@ -1,5 +1,9 @@
 #include <iostream>
+
+#include <vector>
+#include <utility>
 #include <fstream>
+#include <cmath>
 
 #include <mgf/Driver.hpp>
 #include <harpe-algo/Analyser.hpp>
@@ -15,6 +19,7 @@
 #include <utils/log.hpp>
 #include <utils/maths.hpp>
 #include <utils/sys.hpp>
+#include <utils/plot.hpp>
 
 using namespace std;
 
@@ -36,6 +41,22 @@ using namespace std;
 }
 
 double _max = 90;
+
+utils::plot::Gnuplot graph;
+
+void replot()
+{
+    graph.cmd("reset\nclear\n");
+
+    unsigned int nb = std::thread::hardware_concurrency();
+    float sq = sqrt(nb);
+    graph<<"set multiplot layout "<<int(sq)<<","<<ceil(sq)<<"\n";
+
+    for(unsigned int i=0;i<nb;++i)
+        graph<<"plot \""<<i<<".dat\" title columnheader(1) with lines, \""<<i<<"-val.dat\" title columnheader(1) with lines\n";
+    graph<<"unset multiplot";
+}
+
 int main(int argc,char* argv[])
 {
     if (not harpe::Context::loadFromLib("./libempty_sort.so")) //just to be ok, even if not used
@@ -376,6 +397,19 @@ int main(int argc,char* argv[])
         engine.setTimeout(timeout);
         engine.setEvaluateAll(eval);
 
+        std::vector<std::ofstream*[2]> files;
+        files.reserve(std::thread::hardware_concurrency());
+
+        for(unsigned int i=0; i<std::thread::hardware_concurrency();++i)
+        {
+            files[i] = {new std::ofstream{std::to_string(i)+".dat", std::ofstream::out|std::ofstream::trunc},
+                        new std::ofstream{std::to_string(i)+"-val.dat", std::ofstream::out|std::ofstream::trunc}};
+
+            *files[i][0]<<"\"Learning\"\n";
+            *files[i][1]<<"\"Validation\"\n";
+
+        }
+
         bool (*stop)(const harpe::learning::Entity&,int,int id) = [](const harpe::learning::Entity& best,int generation,int id) -> bool
         {
             bool res = best.get_score() > _max; //tant qu'on a pas _max% de réussite
@@ -390,6 +424,7 @@ int main(int argc,char* argv[])
                 sum/=_size;
                 utils::log::info("Validation","Validation de",best.get_score(),"donne",sum,"de réusite");
             }
+            replot();
             return res;
         };
 
