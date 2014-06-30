@@ -62,7 +62,7 @@ void replot()
 
     unsigned int nb = std::thread::hardware_concurrency();
     float sq = sqrt(nb);
-    graph<<"set multiplot layout "<<int(sq)<<","<<ceil(sq)<<"\n";
+    graph<<"set multiplot layout "<<::round(sq)<<","<<::ceil(sq)<<"\n";
 
     for(unsigned int i=0;i<nb;++i)
     {
