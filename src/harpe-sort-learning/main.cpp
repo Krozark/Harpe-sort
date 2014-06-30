@@ -418,10 +418,10 @@ int main(int argc,char* argv[])
         for(unsigned int i=0; i<std::thread::hardware_concurrency();++i)
         {
             files.emplace_back(new std::ofstream("plot/"+std::to_string(i)+".dat",std::ofstream::trunc|std::ofstream::out));
-            (*files.back())<<"\"Learning\""<<std::endl;
+            (*files.back())<<"\"Learning\"\n0 0"<<std::endl;
 
             files.emplace_back(new std::ofstream("plot/"+std::to_string(i)+"-val.dat",std::ofstream::trunc|std::ofstream::out));
-            (*files.back())<<"\"Validation\""<<std::endl;
+            (*files.back())<<"\"Validation\"\n0 0"<<std::endl;
         }
 
         bool (*stop)(const harpe::learning::Entity&,int,int id) = [](const harpe::learning::Entity& best,int generation,int id) -> bool
