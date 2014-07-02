@@ -213,6 +213,8 @@ int main(int argc,char* argv[])
     }
 
     cout<<"Aguments: "
+    <<"\n learning: "<<mgf
+    <<"\n verification: "<<mgf_test
     <<"\n pop-size: "<<pop_size
     <<"\n pop-enf: "<< (int)pop_child
     <<"\n mutation: "<<mutation_taux*100

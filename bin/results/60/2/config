@@ -1,0 +1,3 @@
+harpe-sort-learning -f datas/60-learning.mgf -t datas/60-validation.mgf -pop-total 2000 -pop-enf 0.8 &> out.log
+
+remove NB_AA
