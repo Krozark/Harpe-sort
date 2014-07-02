@@ -20,6 +20,7 @@
 #include <utils/log.hpp>
 #include <utils/maths.hpp>
 #include <utils/sys.hpp>
+#include <utils/string.hpp>
 #include <utils/plot.hpp>
 
 using namespace std;
@@ -44,6 +45,9 @@ using namespace std;
 double _max = 90;
 
 utils::plot::Gnuplot graph;
+std::vector<std::list<harpe::learning::Spectrum>> learning_spectums_test;
+std::vector<std::string> files;
+std::mutex learning_mutex;
 
 void replot()
 {
@@ -57,6 +61,80 @@ void replot()
         return;
     begin = now;
     graph.draw();
+}
+
+bool calc_file(const std::string& filename,const std::string& type,std::list<harpe::learning::Spectrum>& spectums,bool need_discetize)
+{
+    std::ifstream file(filename, std::ifstream::in);
+    if(not file.good())
+        return false;
+
+    unsigned int i = 1;
+    long unsigned int total=0;
+    {
+        utils::thread::Pool pool(std::thread::hardware_concurrency());
+
+        mgf::Driver driver(file);
+        mgf::Spectrum* spectrum = nullptr;
+        utils::log::ok("Initialisation","données",type);
+
+        while((spectrum = driver.next()) != nullptr)
+        {
+            utils::log::todo("Learning",i,"Spectre mis en attente");
+
+            pool.push([i,spectrum,&total,&type,&spectums,need_discetize]()->void {
+                      int status = 0;
+                      std::vector<harpe::SequenceToken*> token_ptr;
+
+                      utils::log::info(type,i,"Debut du traitement du spectre");
+
+                      std::vector<harpe::Sequence> res = harpe::Analyser::analyse(*spectrum,token_ptr,status,-1);
+
+                      if (status == harpe::Analyser::Status::Ok)
+                      {
+                          //convert for learning
+                          size_t size = res.size();
+                          while(size > 4638 and need_discetize) /// in wors case, produce a result of 2000
+                          {
+                              res = utils::maths::discretize(res,[size](double a)->double{ //do not touch the limits
+                                 return 1.0/utils::maths::ker::gaussian(a,0.55);
+                             });
+                              utils::log::ok(type,i,"Discrétisation des données.Passage de",size,"à",res.size(),"propositions");
+                              size = res.size();
+                          }
+
+                          harpe::learning::Spectrum tmp = harpe::learning::Spectrum::convert(*spectrum,res);
+                          learning_mutex.lock();
+                          spectums.push_back(std::move(tmp));
+                          total += res.size();
+                          learning_mutex.unlock();
+
+                          utils::log::ok(type,i,"Ajout du spectre avec",res.size(),"proposition. Status : OK");
+                      }
+                      else if(status == harpe::Analyser::Status::LearningTooMuchFindsError)
+                      {
+                          utils::log::warning(type,i,"Trop de propositions sont possible (>",harpe::Context::finds_max_size,"), le spectre n'est donc pas pris en compte pour des raisons de performances");
+                      }
+                      else
+                      {
+                          utils::log::error(type,i,"Ajout du spectre status : Erreur <",harpe::Analyser::strErr(status),">. Merci de corriger le fichier d'entrée");
+                      }
+                      harpe::Analyser::free(token_ptr);
+                      delete spectrum;
+                      utils::log::info("Learning",i,"Fin du traitement du spectre");
+            });
+
+            ++i;
+        }
+
+        pool.wait();
+    }// pool destructor here
+    utils::log::ok(type,"Fin Initialisation des données d'apprentissage");
+    utils::log::info(type,"Total Spectres initiaux",i-1,", propositions:",total);
+    utils::log::info(type,"Total Spectres pris en compte",spectums.size()," propositions ratio : ",double(total)/spectums.size());
+    
+    file.close();
+    return true;
 }
 
 int main(int argc,char* argv[])
@@ -212,6 +290,9 @@ int main(int argc,char* argv[])
             SHOW_ARGS("Pas de fichier mgf spécifié")
     }
 
+    files = utils::string::split(mgf_test,",");
+    learning_spectums_test.resize(files.size());
+
     cout<<"Aguments: "
     <<"\n learning: "<<mgf
     <<"\n verification: "<<mgf_test
@@ -256,140 +337,25 @@ int main(int argc,char* argv[])
 
     harpe::Context::aa_tab.sort();
 
-    std::ifstream file(mgf, std::ifstream::in);
-
-    if (file.good())
+    if(calc_file(mgf,"Learning",harpe::learning::Entity::learning_spectums,true))
     {
+        const unsigned int _size = files.size();
+        for(unsigned int f=0;f<_size;++f)
+            calc_file(files[f],"Validation",learning_spectums_test[f],false);
+
+        utils::sys::dir::create("plot");
+        for(unsigned int i=0; i<std::thread::hardware_concurrency();++i)
         {
-            unsigned int i = 1;
-            std::atomic<long unsigned int> total(0);
+            graph.add(std::to_string(i));
+            graph[i].add("Learning-"+mgf);
+            graph[i][0].addPoint(0,0);
+
+            const unsigned int _size = files.size();
+            for(unsigned int f=0;f<_size;++f)
             {
-                utils::thread::Pool pool(std::thread::hardware_concurrency());
-
-                mgf::Driver driver(file);
-                mgf::Spectrum* spectrum = nullptr;
-                utils::log::ok("Initialisation","données d'apprentissage");
-
-                while((spectrum = driver.next()) != nullptr)
-                {
-                    utils::log::todo("Learning",i,"Spectre mis en attente");
-
-                    pool.push([i,spectrum,&total]()->void {
-                        int status = 0;
-                        std::vector<harpe::SequenceToken*> token_ptr;
-
-                        utils::log::info("Learning",i,"Debut du traitement du spectre");
-
-                        std::vector<harpe::Sequence> res = harpe::Analyser::analyse(*spectrum,token_ptr,status,-1);
-
-                        if (status == harpe::Analyser::Status::Ok)
-                        {
-                            //convert for learning
-                            size_t size = res.size();
-                            while(size > 4638) /// in wors case, produce a result of 2000
-                            {
-                                res = utils::maths::discretize(res,[size](double a)->double{ //do not touch the limits
-                                    return 1.0/utils::maths::ker::gaussian(a,0.55);
-                                });
-                                utils::log::ok("Learning",i,"Discrétisation des données.Passage de",size,"à",res.size(),"propositions");
-                                size = res.size();
-                            }
-                            
-                            harpe::learning::Spectrum tmp = harpe::learning::Spectrum::convert(*spectrum,res);
-                            harpe::learning::Entity::learning_mutex.lock();
-                            harpe::learning::Entity::learning_spectums.push_back(std::move(tmp));
-                            harpe::learning::Entity::learning_mutex.unlock();
-
-                            utils::log::ok("Learning",i,"Ajout du spectre avec",res.size(),"proposition. Status : OK");
-                            total += res.size();
-                        }
-                        else if(status == harpe::Analyser::Status::LearningTooMuchFindsError)
-                        {
-                            utils::log::warning("Learning",i,"Trop de propositions sont possible (>",harpe::Context::finds_max_size,"), le spectre n'est donc pas pris en compte pour des raisons de performances");
-                        }
-                        else
-                        {
-                            utils::log::error("Learning",i,"Ajout du spectre status : Erreur <",harpe::Analyser::strErr(status),">. Merci de corriger le fichier d'entrée");
-                        }
-                        harpe::Analyser::free(token_ptr);
-                        delete spectrum;
-                        utils::log::info("Learning",i,"Fin du traitement du spectre");
-                    });
-
-                    ++i;
-                }
-
-                pool.wait();
-            }// pool destructor here
-            utils::log::ok("Larning","Fin Initialisation des données d'apprentissage");
-            utils::log::info("Learning","Total Spectres initiaux",i-1,", propositions:",total);
-            utils::log::info("Learning","Total Spectres pris en compte",harpe::learning::Entity::learning_spectums.size()," propositions ratio : ",double(total)/harpe::learning::Entity::learning_spectums.size());
-        }
-        file.close();
-
-        if(not mgf_test.empty())
-        {
-            std::ifstream file(mgf_test, std::ifstream::in);
-            if(file.good())
-            {
-                unsigned int i = 1;
-                std::atomic<long unsigned int> total(0);
-                {
-                    utils::thread::Pool pool(std::thread::hardware_concurrency());
-                    mgf::Driver driver(file);
-                    mgf::Spectrum* spectrum = nullptr;
-                    utils::log::ok("Initialisation","données de tests");
-                    
-                    while((spectrum = driver.next()) != nullptr)
-                    {
-                        utils::log::todo("Validation",i,"Spectre mis en attente");
-
-                        pool.push([i,spectrum,&total]()->void {
-                            int status = 0;
-                            std::vector<harpe::SequenceToken*> token_ptr;
-
-                            utils::log::info("Validation",i,"Debut du traitement du spectre");
-
-                            std::vector<harpe::Sequence> res = harpe::Analyser::analyse(*spectrum,token_ptr,status,-1);
-
-                            if (status == harpe::Analyser::Status::Ok)
-                            {
-                                //convert for learning
-
-                                harpe::learning::Spectrum tmp = harpe::learning::Spectrum::convert(*spectrum,res);
-                                harpe::learning::Entity::learning_mutex.lock();
-                                harpe::learning::Entity::learning_spectums_test.push_back(std::move(tmp));
-                                harpe::learning::Entity::learning_mutex.unlock();
-
-                                utils::log::ok("Validation",i,"Ajout du spectre avec",res.size(),"proposition. Status : OK");
-                                total += res.size();
-                            }
-                            else if(status == harpe::Analyser::Status::LearningTooMuchFindsError)
-                            {
-                                utils::log::warning("Validation",i,"Trop de propositions sont possible (>",harpe::Context::finds_max_size,"), le spectre n'est donc pas pris en compte pour des raisons de performances");
-                            }
-                            else
-                            {
-                                utils::log::error("Validation",i,"Ajout du spectre status : Erreur <",harpe::Analyser::strErr(status),">. Merci de corriger le fichier d'entrée");
-                            }
-                            harpe::Analyser::free(token_ptr);
-                            delete spectrum;
-                            utils::log::info("Validation",i,"Fin du traitement du spectre");
-                        });
-                        ++i;
-                    }
-                    pool.wait();
-                }//pool destructor here
-
-                utils::log::ok("Validation","Fin Initialisation données d'apprentissage");
-                utils::log::info("Validation","Total Spectres initiaux",i-1,", propositions:",total);
-                utils::log::info("Validation","Total Spectres pris en compte",harpe::learning::Entity::learning_spectums_test.size()," propositions ratio : ",double(total)/harpe::learning::Entity::learning_spectums_test.size());
+                graph[i].add("Validation-"+files[f]);
+                graph[i][f+1].addPoint(0,0);
             }
-            else
-            {
-                utils::log::error("Validation","input file not valid");
-            }
-            file.close();
         }
 
         rand_init();
@@ -401,35 +367,31 @@ int main(int argc,char* argv[])
         engine.setTimeout(timeout);
         engine.setEvaluateAll(eval);
 
-        utils::sys::dir::create("plot");
 
-        for(unsigned int i=0; i<std::thread::hardware_concurrency();++i)
-        {
-            graph.add(std::to_string(i));
-            graph[i].add("Learning");
-            graph[i][0].addPoint(0,0);
-            graph[i].add("Validation");
-            graph[i][1].addPoint(0,0);
-        }
 
         bool (*stop)(const harpe::learning::Entity&,int,int id) = [](const harpe::learning::Entity& best,int generation,int id) -> bool
         {
             bool res = best.get_score() > _max; //tant qu'on a pas _max% de réussite
-            unsigned int _size = harpe::learning::Entity::learning_spectums_test.size();
 
             graph[id][0].addPoint(generation,best.get_score());
 
-            if(_size>0)// tests
+            const unsigned int _size = learning_spectums_test.size();
+            for(unsigned int f=0;f<_size;++f)
             {
-                double sum = 0;
-                for(harpe::learning::Spectrum& s : harpe::learning::Entity::learning_spectums_test)
-                {
-                    sum += s.eval(best);
-                }
-                sum/=_size;
-                utils::log::info("Validation","Validation de",best.get_score(),"donne",sum,"de réusite");
+                unsigned int _size = learning_spectums_test[f].size();
 
-                graph[id][1].addPoint(generation,sum);
+                if(_size>0)// tests
+                {
+                    double sum = 0;
+                    for(harpe::learning::Spectrum& s : learning_spectums_test[f])
+                    {
+                        sum += s.eval(best);
+                    }
+                    sum/=_size;
+                    utils::log::info("Validation","Validation de",best.get_score(),"donne",sum,"de réusite sur",files[f]);
+
+                    graph[id][f+1].addPoint(generation,sum);
+                }
             }
             replot();
             return res;

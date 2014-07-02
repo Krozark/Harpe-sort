@@ -23,9 +23,7 @@ namespace learning
     class Entity
     {
         public:
-            static std::mutex learning_mutex;
             static std::list<harpe::learning::Spectrum> learning_spectums;
-            static std::list<harpe::learning::Spectrum> learning_spectums_test;
 
             /**
              * \brief Constructeur

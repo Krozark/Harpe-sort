@@ -12,9 +12,7 @@ namespace harpe
 {
 namespace learning
 {
-    std::mutex Entity::learning_mutex;
     std::list<harpe::learning::Spectrum> Entity::learning_spectums;
-    std::list<harpe::learning::Spectrum> Entity::learning_spectums_test;
 
     Entity::Entity(): genome(nullptr),score(0)/*, seuil(1.f)*/
     {
