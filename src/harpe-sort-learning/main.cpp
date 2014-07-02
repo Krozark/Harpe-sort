@@ -123,7 +123,7 @@ bool calc_file(const std::string& filename,const std::string& type,std::list<har
                       }
                       harpe::Analyser::free(token_ptr);
                       delete spectrum;
-                      utils::log::info("Learning",i,"Fin du traitement du spectre");
+                      utils::log::info(type,i,"Fin du traitement du spectre");
             });
 
             ++i;
@@ -343,7 +343,7 @@ int main(int argc,char* argv[])
     {
         const unsigned int _size = files.size();
         for(unsigned int f=0;f<_size;++f)
-            calc_file(files[f],"Validation",learning_spectums_test[f],false);
+            calc_file(files[f],"Validation",learning_spectums_test[f],true);
 
         utils::sys::dir::create("plot");
         for(unsigned int i=0; i<std::thread::hardware_concurrency();++i)
