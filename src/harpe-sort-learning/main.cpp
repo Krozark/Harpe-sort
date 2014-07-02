@@ -48,6 +48,7 @@ utils::plot::Gnuplot graph;
 std::vector<std::list<harpe::learning::Spectrum>> learning_spectums_test;
 std::vector<std::string> files;
 std::mutex learning_mutex;
+int nb_threads;
 
 
 void replot() //<redessine le graph
@@ -74,7 +75,7 @@ bool calc_file(const std::string& filename,const std::string& type,std::list<har
     unsigned int i = 1;
     long unsigned int total=0;
     {
-        utils::thread::Pool pool(std::thread::hardware_concurrency());
+        utils::thread::Pool pool(nb_threads);
 
         mgf::Driver driver(file);
         mgf::Spectrum* spectrum = nullptr;
@@ -148,7 +149,7 @@ int main(int argc,char* argv[])
     float pop_child = 0.8;
     float mutation_taux = 1;
     std::string filename= "calc_sort.cpp";
-    int nb_threads = -1;
+    nb_threads = std::thread::hardware_concurrency();
     string creation = "tournament";
     string del = "tournament";
     bool eval = false;
@@ -346,9 +347,9 @@ int main(int argc,char* argv[])
             calc_file(files[f],"Validation",learning_spectums_test[f],true);
 
         utils::sys::dir::create("plot");
-        for(unsigned int i=0; i<std::thread::hardware_concurrency();++i)
+        for(int i=0; i<nb_threads;++i)
         {
-            graph.add(std::to_string(i));
+            graph.add("island "+std::to_string(i));
             graph[i].add("Learning-"+mgf);
             graph[i][0].addPoint(0,0);
             graph[i][0].close();
