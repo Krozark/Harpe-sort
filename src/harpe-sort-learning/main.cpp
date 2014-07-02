@@ -28,7 +28,7 @@ using namespace std;
 #define SHOW_ARGS(x) {cout<<x<<endl\
     <<"\t -h, -help, montre ce message"<<endl\
     <<"\t -f mgf input file (obligatoire)"<<endl\
-    <<"\t -t mgf input test file (optional) you can add multiple files names using \",\" as separator"<<endl\
+    <<"\t -t mgf input test file (optional) you can add multiple files names using \",\" or space as separator"<<endl\
     <<"\t -pop-total (defaut = 1000) population"<<endl\
     <<"\t -pop-enf (defaut = 0.8) .population d'enfants. if value is [0~1[,precent of [pop-total], else the number"<<endl\
     <<"\t -mutation (defaut = 1 %) [entre 0 et 100]) taux de mutation"<<endl\
@@ -176,6 +176,11 @@ int main(int argc,char* argv[])
                 if(++i < argc)
                 {
                     mgf_test = argv[i];
+                    while(i+1 < argc and argv[i+1][0]!='-')
+                    {
+                        mgf_test+=",";
+                        mgf_test+=+argv[++i];
+                    }
                 }
                 else
                     SHOW_ARGS("Pas de fichier spécifié")
