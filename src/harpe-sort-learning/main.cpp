@@ -44,7 +44,6 @@ using namespace std;
 double _max = 90;
 
 utils::plot::Gnuplot graph;
-std::vector<std::ofstream*> files;
 
 void replot()
 {
@@ -57,20 +56,7 @@ void replot()
     if(now - begin < std::chrono::seconds(5))
         return;
     begin = now;
-
-    graph.cmd("reset\nclear\n");
-
-    unsigned int nb = std::thread::hardware_concurrency();
-    float sq = sqrt(nb);
-    graph<<"set multiplot layout "<<::round(sq)<<","<<::ceil(sq)<<"\n";
-
-    for(unsigned int i=0;i<nb;++i)
-    {
-        //set terminal wxt nb
-        graph<<"set title \"island "<<i<<"\"\n";
-        graph<<"plot \"plot/"<<i<<".dat\" title columnheader(1) with lines, \"plot/"<<i<<"-val.dat\" title columnheader(1) with lines\n";
-    }
-    graph<<"unset multiplot\n";
+    graph.draw();
 }
 
 int main(int argc,char* argv[])
@@ -417,11 +403,11 @@ int main(int argc,char* argv[])
 
         for(unsigned int i=0; i<std::thread::hardware_concurrency();++i)
         {
-            files.emplace_back(new std::ofstream("plot/"+std::to_string(i)+".dat",std::ofstream::trunc|std::ofstream::out));
-            (*files.back())<<"\"Learning\"\n0 0"<<std::endl;
-
-            files.emplace_back(new std::ofstream("plot/"+std::to_string(i)+"-val.dat",std::ofstream::trunc|std::ofstream::out));
-            (*files.back())<<"\"Validation\"\n0 0"<<std::endl;
+            graph.add(std::to_string(i));
+            graph[i].add("Learning");
+            graph[i][0].addPoint(0,0);
+            graph[i].add("Validation");
+            graph[i][1].addPoint(0,0);
         }
 
         bool (*stop)(const harpe::learning::Entity&,int,int id) = [](const harpe::learning::Entity& best,int generation,int id) -> bool
@@ -429,7 +415,7 @@ int main(int argc,char* argv[])
             bool res = best.get_score() > _max; //tant qu'on a pas _max% de réussite
             unsigned int _size = harpe::learning::Entity::learning_spectums_test.size();
 
-            (*files[id*2])<<generation<<" "<<best.get_score()<<std::endl;
+            graph[id][0].addPoint(generation,best.get_score());
 
             if(_size>0)// tests
             {
@@ -441,7 +427,7 @@ int main(int argc,char* argv[])
                 sum/=_size;
                 utils::log::info("Validation","Validation de",best.get_score(),"donne",sum,"de réusite");
 
-                (*files[id*2+1])<<generation<<" "<<sum<<std::endl;
+                graph[id][1].addPoint(generation,sum);
             }
             replot();
             return res;
@@ -459,9 +445,6 @@ int main(int argc,char* argv[])
 
         utils::log::info("Initialisation","moteur génétique");
         harpe::learning::Entity* best = engine.run_while(stop);
-
-        for(std::ofstream* f : files)
-            f->close();
 
         utils::log::info("best",*best);
         delete best;
