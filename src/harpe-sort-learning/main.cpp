@@ -49,7 +49,8 @@ std::vector<std::list<harpe::learning::Spectrum>> learning_spectums_test;
 std::vector<std::string> files;
 std::mutex learning_mutex;
 
-void replot()
+
+void replot() //<redessine le graph
 {
     static std::chrono::system_clock::time_point begin;
     static std::mutex mutex;
@@ -63,6 +64,7 @@ void replot()
     graph.draw();
 }
 
+//initialise les datas
 bool calc_file(const std::string& filename,const std::string& type,std::list<harpe::learning::Spectrum>& spectums,bool need_discetize)
 {
     std::ifstream file(filename, std::ifstream::in);
@@ -349,12 +351,14 @@ int main(int argc,char* argv[])
             graph.add(std::to_string(i));
             graph[i].add("Learning-"+mgf);
             graph[i][0].addPoint(0,0);
+            graph[i][0].close();
 
             const unsigned int _size = files.size();
             for(unsigned int f=0;f<_size;++f)
             {
                 graph[i].add("Validation-"+files[f]);
                 graph[i][f+1].addPoint(0,0);
+                graph[i][f+1].close();
             }
         }
 
@@ -373,7 +377,9 @@ int main(int argc,char* argv[])
         {
             bool res = best.get_score() > _max; //tant qu'on a pas _max% de réussite
 
+            graph[id][0].open();
             graph[id][0].addPoint(generation,best.get_score());
+            graph[id][0].close();
 
             const unsigned int _size = learning_spectums_test.size();
             for(unsigned int f=0;f<_size;++f)
@@ -390,7 +396,9 @@ int main(int argc,char* argv[])
                     sum/=_size;
                     utils::log::info("Validation","Validation de",best.get_score(),"donne",sum,"de réusite sur",files[f]);
 
+                    graph[id][f+1].open();
                     graph[id][f+1].addPoint(generation,sum);
+                    graph[id][f+1].close();
                 }
             }
             replot();
