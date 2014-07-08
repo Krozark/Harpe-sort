@@ -349,7 +349,7 @@ int main(int argc,char* argv[])
     {
         const unsigned int _size = files.size();
         for(unsigned int f=0;f<_size;++f)
-            calc_file(files[f],"Validation",learning_spectums_test[f],true);
+        calc_file(files[f],"Validation "+std::to_string(f+1)+"/"+std::to_string(f+1)+" : "+files[f],learning_spectums_test[f],true);
 
         utils::sys::dir::create("plot");
         for(int i=0; i<nb_threads;++i)
