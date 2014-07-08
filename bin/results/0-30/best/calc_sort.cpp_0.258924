@@ -1,0 +1,15 @@
+/*
+*	date: 06-07-2014 22:59
+*	score: 0.258924
+*	size: 15
+*	generation: 17
+*/
+#include <utils/maths.hpp>
+#define gauss utils::maths::ker::gaussian
+
+extern "C" {
+double calc_score(const double* const vals)
+{
+	return ((((gauss((vals[1])/(0.171445)))/(0.171445))/((0.586228)/(vals[8])))*(gauss((vals[1])/(0.586228))));
+}
+}
