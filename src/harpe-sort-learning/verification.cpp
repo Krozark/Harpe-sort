@@ -61,7 +61,7 @@ int main(int argc,char* argv[])
             SHOW_ARGS("Pas de fichier mgf spécifié")
     }
 
-    utils::sys::Compiler comp = utils::sys::Compiler::getCompiler();
+    utils::sys::Compiler comp;
     comp.input(lib)
         .output("calc_score-verif")
         .flags("-o3","-Wall","-std=c++0x")

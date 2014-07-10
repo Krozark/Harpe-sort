@@ -342,8 +342,9 @@ int main(int argc,char* argv[])
     harpe::Context::aa_tab.add(17,"W",186.079313);
     harpe::Context::aa_tab.add(18,"Y",163.063320);
 
-
     harpe::Context::aa_tab.sort();
+
+    graph.mod(utils::plot::Gnuplot::Mod::WINDOW);
 
     if(calc_file(mgf,"Learning",harpe::learning::Entity::learning_spectums,true))
     {
