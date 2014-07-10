@@ -39,6 +39,7 @@ using namespace std;
     <<"\t -threads (defaut = -1) [-1 pour le max possible] nombre de thread à utiliser"<<endl\
     <<"\t -max (default = 90) [0~100] score moyen à obtenir (en pourcentage de réussite)"<<endl\
     <<"\t -timeout (default = 300000) in ms timeout pour la diffusion des meilleurs individus"<<endl\
+    <<"\t -graph [multi/window] (default = multi)"<<endl\
     ;exit(1);\
 }
 
@@ -156,6 +157,7 @@ int main(int argc,char* argv[])
     std::string mgf;
     std::string mgf_test;
     int timeout = 30000;
+    utils::plot::Gnuplot::Mod mod = utils::plot::Gnuplot::Mod::MULTI;
 
     {
         int i=1;
@@ -284,6 +286,18 @@ int main(int argc,char* argv[])
                 else
                     SHOW_ARGS("Pas de nombre précisé")
             }
+            else if(arg == "-graph")
+            {
+                if(++i < argc)
+                {
+                    if(argv[i] == string("multi"))
+                        mod = utils::plot::Gnuplot::Mod::MULTI;
+                    else
+                        mod = utils::plot::Gnuplot::Mod::WINDOW;
+                }
+                else
+                    SHOW_ARGS("Pas de mod précisé")
+            }
             else
                 SHOW_ARGS(string(argv[i])+": Mauvais argument");
             ++i;
@@ -344,7 +358,7 @@ int main(int argc,char* argv[])
 
     harpe::Context::aa_tab.sort();
 
-    graph.mod(utils::plot::Gnuplot::Mod::WINDOW);
+    graph.mod(mod);
 
     if(calc_file(mgf,"Learning",harpe::learning::Entity::learning_spectums,true))
     {
