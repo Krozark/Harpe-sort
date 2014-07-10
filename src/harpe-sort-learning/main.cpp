@@ -39,7 +39,7 @@ using namespace std;
     <<"\t -threads (defaut = -1) [-1 pour le max possible] nombre de thread à utiliser"<<endl\
     <<"\t -max (default = 90) [0~100] score moyen à obtenir (en pourcentage de réussite)"<<endl\
     <<"\t -timeout (default = 300000) in ms timeout pour la diffusion des meilleurs individus"<<endl\
-    <<"\t -graph [multi/window] (default = multi)"<<endl\
+    <<"\t -graph [multi/window/hybrid] (default = hybrid)"<<endl\
     ;exit(1);\
 }
 
@@ -157,7 +157,7 @@ int main(int argc,char* argv[])
     std::string mgf;
     std::string mgf_test;
     int timeout = 30000;
-    utils::plot::Gnuplot::Mod mod = utils::plot::Gnuplot::Mod::MULTI;
+    utils::plot::Gnuplot::Mod mod = utils::plot::Gnuplot::Mod::HYBRID;
 
     {
         int i=1;
@@ -292,8 +292,9 @@ int main(int argc,char* argv[])
                 {
                     if(argv[i] == string("multi"))
                         mod = utils::plot::Gnuplot::Mod::MULTI;
-                    else
+                    else if(argv[i] == string("window"))
                         mod = utils::plot::Gnuplot::Mod::WINDOW;
+                    //else /* hybrid */
                 }
                 else
                     SHOW_ARGS("Pas de mod précisé")
