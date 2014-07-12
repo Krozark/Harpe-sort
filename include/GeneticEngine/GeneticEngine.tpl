@@ -128,7 +128,7 @@ void GeneticEngine<T>::send()
             T* best = src.get_best()->clone();
             src.mutex.unlock();
 
-            best->minimize();
+            //best->minimize();
 
             utils::log::info("GeneticEngine","Sending value from",src.id, "to",dest->id,"score =",best->get_score());
 
