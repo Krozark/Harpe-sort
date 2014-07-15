@@ -29,21 +29,21 @@ RHPYFYAPELLYYANK"""
 from Bio.Blast import NCBIWWW
 result_handle = NCBIWWW.qblast("blastp", "nt",sequence)
 
-save_file = open("my_blast.xml", "w")
-save_file.write(result_handle.read())
-save_file.close()
-result_handle.close()
+#save_file = open("my_blast.xml", "w")
+#save_file.write(result_handle.read())
+#save_file.close()
+#result_handle.close()
 
 from Bio.Blast import NCBIXML
 blast_records = NCBIXML.parse(result_handle)
-blast_records = list(blast_records)
 i = 1
 E_VALUE_THRESH = 0.04
 for blast_record in blast_records:
+    print("++++++++++ %d +++++++++++++" %i)
     for alignment in blast_record.alignments:
         for hsp in alignment.hsps:
             if hsp.expect < E_VALUE_THRESH:
-                print('****Alignment****%d' % i)
+                print('****Alignment****')
                 print('sequence:', alignment.title)
                 print('length:', alignment.length)
                 print('e value:', hsp.expect)
