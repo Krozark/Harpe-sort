@@ -137,7 +137,7 @@ void GeneticEngine<T>::send()
             std::ofstream out("best/send.log",std::ofstream::out | std::ofstream::app);
             if(out.good())
             {
-                out<<utils::log::time<<src_pt->id<<" -> "<<dest->id<<std::endl;
+                out<<utils::log::time<<"Sending value from "<<src.id<<" to "<<dest->id<<" score = "<<best->get_score()<<std::endl;
                 out.close();
             }
 
