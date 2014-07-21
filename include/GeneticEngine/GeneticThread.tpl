@@ -179,6 +179,7 @@ void GeneticThread<T>::save(const std::string& name)
             <<"\n*\tscore: "<<best->get_score()
             <<"\n*\tsize: "<<best->size()
             <<"\n*\tgeneration: "<<generation
+            <<"\n*\tisland: "<<id
             <<"\n*/"
             <<"\n"<<*best
             <<"\n";
