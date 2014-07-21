@@ -133,6 +133,14 @@ void GeneticEngine<T>::send()
             utils::log::info("GeneticEngine","Sending value from",src.id, "to",dest->id,"score =",best->get_score());
 
             send(best,*dest);
+
+            std::ofstream out("best/send.log",std::ofstream::out | std::ofstream::app);
+            if(out.good())
+            {
+                out<<utils::log::time<<src_pt->id<<" -> "<<dest->id<<std::endl;
+                out.close();
+            }
+
         }
         //wait a moment for the other send
         std::this_thread::sleep_for(std::chrono::milliseconds(timeout));
