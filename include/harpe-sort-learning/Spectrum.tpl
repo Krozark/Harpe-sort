@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <utils/maths.hpp>
+#include <algorithm>
 
 #define TO_BE_SORT 5
 
@@ -18,6 +19,9 @@ namespace harpe
                 data[i].first = &propositions[i];
                 data[i].second = propositions[i].eval(std::forward<T>(e));
             }
+
+            std::random_shuffle(data.begin(),data.end());
+
 
             const unsigned int _max = (_size<TO_BE_SORT?_size:TO_BE_SORT);
             std::partial_sort(data.begin(),
