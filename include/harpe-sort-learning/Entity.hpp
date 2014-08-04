@@ -99,7 +99,7 @@ namespace learning
                     enum FUNCTIONS {
                         //unaire
                         SIN = 0,
-                        //GAUSSIAN,
+                        GAUSSIAN,
                         //binaire
                         MUL,
                         DIV,
