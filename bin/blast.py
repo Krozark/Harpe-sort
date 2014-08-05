@@ -27,12 +27,12 @@ HPYFYAPELLYYANK
 RHPYFYAPELLYYANK"""
 
 from Bio.Blast import NCBIWWW
-result_handle = NCBIWWW.qblast("blastp", "nr",sequence)
-
-save_file = open("my_blast.xml", "w")
-save_file.write(result_handle.read())
-save_file.close()
-result_handle.close()
+#result_handle = NCBIWWW.qblast("blastp", "nr",sequence)
+#
+#save_file = open("my_blast.xml", "w")
+#save_file.write(result_handle.read())
+#save_file.close()
+#result_handle.close()
 
 result_handle = open("my_blast.xml", "r")
 

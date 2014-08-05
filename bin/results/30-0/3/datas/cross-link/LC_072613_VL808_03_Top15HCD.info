@@ -1,7 +1,0 @@
-Voici le mgf des données Orbitrap (autres modes de fragmentation que QTOF). Dedans il y a:
-
-1. Peptides non modifés
-2. Peptides modifiés par les PTM communes (oxidation...)
-3. Peptides modifés par:
-- BS3 d0: masse de la modif: 138,0680796 (crosslinked form) ou 156,0786442 (1st monolinked form) ou 155,0964278 (2nd monolinked form)
-- BS3 d4: masse de la modif: 142,0926796 (crosslinked form) ou 160,1032442 (1st monolinked form)  ou 159,1210278 (2nd monolinked form).
