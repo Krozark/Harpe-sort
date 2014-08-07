@@ -358,6 +358,19 @@ int main(int argc,char* argv[])
     harpe::Context::aa_tab.add(17,"W",186.079313);
     harpe::Context::aa_tab.add(18,"Y",163.063320);
 
+    //amonia R N Q K
+    double amonia = -17.0265491060;
+    harpe::Context::aa_tab.add(13,"R",156.101111 - amonia);
+    harpe::Context::aa_tab.add(10,"N",114.042927 - amonia);
+    harpe::Context::aa_tab.add(12,"Q",128.058578 - amonia);
+    harpe::Context::aa_tab.add(8,"K",128.094963 - amonia);
+    //dehydra E S T -18.0105646840
+    double h2o = -18.0105646840;
+    harpe::Context::aa_tab.add(3,"E",129.042593 - h2o);
+    harpe::Context::aa_tab.add(14,"S",87.032028 - h2o);
+    harpe::Context::aa_tab.add(15,"T",101.047679 - h2o);
+
+
     harpe::Context::aa_tab.sort();
 
     graph.mod(mod);
