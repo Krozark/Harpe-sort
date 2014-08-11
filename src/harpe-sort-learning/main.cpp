@@ -38,7 +38,7 @@ using namespace std;
     <<"\t -eval (default = 0) [1/0] always eval new"<<endl\
     <<"\t -threads (defaut = -1) [-1 pour le max possible] nombre de thread à utiliser"<<endl\
     <<"\t -max (default = 90) [0~100] score moyen à obtenir (en pourcentage de réussite)"<<endl\
-    <<"\t -timeout (default = 300000) in ms timeout pour la diffusion des meilleurs individus"<<endl\
+    <<"\t -timeout (default = 10000) in ms timeout pour la diffusion des meilleurs individus"<<endl\
     <<"\t -graph [multi/window/hybrid] (default = multi)"<<endl\
     ;exit(1);\
 }
@@ -129,6 +129,8 @@ bool calc_file(const std::string& filename,const std::string& type,std::list<har
             });
 
             ++i;
+            if(i> 2000)
+                break;
         }
 
         pool.wait();
@@ -156,7 +158,7 @@ int main(int argc,char* argv[])
     bool eval = false;
     std::string mgf;
     std::string mgf_test;
-    int timeout = 30000;
+    int timeout = 10000;
     utils::plot::Gnuplot::Mod mod = utils::plot::Gnuplot::Mod::MULTI;
 
     {
