@@ -129,7 +129,7 @@ bool calc_file(const std::string& filename,const std::string& type,std::list<har
             });
 
             ++i;
-            if(i> 2000)
+            if(i> 1500)
                 break;
         }
 

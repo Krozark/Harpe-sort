@@ -1,0 +1,16 @@
+/*
+*	date: 11-08-2014 22:07
+*	score: 0.250749
+*	size: 27
+*	generation: 13
+*	island: 1
+*/
+#include <utils/maths.hpp>
+#define gauss utils::maths::ker::gaussian
+
+extern "C" {
+double calc_score(const double* const vals)
+{
+	return ((((sin(sin((vals[5])*(0.821629))))+(vals[7]))*((vals[7])*((((0.821629)-((vals[1])-(0.265049)))/((vals[8])+(vals[7])))*(((0.59226)+(vals[3]))+(vals[3])))))-(vals[1]));
+}
+}
